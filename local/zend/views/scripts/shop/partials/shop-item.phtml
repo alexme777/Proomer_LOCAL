@@ -1,0 +1,43 @@
+<?
+/**
+ * @var $item Sibirix_Model_Design_Row
+ */
+$item = $this->item;
+$profile = $this->profile;
+
+/*if (!empty($item->DETAIL_PICTURE)) {
+    $image = Resizer::resizeImage($item->DETAIL_PICTURE, "DESIGN_LIST");
+} else {
+    $image = Resizer::resizeImage(Settings::getOptionFile('defaultDesignImage'), 'DESIGN_LIST');
+}*/
+
+?>
+				
+<div class="item goods-item">
+	<? $favouriteClass = ($item->IS_IN_FAVOURITE)?'my-favourite favourite js-add-favourite js-tooltip mainTooltip':'to-favourite favourite js-add-favourite js-tooltip mainTooltip' ?>
+	<a href="javascript:void(0)" class="<?=$favouriteClass?>" data-description="Добавить в избранное" data-element-id="<?=$item->ID?>"></a>
+	<div class="image" style="background:url(<?if($item->PREVIEW_PICTURE){echo $item->PREVIEW_PICTURE['SRC'];}else{echo '/local/images/proomer.png';}?>) no-repeat 50%;background-size:90%;">
+		<!--$this->Like()->button($item->ID, $item->PROPERTY_LIKE_CNT_VALUE, $item->IS_LIKED)	-->	
+	</div>
+	<div class="content">
+		<? $basketClass = ($item->IS_IN_BASKET)?'in-basket basket js-add-basket':'to-basket basket js-add-basket' ?>
+		<a href="javascript:void(0)" class="<?= ($item->PROPERTY_PRICE_VALUE > 0)?$basketClass:'gift'?>" data-offer="<?=($item->OFFERS)?'Y':'N'?>" data-section-id="<?=$item->IBLOCK_SECTION_ID?>" data-element-id="<?= $item->ID ?>"></a>
+		<a href="/shop/<?=$item->IBLOCK_SECTION_ID?>/<?=$item->ID?>" class="title"><?=$item->NAME?></a>
+		<div class="description">
+<?			if($item->PROPERTY_PRICE_VALUE > 0){
+				if(isset($item->DISCOUNT)){
+					$discountClass = 'old_price';
+					$new_price = '<span class="new_price">'.$item->DISCOUNT['NEW_PRICE_VALUE'] .' Р</span>';
+				}
+				else{$discountClass = '';$new_price = '';}
+				echo '<span class="price '.$discountClass.'">'.$item->PROPERTY_PRICE_VALUE .' Р</span>';
+				echo $new_price;;
+			}
+			else{
+				echo ' Бесплатно';
+			};
+?>
+		</div>
+	</div>
+	
+</div>	

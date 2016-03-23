@@ -1,0 +1,21 @@
+<?
+    $similarDesignsSlides = array_chunk($this->similarDesigns, 4);
+?>
+
+<? if (!empty($similarDesignsSlides)) { ?>
+    <div class="similar-designs-block">
+        <div class="content-container">
+            <h2>Похожие дизайны</h2>
+
+            <div class="design-slider<?= (count($similarDesignsSlides) > 1)?' js-slider':' designs'?>">
+                <? foreach ($similarDesignsSlides as $slide) { ?>
+                    <div class="slide">
+                        <? foreach ($slide as $item) { ?>
+                            <?= $this->partial('./design/partials/design-item.phtml', ["item" => $item, "designer" => true]) ?>
+                        <? } ?>
+                    </div>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+<? } ?>

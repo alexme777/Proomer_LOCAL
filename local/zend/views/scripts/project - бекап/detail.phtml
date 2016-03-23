@@ -1,0 +1,67 @@
+<?
+    $complex = $this->complex;
+?>
+
+<div class="detail-title-block">
+    <div class="image" style="background-image: url('<?= $complex->DETAIL_PICTURE['SRC'] ?>');"></div>
+<!--    <a href="javascript:void(0)" class="favourite"></a> TODO: избранное -->
+    <? if ($complex->PROPERTY_DESIGN_CNT_VALUE > 0) { ?>
+        <a href="<?= EZendManager::url([], 'design-list'); ?>?complexId=<?= $complex->ID ?>" class="projects-cnt"><?= $complex->PROPERTY_DESIGN_CNT_VALUE ?></a>
+    <? } ?>
+    <div class="project-about">
+        <div class="title"><?= $complex->NAME ?></div>
+        <div class="description">
+            <div class="builder">
+                Застройщик:<br>
+                <a class="under-link name" href="javascript:void(0);"><?= $complex->PROPERTY_CONSTRUCTOR_VALUE ?></a>
+            </div>
+
+            <div class="about">
+                <?= $complex->DETAIL_TEXT ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<? if (!empty($complex->HOUSES)) { ?>
+<div class="map-block">
+    <div class="map js-map"></div>
+    <div class="content-container">
+        <div class="map-info">
+            <? $slides = array_chunk($complex->HOUSES, MAX_HOUSE_IN_SLIDE)?>
+            <div class="building-slider<?= (count($slides) > 1)?' js-building-slider':''?>">
+                <? foreach ($slides as $ind_slide => $slide) { ?>
+                    <div class="slide" data-index="<?= $ind_slide ?>">
+                        <? foreach ($slide as $ind => $item) { ?>
+                            <div class="building js-item<?= ($ind == 0 && $ind_slide == 0)?' active':'' ?>" data-map-position="<?= $item->PROPERTY_MAP_POSITION ?>" data-house-id="<?= $item->ID ?>">
+                                <div class="title">
+                                    <span><?= $item->getAddress() ?></span> <?= $item->PROPERTY_FLOOR_CNT ?> этажей, <?= $item->PROPERTY_ENTRANCE_CNT ?> подъезда
+                                </div>
+                                <div class="detail js-detail">
+                                    <ul class="features js-features">
+                                        <li class="status"><div class="left">Статус</div><div class="right"><?= $item->PROPERTY_STATUS_VALUE ?></div></li>
+                                        <?  if ($ind == 0) {
+                                            foreach ($complex->FIRST_HOUSE_FLATS as $ind => $flat) { ?>
+                                            <li><div class="left"><?= $flat->PROPERTY_ROOM_CNT ?>-комнатных квартир</div><div class="right"><?= $flat->CNT ?></div></li>
+                                        <?  }
+                                        } ?>
+                                    </ul>
+                                    <? if ($item->PROPERTY_PLAN_VALUE) {?>
+                                        <a href="<?= $item->PROPERTY_PLAN_VALUE['SRC'] ?>" download class="plan under-link">Планировка дома</a>
+                                    <? } ?>
+                                </div>
+                            </div>
+                        <? } ?>
+                    </div>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+</div>
+<? } ?>
+
+<?= $this->render('./complex/detail/designs.phtml') ?>
+
+<?= $this->render('./complex/detail/complexes.phtml') ?>
+
+

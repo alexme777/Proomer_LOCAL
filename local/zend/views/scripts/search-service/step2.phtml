@@ -1,0 +1,15 @@
+<div class="form-content step2">
+    <? $complexPlan = Resizer::resizeImage($this->complexPlanImg, 'SEARCH_SERVICE_PLAN'); ?>
+    <div class="photo" style="background-image:url('<?= $complexPlan?>')">
+        <? if (!empty($this->complexPinList)): ?>
+            <? foreach ($this->complexPinList as $complexPin): ?>
+                <? $coords = explode(",", $complexPin["COORDS"]) ?>
+                <div id="pin<?= $complexPin["HOUSE"] ?>" class="js-pin pin" style="top:<?= trim($coords[1]) ?>px;left:<?= trim($coords[0]) ?>px;" data-house="<?= $complexPin["HOUSE"] ?>"><?= $complexPin["TEXT"] ?></div>
+            <? endforeach ?>
+        <? endif ?>
+    </div>
+    <div class="building-select">
+        <?= $this->formStep ?>
+    </div>
+    <div class="clearfix"></div>
+</div>

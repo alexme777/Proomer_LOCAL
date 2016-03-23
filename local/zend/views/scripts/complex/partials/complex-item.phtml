@@ -1,0 +1,33 @@
+<?
+/**
+ * @var $item Sibirix_Model_Complex_Row
+ */
+$item = $this->item;
+
+if (!empty($item->DETAIL_PICTURE)) {
+    $image = Resizer::resizeImage($item->DETAIL_PICTURE, "COMPLEX_LIST");
+} else {
+    $image = Resizer::resizeImage(Settings::getOptionFile('defaultComplexImage'), 'COMPLEX_LIST');
+}
+?>
+
+<div class="item complex-item">
+    <div class="image" style="background-image:url('<?= $image ?>');">
+<!--        <a href="javascript:void(0)" class="favourite js-tooltip" data-description="Добавить в избранное"></a> TODO: избранное-->
+        <? if ($item->PROPERTY_DESIGN_CNT_VALUE > 0): ?>
+            <a href="<?= EZendManager::url([], 'design-list'); ?>?complexId=<?= $item->ID ?>" class="projects-cnt"><?= $item->PROPERTY_DESIGN_CNT_VALUE ?></a>
+        <? endif ?>
+    </div>
+    <div class="content">
+        <a href="<?= $this->url(['elementCode' => $item->CODE], 'complex-detail');?>" class="title"><?= $item->NAME ?></a>
+        <div class="description"><?= $item->PREVIEW_TEXT ?></div>
+        <? if (!empty($item->PROPERTY_CONSTRUCTOR_VALUE)): ?>
+            <div class="builder">
+                <div class="info">
+                    <div class="label">Застройщик:</div>
+                    <a href="javascript:void(0);" class="name under-link"><?= $item->PROPERTY_CONSTRUCTOR_VALUE ?></a>
+                </div>
+            </div>
+        <? endif ?>
+    </div>
+</div>

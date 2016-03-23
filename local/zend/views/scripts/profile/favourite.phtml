@@ -1,0 +1,44 @@
+<?
+	$itemList = $this->itemList;
+	$pageTitle = $this->pageTitle;
+?>
+
+<div class="content-container">
+    <?= EZendManager::profileSidebar() ?>
+    <div class="profile-content js-profile-content">
+		<h2><?=$pageTitle?></h2>
+		<div class="results">
+			<div class="design-list">
+				<div class="js-ajax-list-content">
+				<? if (count($itemList) > 0): ?>
+					<?foreach($itemList as $item){
+						echo $this->partial("profile/partials/goods-item.phtml", ["item" => $item, "designer" => false, "profile" => true]);
+					};
+					?>
+				<? else: ?>
+				<?= $this->partial("_partials/not-found-status/profile.phtml", ["message" => " <p><b>Здесь чисто.</b></p>"]) ?>
+				<? endif ?>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("a.gallery").fancybox({						
+         /* "padding" : 20,
+          "imageScale" : false, 
+			"zoomOpacity" : false,
+			"zoomSpeedIn" : 1000,	
+			"zoomSpeedOut" : 1000,	
+			"zoomSpeedChange" : 1000, 
+			"frameWidth" : 700,	 
+			"frameHeight" : 600, 
+			"overlayShow" : true, 
+			"overlayOpacity" : 0.8,	
+			"hideOnContentClick" :false,
+			"centerOnScroll" : false
+		*/		
+		});
+	});
+</script>

@@ -1,0 +1,14 @@
+<div class="list-plan">
+	<div class="row">
+	<?if(count($this->itemList) > 0){?>
+			<?
+			
+			foreach ($this->itemList as $item): ?>
+				<?=$this->partial("project/partials/plan-item-b.phtml", ["item" => $item,"class"=>$class]) ?>
+			<?
+			
+			endforeach ?>	
+
+	<?};?>
+	</div>
+</div>

@@ -1,0 +1,171 @@
+@import "../_var";
+@import "../_mixins";
+
+footer {
+    position: relative;
+    margin: -@footer-height auto 0;
+    min-height: @footer-height;
+    min-width: @site-min-width;
+    z-index: 2;
+
+    .top {
+        position: relative;
+        .size(100%, 250px);
+        background-image: url('@{path-images}footer-bg.jpg');
+        background-size: cover;
+
+        .left-column {
+            float: left;
+            padding: 72px 0 0;
+
+            .copyright {
+                font: 300 16px/30px @ff-fira;
+                margin: 31px 0 0;
+                color: #fff;
+                opacity: .85;
+            }
+        }
+
+        .center-column {
+            padding: 49px 0 0 143px;
+            float: left;
+
+            .to-top {
+                display: block;
+                margin: 0 auto;
+                .sprite(140px, 40px, 28px, 16px);
+
+                &:hover {
+                    //transform: scale(1.1);
+                }
+            }
+
+            .socials {
+                display: block;
+                margin: 41px auto;
+                text-align: center;
+                .size(600px, 60px);
+
+                a {
+                    position: relative;
+                    display: inline-block;
+
+                    &:after {
+                        .transition(all, 0.2s);
+                        .pseudo();
+                        bottom: 0;
+                        left: 0;
+                        opacity: 0;
+                    }
+
+                    &:hover:after {
+                        opacity: 1;
+                    }
+                }
+
+                .vk {
+                    .sprite(0,170px,54px,54px);
+                    margin: 0 -4px;
+
+                    &:after {
+                        .sprite(140px,170px,54px,54px);
+                    }
+                }
+
+                .fb {
+                    .sprite(60px,170px,28px,54px);
+                    margin: 0 19px;
+
+                    &:after {
+                        .sprite(200px,170px,28px,54px);
+                    }
+                }
+
+                .tw {
+                    .sprite(90px,170px,42px,54px);
+                    margin: 0 4px 0 6px;
+
+                    &:after {
+                        .sprite(230px,170px,42px,54px);
+                    }
+                }
+            }
+        }
+
+        .right-column {
+            float: right;
+            padding: 72px 0 0;
+
+            .bottom-menu {
+                text-align: right;
+            }
+        }
+
+        .bottom-menu {
+            a {
+                font: 300 16px/30px @ff-fira;
+                text-transform: uppercase;
+                color: #fff;
+                border-color: #fff;
+                opacity: .85;
+
+                &:after {
+                    bottom: 5px;
+                }
+            }
+        }
+    }
+
+    .bottom {
+        .size(100%, 73px);
+        background-color: @white-bg;
+        overflow: hidden;
+
+        .sibirix {
+            position: relative;
+            float: right;
+            font: 300 16px/71px @ff-fira;
+            color: #30495f;
+
+            .slon {
+                position: absolute;
+                left: -44px;
+                top: 24px;
+                .size(32px,22px);
+
+                .slon-icon {
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    .sprite(110px,0,32px,22px);
+                }
+
+                .slon-animation {
+                    display: none;
+                    position: absolute;
+                    left: -18px;
+                    top: -23px;
+                    height: 65px;
+                }
+
+                &.animated {
+                    .slon-icon {
+                        display: none;
+                    }
+
+                    .slon-animation {
+                        display: block;
+                    }
+                }
+            }
+
+            a {
+                line-height: 18px;
+                color: #30495f;
+                border-color: #30495f;
+            }
+        }
+    }
+
+}

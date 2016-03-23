@@ -1,0 +1,8 @@
+<? if (!empty($this->elementCnt)): ?>
+    <div class="js-view-counter count">
+        <span>Показывать по:</span>
+        <? foreach ($this->elementCnt as $elementCnt): ?>
+            <a class="under-link<?= ($this->currentValue == $elementCnt ? " active": "") ?>" data-value="<?= $elementCnt ?>"><?= $elementCnt ?></a>
+        <? endforeach ?>
+    </div>
+<? endif ?>

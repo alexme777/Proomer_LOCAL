@@ -1,0 +1,171 @@
+<?
+	$itemList = $this->itemList;
+	$nextstep = $this->nextstep;
+	$nextstep_d = $this->nextstep_d;
+	$uploadItemList = $this->uploadItemList;
+	$step = $this->step;
+	$cityModel    = new Sibirix_Model_City();
+	$item_save = $this->item_save;
+?>
+
+
+
+ <script>
+		$(function() {
+		$(".knob").knob({
+			//other parameters-----
+			inputColor : '#34EB40'
+		});
+
+			// Example of infinite knob, iPod click wheel
+			var val,up=0,down=0,i=0
+				,$idir = $("div.idir")
+				,$ival = $("div.ival")
+				,incr = function() { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
+				,decr = function() { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
+			$("input.infinite").knob(
+								{
+								'min':0
+								,'max':20
+								,'stopper':false
+								,'change':function(v){
+											if(val>v){
+												if(up){
+													decr();
+													up=0;
+												}else{up=1;down=0;}
+											}else{
+												if(down){
+													incr();
+													down=0;
+												}else{down=1;up=0;}
+											}
+											val=v;
+										}
+								}
+								);
+
+
+		});
+        </script>
+
+
+
+
+
+
+
+
+<input type="hidden" id="designId" name="designId" value="2475">
+<div id="service-page">
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта</h2>
+				<div id="service_menu">
+					<ul>
+						<li><a class="under-link" href="/service/step1">Выбор планировки</a></li>
+						<li><a class="under-link" href="/service/step2">Варианты планировок</a></li>
+						<li class="selected"><a href="/service/step3">Варианты дизайна</a></li>
+						<li><a class="under-link" href="/service/step4">Состав семьи</a></li>
+						<li><a class="under-link" href="/service/step5">Настройка заказа</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="content-container">
+			<div class="content"><h2 class="page-title">Ваши предпочтения</h2></div>
+			<div class="left_bn">
+				<div id="show-design">
+					<div class="content"><p>Для того, чтобы определить ваши предпотения в дизайне, предлагаем вам прогосовать за понравившиеся варианты дизайна
+					Просто выбериту тот вариант, который, по вашему мнению, наиболее подходит вам</p></div>	
+						<div class="list-design" style="height:300px;">
+							<div class="row js-select-design">
+								<div class="variant_designs active">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/1.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img  class="picture_design" src="/local/images/design/2.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/3.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/4.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img  class="picture_design" src="/local/images/design/5.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/6.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/7.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/8.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/9.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/10.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/11.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/12.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/13.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/14.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/15.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/16.jpg"/></div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					<div class="progressBar" style="padding:20px">
+						<div class="overlap"></div>
+						<input data-bgColor="#dddddd" data-fgColor="#3fb1da" data-thickness="0.1" class="knob"data-width="72" data-min="0" data-max="8" data-angleOffset="0" data-displayPrevious=true value="0">
+						<p style="text-align:center;">из 8 вариантов</p>
+					</div>
+				</div>				
+			</div>
+			<div class="right_bn">
+				<?= $this->partial('service/partials/right_bn.phtml', array('nextstep' => $nextstep, 'nextstep_d' => $nextstep_d,'item_save' => $item_save)) ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+</div>

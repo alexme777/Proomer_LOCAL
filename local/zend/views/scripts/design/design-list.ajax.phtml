@@ -1,0 +1,18 @@
+<? 
+
+if (count($this->itemList) > 0): ?>
+    <div class="design-list">
+        <? foreach ($this->itemList as $item): ?>
+            <?= $this->partial("design/partials/design-item.phtml", ["item" => $item, "designer" => true]) ?>
+        <? endforeach ?>
+    </div>
+
+    <?= $this->paginationControl(
+        $this->paginator,
+        'Sliding',
+        '_partials/paginator.phtml'
+    ); ?>
+
+<? else: ?>
+    <?= $this->partial("_partials/not-found-status/design.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]) ?>
+<? endif ?>

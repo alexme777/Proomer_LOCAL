@@ -1,0 +1,37 @@
+.designer_content {
+	background-color: #F2F7F8;
+	width: 100%;
+	padding-top: 60px;
+	padding-left: 25px;
+	height: 100%;
+	margin-bottom: 86px;
+}
+.designer_item {
+	box-sizing: border-box;
+	float: left;
+	width: 230px;
+	height: 230px;
+	background-color: #232d37;
+	color: #FFF;
+	box-shadow: 0px 0px 4px 0px rgba(1, 1, 1, 0.2);
+	margin: 0px 15px 15px 0px;
+} 
+.designer_photo {
+	height: 130px;
+}
+ .designer_photo_inner {
+	width: 100px;
+	border-radius: 50%;
+	height: 100px;
+	margin-left: 65px;
+	margin-top: 30px;
+}
+.designer_name {
+	height: 30px;
+	margin-top: 15px;
+	text-align: center;
+}
+.designer_projects {
+	height: 30px;
+	text-align: center;
+}

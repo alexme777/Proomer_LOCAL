@@ -1,0 +1,32 @@
+<?
+    $user = $this->user;
+    $type = $user->getType();
+
+?>
+
+<div class="content-container">
+    <?= EZendManager::profileSidebar() ?>
+
+    <div class="profile-content js-profile-content" data-type="<?= $type ?>">
+        <div class="profile-form">
+            <?if($type == DESIGNER_TYPE_ID){
+				echo new Sibirix_Form_ProfileDesigner();
+			}
+			else if($type == PROVIDER_TYPE_ID){
+				echo new Sibirix_Form_ProfileProvider(); 
+			}
+			else if($type == SELLER_TYPE_ID){
+				echo new Sibirix_Form_ProfileSeller(); 
+			}
+			else if($type == CLIENT_TYPE_ID){
+				echo new Sibirix_Form_ProfileClient(); 
+			}
+			
+			?>
+        </div>
+
+        <div class="profile-form">
+           <?= new Sibirix_Form_ProfileChangePassword() ?>
+        </div>
+    </div>
+</div>

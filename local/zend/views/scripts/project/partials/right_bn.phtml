@@ -1,0 +1,15 @@
+<?
+	$noshow = $this->noshow;
+?>
+<?if(!$noshow){
+?>
+<div class="project-out preloaderController">
+	<?= $this->partial('project/projectcart.ajax.phtml', array('planOption' => $this->planOption, 'access' => $this->access, 'auth' => $this->auth, 'starting_price' => $this->starting_price, 'projectData' => $this->projectData, 'url' => $this->url, 'nextstep' => $this->nextstep, 'nextstep_d' => $this->nextstep_d, 'nextstepfile' => $this->nextstepfile, 'PLAN_OPTION_SAVE' => $this->PLAN_OPTION_SAVE, 'PLAN_SAVE' => $this->PLAN_SAVE)) ?>
+</div>
+<?}?>
+<div class="help">
+	<h2 class="title">Нужна помощь?</h2>
+	<p style="text-align:center;">Наши специалисты помогут вам<br/> разобраться с сервисом</p>
+	<span class="phone">+7 (975) 856-14-56</span>
+	<span class="time_job">Работаем с 8:00 до 22:00</span>
+</div>

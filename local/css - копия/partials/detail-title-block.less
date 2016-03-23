@@ -1,0 +1,264 @@
+@import "../_var";
+@import "../_mixins";
+
+.detail-title-block {
+    .clearfix();
+    position: relative;
+    width: 100%;
+    background-color: @black;
+
+    .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        .size(100%);
+        background-size: cover;
+        background-position: 50% 50%;
+        opacity: .8;
+    }
+
+    .label {
+        .sizing();
+        height: 72px;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        padding: 13px 31px 14px 49px;
+        font: 300 16px/22px @ff-fira;
+        background-color: @dark-bg;
+        color: #fff;
+        text-align: left;
+        max-width: 400px;
+
+        .label-inner {
+            height: 45px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        &:before {
+            .pseudo();
+            border: 36px solid transparent;
+            border-left: 20px solid @dark-bg;
+            top: 0;
+            right: -56px;
+        }
+    }
+
+    .favourite {
+        position: absolute;
+        right: 451px;
+        top: 128px;
+    }
+
+    .like {
+        position: absolute;
+        top: 60px;
+        right: 478px;
+    }
+
+    .projects-cnt {
+        position: absolute;
+        top: 60px;
+        right: 481px;
+//        right: 481px;
+//        top: 130px;
+
+        &:before, &:after {
+            right: -31px;
+            top: -4px;
+        }
+    }
+
+    .project-about {
+        .sizing();
+        min-height: 500px;
+        position: relative;
+        width: 400px;
+        z-index: 10;
+        float: right;
+
+        .title {
+            padding: 33px 49px 18px;
+            font: 300 22px/28px @ff-fira;
+            color: @grey-text;
+            text-transform: uppercase;
+            background-color: #fff;
+            margin: 1px 0;
+        }
+
+        .description {
+            margin: 0 0 1px;
+            padding: 20px 51px 44px 49px;
+            background-color: #fff;
+
+            .designer {
+                color: @link-color;
+                border-color: @link-color;
+                font: 400 16px/22px @ff-fira;
+                white-space: nowrap;
+                max-width: 310px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .about {
+                max-height: 215px;
+                margin: 5px 0 0;
+                font: 400 14px/20px @ff-fira;
+                color: @light-grey-text;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .more {
+                padding-left: 3px;
+                color: @link-color;
+            }
+
+            .categories {
+                width: 100%;
+                overflow: hidden;
+                margin: 7px 0 14px;
+
+                .categories-title{
+                    display: inline-block;
+                    font: 300 16px/36px @ff-fira;
+                    color: @grey-text;
+                }
+            }
+
+            .square {
+                font: 300 16px/22px @ff-fira;
+                color: @grey-text;
+                margin: 0 0 4px;
+
+                a {
+
+                    color: @link-color;
+                    border-color: @link-color;
+                    font: 400 16px/22px @ff-fira;
+                }
+            }
+
+            .room-list {
+                margin: 0 0 9px;
+
+                li {
+                    position: relative;
+                    .size(100%, 20px);
+
+
+                    &:after {
+                        .pseudo();
+                        .size(100%, 0);
+                        border-bottom: 1px dotted @grey-text;
+                        bottom: 6px;
+                        left: 0;
+                        z-index: 0;
+                    }
+
+                    div {
+                        position: relative;
+                        font: 300 14px/20px @ff-fira;
+                        color: @grey-text;
+                        background-color: #fff;
+                        z-index: 2;
+                    }
+
+                    .room {
+                        max-width: 220px;
+                        float: left;
+                        padding: 0 3px 0 0;
+                    }
+
+                    .room-square {
+                        max-width: 80px;
+                        float: right;
+                        padding: 0 2px 0 3px;
+                    }
+                }
+            }
+
+            .cost {
+                font: 300 16px/20px @ff-fira;
+                color: @grey-text;
+
+                span {
+                    font: 400 22px/28px @ff-fira;
+                    color: #30495f;
+
+                    .ruble {
+                        .sprite(170px, 40px, 12px, 16px);
+                    }
+                }
+            }
+
+            .btn {
+                width: 400px;
+                margin: 18px 0 10px -49px;
+                border-radius: 0;
+                padding: 28px 0 42px;
+                text-align: center;
+
+                .plus {
+                    display: inline-block;
+                    .sprite(190px, 40px, 10px);
+                    margin: 0 11px 0 12px;
+                }
+            }
+
+            .center-wrapper {
+                text-align: center;
+            }
+
+            .detail {
+                .transition();
+                display: inline-block;
+                font: 400 14px @ff-fira;
+                color: @link-color;
+                border-bottom: 1px dotted @link-color;
+
+                &:hover {
+                    border-bottom-color: transparent;
+                }
+            }
+        }
+
+        .colors {
+            display: table;
+            .size(100%, 20px);
+            margin: 0 0 19px;
+
+            div {
+                display: table-cell;
+            }
+        }
+
+        .socials {
+            height: 45px;
+            background-color: #fff;
+            padding: 14px 0 0;
+
+            #share42 {
+                .size(100%, 32px);
+                display: block;
+                text-align: center;
+                padding: 0 0 0 7px;
+
+                a {
+                    background-image: url('@{path-images}social-icons.png')!important;
+                    .transition();
+                    display: inline-block;
+                    opacity: .5;
+
+                    &:hover {
+                        opacity: .8;
+                    }
+                }
+            }
+        }
+    }
+}

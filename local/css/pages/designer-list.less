@@ -1,0 +1,27 @@
+@import "../_var";
+@import "../_mixins";
+
+.designer-list-page {
+    .catalog-block {
+        .size(100%, auto);
+        padding: 18px 0 85px;
+        background-color: #f2f7f8;
+
+        .designer-list {
+            .clearfix();
+                .item {
+                    margin: 0 27px 29px 0;
+                    &:nth-child(4n) {
+                        margin: 0 0 29px 0;
+                    }
+                }
+
+        }
+
+        
+    }
+
+    .not-found-message {
+        text-align: center;
+    }
+}

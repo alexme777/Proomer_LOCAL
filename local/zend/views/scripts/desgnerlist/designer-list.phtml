@@ -1,0 +1,31 @@
+<?
+$animationDuration = Settings::getOption('mainSliderPause', '3') + 4;
+$designs = $this->itemList;
+$slides = $this->slides;
+?>
+<div class="title-block-wrapper">
+    <div class="title-slider-block<?= (count($slides['ITEMS'])==1)?' one':''?>">
+        <?= $this->render('_partials/title-slider.phtml') ?>
+    </div>
+
+    <div class="content-container search-form-wrapper">
+        <h1><a href="#searchService" class="js-fancybox"
+               data-white-close="1"
+               data-user-call='{"method":"SearchService","element":".js-search-service"}'><?= $this->pageTitle ?></a></h1>
+        <?= $this->filter ?>
+    </div>
+</div>
+
+<div class="catalog-block">
+    <div class="content-container">
+        <div class="filter"<?= (empty($designs))? ' style="visibility:hidden"' : '' ?>>
+
+            <?= EZendManager::sorting("design") ?>
+            <?= EZendManager::elementCntList() ?>
+
+        </div>
+        <div class="js-ajax-list-content">
+            <?= $this->render('design/designer-list.ajax.phtml') ?>
+        </div>
+    </div>
+</div>

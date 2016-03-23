@@ -1,0 +1,93 @@
+<?
+	$itemList = $this->itemList;
+	$itemListPlan = $this->itemListPlan;
+	$countRoom = json_decode($_GET['countRoom']);
+	$complex = $this->complex;
+	$option_id = $this->option_id;
+?>
+
+<div id="service-page">
+		<div class="top">
+			<div class="content-container">
+				<div class="content">
+					<?if(isset($complex)){?>
+					<p class="name_complex"><?=$complex->NAME?></p>
+					<?};?>
+					<h2 class="main-title" style="display:inline;"><?echo $_GET['street'];if(!empty($_GET['number']) && isset($_GET['number'])){echo ', '.$_GET['number'];};?></h2>
+					<div style="display:inline-block;vertical-align:text-bottom;margin-left:82px;" class="row-btn">
+						<a href="#address-popup" class="js-submit btn waves-effect js-fancybox fancyboxLink">Изменить</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?
+			if(count($itemList) > 0 && isset($_GET['street'])){
+		?>
+		<div class="bottom">
+			<div class="content-container">
+				<div class="content">
+					<h2 class="title">Выберите план вашей квартиры</h2>
+					<div class="out_filter" id="filter_plan">
+						<div class="js-show-hidden-filter btn_for_filter open"></div>
+						<form enctype="application/x-www-form-urlencoded" class="js-filter-form filter filterForm formTabber" action="/service/" method="post" novalidate="novalidate">
+							<label for="">Количество комнат:</label>
+							<input type="hidden" name="street" id="street" value="<?=htmlspecialchars($_GET['street'])?>"/>
+							<input type="hidden" name="number" id="number" value="<?=htmlspecialchars($_GET['number'])?>"/>
+							<input type="hidden" name="countRoom" id="countRoom" class="js-count-room js-filter" value="<?=$_GET['countRoom']?>"/>
+							<input type="hidden" name="options" id="optionsPlan" value="<?=$_GET['options']?>"/>
+							<input type="hidden" name="designs" id="designsPlan" value="<?=$_GET['designs']?>"/>
+							<input type="hidden" name="page" id="page" value="<?=$_GET['page']?>"/>
+							<div class="data room js-select-room">
+								<ul>
+									<li><a class="first room" data-value="1 <?if(in_array(1, $countRoom)){echo " selected";}?>" href="">1</a></li>
+									<li><a class="room<?if(in_array(2, $countRoom)){echo " selected";}?>" data-value="2" href="">2</a></li>
+									<li><a class="room<?if(in_array('3', $countRoom)){echo " selected";}?>" data-value="3" href="">3</a></li>
+									<li><a class="room<?if(in_array(4, $countRoom)){echo " selected";}?>" data-value="4" href="">4</a></li>
+									<li><a class="room<?if(in_array(5, $countRoom)){echo " selected";}?>" data-value="5" href="">5</a></li>
+									<li><a data-value="6" class="last room<?if(in_array(6, $countRoom)){echo " selected";}?>" href="">6+</a></li>
+								</ul>
+							</div>
+							<label class="free-design">
+							<input type="checkbox" name="planFree" id="planFree" <?if(isset($_GET['planFree']) && $_GET['planFree'] == true){echo 'checked';};?> value="1" class="js-design-free js-filter"><i></i>
+							<span class="hint">Свободная планировка</span></label>
+							
+							<label for="">Площадь:</label>
+							<div class="data room">
+								<ul>
+									<li><input style="margin-right:10px;" class="area js-filter" type="text" name="areaMin" id="areaMin" value="<?=$_GET['areaMin']?>" placeholder="от"/></li>
+									<li><input class="area js-filter" type="text" name="areaMax" id="areaMax" value="<?=$_GET['areaMax']?>" placeholder="до"/></li>
+								</ul>
+							</div>
+							<span class="square">м&#178;</span>
+						</form>
+					</div>
+				</div>
+				<div class="js-ajax-list-content">
+					<?= $this->render('project/index.ajax.phtml') ?>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	<?}else{
+	?>
+		<div class="not-found plan">
+			<div class="not-found-message">
+				<p class="big">Мы пока что не внесли ваш дом в нашу базу. <br/>Скоро мы это исправим.</p><br/>
+				<p class="little">Тем не менее, вы можете вызвать замерщика. Это совершенно бесплатно.</p><br/>
+				<div class="call-super-man"><a class="js-call-super-man btn blue waves-effect js-fancybox fancyboxLink" data-step="4" href="#call-super-man">
+				ВЫЗВАТЬ ЗАМЕРЩИКА БЕСПЛАТНО</a></div>
+			</div>
+			<div class="not-found-icon"></div>
+		</div>
+	<?}?>
+	<div class="apart-bn">
+		<div class="content-container">
+			<h2>Не смогли определиться с выбором?<br/>
+			Давайте найдем вам индивидуальный проект</h2>
+			<div class="description">Уже стали счастливым собственником жилья или только присматриваетесь к будущей квартире?<br> Посмотрите идеи для своего интерьера.</div>
+			<div class="btn-wrapper">
+				<a href="/project/step1/" class="btn blue waves-effect view_n3">Начать</a>
+			</div>
+		</div>
+	</div>
+</div>

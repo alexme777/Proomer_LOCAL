@@ -1,0 +1,64 @@
+
+<!--Слайдер и форма поиска -->
+<?= $this->render('./index/index/title-slider.phtml') ?>
+
+<!--Промо-блок-->
+<?= $this->render('./index/index/about.phtml') ?>
+
+<!--Готовые дизайны для новостроек-->
+<?= $this->render('./index/index/designs.phtml') ?>
+
+<!-- TODO: products-->
+<?= $this->render('./index/index/products.phtml') ?>
+
+<!-- TODO: Исполнители-->
+<?//= $this->render('./index/index/executors.phtml') ?>
+
+<!-- TODO: Мастера-->
+<?= $this->render('./index/index/masters.phtml') ?>
+
+<!-- TODO: Статьи-->
+<?//= $this->render('./index/index/articles.phtml') ?>
+
+<!-- TODO: Ответы на потребности -->
+<?//= $this->render('./index/index/answers.phtml') ?>
+
+<!-- SEO-текст -->
+<?//= $this->render('./index/index/seo-text.phtml') ?>
+
+<!--<div class="dream-block">
+    <div class="content-container">
+		<div class="dream-block-inner">
+			<h2 class="article-title">Квартира вашей мечты теперь<br/> это реально</h2>
+			<div class="subtitle">Узнайте все тонкости обустройства интерьера</div>
+			<div class="btn-wrapper">
+				<p class="btns"><a class="btn blue view_n4" href="/404/">Найти исполнителя</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;или&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn blue view_n3" href="/404/">Найти заказчика</a></p>
+			</div>
+		</div>
+    </div>
+</div>-->
+<script>
+var flag = 0;
+$(document).scroll(function () {
+    s_top = $("body").scrollTop();
+    yes = $("#edge").offset().top;
+	var header = document.getElementById('view_n1');
+	
+    if(s_top > yes && flag == 0){
+		$('#view_n2').removeClass('hide').addClass('fixed');
+    }
+	else{
+		$('#view_n2').removeClass('fixed');
+	}
+
+});
+
+</script>
+
+
+
+
+
+
+
+

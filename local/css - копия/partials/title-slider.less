@@ -1,0 +1,98 @@
+@import "../_var";
+@import "../_mixins";
+
+.title-slider-block {
+    position: relative;
+    height: 726px;
+
+    .bx-pager {
+        position: absolute;
+        top: 142px;
+        right: 45px;
+        float: right;
+        margin: 0;
+
+        .bx-pager-item {
+            display: block;
+            float: left;
+
+            .bx-pager-link {
+                background-color: @pager-bg-item;
+
+                &:hover {
+                    background-color: @pager-bg-active;
+                }
+
+                &.active {
+                    background-color: @pager-bg-active;
+                }
+            }
+        }
+    }
+
+    &.one {
+        .bx-pager {
+            display: none;
+        }
+    }
+}
+
+.title-slider {
+    position: relative;
+    background-color: @black;
+    .size(100%, 726px);
+    overflow: hidden;
+
+    .slide {
+        display: block;
+        .size(100%, 800px);
+        margin-top: 0;
+
+        .slide-bg {
+            .size(100%);
+            background-image: url('@{path-pictures}main/slide1.jpg');
+            background-size: cover;
+            opacity: .7;
+            margin-top: 0;
+            text-indent: 0;
+
+            &.scaling {
+                .animation(scaling, linear, 3s, 1, forwards, 0s, normal);
+            }
+        }
+
+        .label {
+            .sizing();
+            height: 72px;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            padding: 13px 51px 14px 29px;
+            font: 300 16px/22px @ff-fira;
+            background-color: @dark-bg;
+            color: #fff;
+            text-align: right;
+
+            .label-inner {
+                height: 45px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: table-cell;
+                vertical-align: middle;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            &:before {
+                .pseudo();
+                border: 36px solid transparent;
+                border-right: 20px solid @dark-bg;
+                top: 0;
+                left: -56px;
+            }
+        }
+    }
+}
+

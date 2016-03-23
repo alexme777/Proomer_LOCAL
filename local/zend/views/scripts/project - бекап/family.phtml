@@ -1,0 +1,207 @@
+<?
+ $step4Form = $this->step4Form;
+ ?>
+
+<div id="service-page">
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта</h2>
+				<div id="service_menu">
+					<ul>
+						<li><a class="under-link" href="/service/step1">Выбор планировки</a></li>
+						<li><a class="under-link" href="/service/step2">Варианты планировок</a></li>
+						<li><a class="under-link" href="/service/step3">Варианты дизайна</a></li>
+						<li><a class="under-link" href="/service/step4">Состав семьи</a></li>
+						<li class="selected"><a href="/service/step5">Настройка заказа</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content service-content">
+
+		<div class="content-container">
+			<h2 class="page-title">Создание семьи</h2>
+			<div class="left_bn">
+				<div class="help_bn">
+					При проектировании дизайна вашего интерьера, очень важно учитывать всех членов семьи,
+					которые будут проживать в квартире. Поэтому отнеситесь к этому блоку очень серьезно
+				</div>
+				<div class="row">
+					<label class="type_family">Взрослые</label>
+					<div class="list-item-family">
+						<div class="item-family">
+							<span class="icon_family"></span>
+							<div class="select2-container select-container-age-1" style="position:relative">
+										<label>Возраст</label>
+										<select class="js-age-1" name="userLocation">
+											<option value="21" selected>21 год</option>
+											<option value="18" selected>18 год</option>
+										</select>
+							</div>
+							<div class="select2-container select-container-age-2" style="position:relative">
+									<label>Где будет жить</label>
+									<select class="js-age-2" name="userLocation">
+										<option value="21" selected>1 комната</option>
+										<option value="18" selected>2 комната</option>
+									</select>
+							</div>
+						</div>
+					</div>
+					<div class="family-management btns">
+							<div class="js-add-family add btn">
+								<div class="item-family clone">
+									<span class="icon_family"></span>
+									<div class="select2-container select-container-age-1" style="position:relative">
+										<label>Возраст</label>
+										<select class="js-age-1" name="userLocation">
+											<option value="21" selected>21 год</option>
+											<option value="18" selected>18 год</option>
+										</select>
+									</div>
+									<div class="select2-container select-container-age-2" style="position:relative">
+										<label>Где будет жить</label>
+										<select class="js-age-2" name="userLocation">
+											<option value="21" selected>1 комната</option>
+											<option value="18" selected>2 комната</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="js-remove-family remove btn"></div>
+					</div>
+				</div>
+				<hr class="line-service-page-family"/>
+				<div class="row">
+					<label class="type_family">Дети до 18</label>
+					<div class="list-item-family">
+						<div class="item-family">
+							<span class="icon_family"></span>
+							<div class="select2-container select-container-age-1" style="position:relative">
+										<label>Возраст</label>
+										<select class="js-age-1" name="userLocation">
+											<option value="21" selected>21 год</option>
+											<option value="18" selected>18 год</option>
+										</select>
+							</div>
+							<div class="select2-container select-container-age-2" style="position:relative">
+									<label>Где будет жить</label>
+									<select class="js-age-2" name="userLocation">
+										<option value="21" selected>1 комната</option>
+										<option value="18" selected>2 комната</option>
+									</select>
+							</div>
+						</div>
+					</div>
+					<div class="family-management btns">
+							<div class="js-add-family add btn">
+								<div class="item-family clone">
+									<span class="icon_family"></span>
+									<div class="select2-container select-container-age-1" style="position:relative">
+										<label>Возраст</label>
+											<select class="js-age-1" name="userLocation">
+											<option value="21" selected>21 год</option>
+											<option value="18" selected>18 год</option>
+										</select>
+									</div>
+									<div class="select2-container select-container-age-2" style="position:relative">
+										<label>Где будет жить</label>
+										<select class="js-age-2" name="userLocation">
+											<option value="21" selected>1 комната</option>
+											<option value="18" selected>2 комната</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="js-remove-family remove btn"></div>
+					</div>
+				</div>			
+				<hr class="line-service-page-family"/>
+				<div class="row">
+					<label class="type_family">Домашние животные</label>
+
+											<div class="list-item-family">
+															<div class="item-family">
+						<div class="select2-container select-container-age-1" style="position:relative">
+									<select class="js-age-1" name="userLocation">
+										<option value="21" selected>Кошка</option>
+										<option value="18" selected>Шиншила</option>
+									</select>
+						</div>
+					</div>
+					</div>
+					<div class="family-management btns">
+							<div class="js-add-family add btn">
+																	<div class="item-family clone">
+						<div class="select2-container select-container-age-1" style="position:relative">
+									<select class="js-age-1" name="userLocation">
+										<option value="21" selected>Кошка</option>
+										<option value="18" selected>Шиншила</option>
+									</select>
+						</div>
+					</div>
+							</div>
+							<div class="js-remove-family remove btn"></div>
+					</div>
+				</div>
+				<div id="layout">
+					<img src="/local/images/ts.png"/>
+				</div>
+			</div>
+			<div class="right_bn">
+				<div class="project">
+					<div class="border-style1"></div>
+					<div class="project-inner">
+						<h2 class="title">Проект</h2>
+						<hr/>
+						<p class="sub-title">Планировка</p>
+						<div class="prop">
+							<p>Количество комнат........<span class="value">5 комнат</span></p>
+							<p>Общая площадь..............<span class="value">76 м&#178;</span></p>
+							<p>Жилая площадь..............<span class="value">66 м&#178;</span></p>
+						</div>
+						<div class="list-selected">
+							<ul>
+								<li>
+									<div class="picture">
+										<img src="/upload/resize_cache/iblock/744/280_279_1/744906c174215d3eae158bddf2cbfb6e.jpg">
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="clearfix"></div>
+						<hr/>
+						<div class="step">
+							<a href="javascript:void(0);" class="btn">ДАЛЕЕ</a><a class="style4 cont" href="">К вариантам<br/>
+							планировок</a>
+						</div>
+						<!--<p>Загрузите скан-копию планировки, 
+						чтобы продолжить!
+						<br/><br/>
+						Если у вас нет скана,
+						<a class="under-link style1" href="">вызовите бесплатного замерщика</a>
+						</p>
+						<hr/>
+						<div class="categories">
+						<a href="javascript:void(0);" class="category">ДАЛЕЕ</a><a class="i style4 cont" href="">К вариантам<br/>
+						планировок</a>
+						</div>
+						<p class="i mess" style="text-align:center">
+						Для того, чтобы продолжить пользоваться<br/>
+						сервисом, пожалуйста, дождитесь проверки<br/>
+						загруженных файлов!
+						</p>-->
+					</div>
+				</div>
+				<div class="help">
+					<h2 class="title">Нужна помощь?</h2>
+					<p style="text-align:center;">Наши специалисты помогут вам<br/> разобраться с сервисом</p>
+					<span class="phone">+7 (975) 856-14-56</span>
+					<span class="time_job">Работаем с 8:00 до 22:00</span>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>

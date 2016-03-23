@@ -1,0 +1,196 @@
+<?
+	$itemList = $this->itemList;
+	$PLAN_SAVE = $this->PLAN_SAVE;
+	$PLAN_OPTION_SAVE = $this->PLAN_OPTION_SAVE;
+	$projectData = $this->projectData;
+	$starting_price = $this->starting_price;
+	$step = $this->step;
+	$nextstep = $this->nextstep;
+	$url = $this->url;
+	$nextstep_d = $this->nextstep_d;
+	$uploadItemList = $this->uploadItemList;
+	$step = $this->step;
+	$cityModel    = new Sibirix_Model_City();
+	$nextstepfile = true;
+	$PLAN_ARR = $this->PLAN_ARR;
+	$auth = $this->auth;
+	$access = $this->access;
+	
+?>
+
+<div id="service-page">
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта готовой планировки</h2>
+				<div id="service_menu">
+					<ul>
+						<li><a  class="under-link" href="/plan/step1/">Выбор планировки</a></li>
+						<li><a class="under-link" href="/plan/step2/">Состав семьи</a></li>
+						<li class="selected"><a href="/plan/step3/">Настройки заказа</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content service-content">
+		<div class="content-container">
+			<div class="left_bn">
+				<div class="content">
+				<h2 class="page-title">Настройка заказа</h2>
+				<div class="form-content">
+					<form enctype="application/x-www-form-urlencoded" class="js-order-settings-form ordersettings formTabber" action="/service/savestep5" method="post" novalidate="novalidate">
+						<input type="hidden" id="layout" value="<?=$layout?>"/>
+						<div class="input-out">	
+							<div class="input-row">
+								<div class="final">
+									<p><span class="big">Стоимость: <span id="result_price"><?=$starting_price;?></span> &#8381;</span>
+									<span class="brackets">&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+									<span class="formula">(300 &#8381; * 76 м&#178;) +  850 &#8381;(21% комиссия за пользование системы)</span></p>
+								</div>
+							</div>
+						</div>
+						<div class="input-out">	
+							<div class="input-row">
+								<label for="comments" class="required">Ваши пожелания к будущему дизайну</label>
+								<textarea name="comments" id="comments" value="" class="required" maxlength="1024" rows="10" placeholder=""><?=$projectData -> PROPERTY_SUGGEST['TEXT']?></textarea>
+								<span class="js-error error-message"></span>
+							</div>
+							<div class="help_bn">
+								Обратите внимание!</br>
+								Тут необходимо расписать как необходимо заполнять пожелания к дизайну
+							</div>
+						</div>
+						<!--<div class="input-out">
+							<div class="input-row">
+								<label for="comments" class="required">Прикрепите файл</label>
+								<div class="upload-area js-docs-dropzone inline  dropzoneArea dz-clickable preloaderController"><div class="js-dz-text text">Перетащите файлы в эту область для их загрузки или нажмите <a href="javascript:void(0);" class="upload-link">загрузить</a></div></div>
+								<p class="i file_res">Для загрузки допускаются файлы до 2Мб, форматов: jpg, png, jpeg, gif, bmp, doc, docx, xls, xlsx, pdf, rar, tar, zip</p>
+							</div>
+						</div>-->
+						<div class="input-out">	
+							<div class="input-row">
+								<label for="slider_time" class="required">Срок исполнения проекта</label>
+								<input type="text" name="slider_time" id="slider_time" class="required view_n2" maxlength="100" value="<?if(!empty($projectData -> PROPERTY_TIME_VALUE)){echo $projectData -> PROPERTY_TIME_VALUE;}else{echo "7 дней";};?>" placeholder="">
+								<span class="js-error error-message"></span>
+								<div class="slider slider_time"></div>
+								<p class="count left">
+									<span class="b">Мало</span>
+								</p>
+								<p class="count center">
+									<span class="b">Нормально</span>
+								</p>
+								<p class="count right">
+									<span class="b">Самое то!</span>
+								</p>
+								<div id="slider-result"></div>  
+							</div>
+						</div>
+						<input type="hidden" name="protect" value="proomer-i-am-not-bot" class="js-protect" id="protect">
+						<!--<div class="step active" id="deneg_day">
+							<a id="nextstep" class="js-submit btn">Перейти к оплате</a>
+						</div>-->	
+						<div class="step active" id="deneg_day">
+							<a id="nextstep" class="js-submit btn" href="/basket">Перейти к оплате</a>
+						</div>						
+					</form>
+				</div>
+				</div>
+			</div>
+			<div class="right_bn">
+				<input type="hidden" id="select_step_1" class="select_val" value="<?if(!empty($projectData -> PROPERTY_ID_FLAT_VALUE)){echo $projectData -> PROPERTY_ID_FLAT_VALUE;};?>"/>
+				<input type="hidden" id="id_order" value="<?if(!empty($projectData -> ID)){echo $projectData -> ID;};?>"/>
+				<?= $this->partial('plan/partials/right_bn.phtml', array('access' => $access, 'auth' => $auth, 'starting_price' => $starting_price, 'projectData' => $projectData, 'url' => $url, 'nextstep' => $nextstep, 'nextstep_d' => $nextstep_d, 'nextstepfile' => $nextstepfile, 'PLAN_SAVE' => $PLAN_SAVE, 'PLAN_OPTION_SAVE' => $PLAN_OPTION_SAVE)) ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$( ".price_square" ).slider({
+		animate: true,
+		range: "min",
+		value: 50,
+		min: 100,
+		max: 1000,
+		step: 10,
+		//Получаем значение и выводим его на странице
+		slide: function( event, ui ) {
+		var val = $(' <span class="rur"> &#8381;<span>')
+			$("#price_square").attr("value",ui.value + val.text());
+			var price_cube = ui.value * $("#layout").val();
+			var percent = price_cube/100 * 20;
+			var price = price_cube + percent;
+			$("#result_price").html(price);
+			$(".right_bn .prop .price .summ").html(price);
+		},
+		//Обновляем скрытое поле формы, так что можно передать данные с помощью формы
+		/*change: function(event, ui) { 
+			$('#hidden').attr('value', ui.value);
+		}*/
+	});
+	$(".slider_time").slider({
+		animate: true,
+		range: "min",
+		value: 50,
+		min: 1,
+		max: 365,
+		step: 1,
+		//Получаем значение и выводим его на странице
+		slide: function( event, ui ) {
+			var val = ' дней';
+			$("#slider_time").attr("value",ui.value + val);
+		},
+		//Обновляем скрытое поле формы, так что можно передать данные с помощью формы
+		/*change: function(event, ui) { 
+			$('#hidden').attr('value', ui.value);
+		}*/
+	});
+
+
+</script>
+<script>
+	//Времмено находится тут
+	(function(){
+		var a = document.querySelector('.right_bn'), b = null, P = 10;
+		window.addEventListener('scroll', Ascroll, false);
+		document.body.addEventListener('scroll', Ascroll, false);
+		function Ascroll() {
+		  if (b == null) {
+			var Sa = getComputedStyle(a, ''), s = '';
+			for (var i = 0; i < Sa.length; i++) {
+			  if (Sa[i].indexOf('overflow') == 0 || Sa[i].indexOf('padding') == 0 || Sa[i].indexOf('border') == 0 || Sa[i].indexOf('outline') == 0 || Sa[i].indexOf('box-shadow') == 0 || Sa[i].indexOf('background') == 0) {
+				s += Sa[i] + ': ' +Sa.getPropertyValue(Sa[i]) + '; '
+			  }
+			}
+			b = document.createElement('div');
+			b.style.cssText = s + ' box-sizing: border-box; width: ' + a.offsetWidth + 'px;';
+			a.insertBefore(b, a.firstChild);
+			var l = a.childNodes.length;
+			for (var i = 1; i < l; i++) {
+			  b.appendChild(a.childNodes[1]);
+			}
+			a.style.height = b.getBoundingClientRect().height + 'px';
+			a.style.padding = '0';
+			a.style.border = '0';
+		  }
+		  var Ra = a.getBoundingClientRect(),
+			  R = Math.round(Ra.top + b.getBoundingClientRect().height - document.querySelector('footer').getBoundingClientRect().top);  // селектор блока, при достижении нижнего края которого нужно открепить прилипающий элемент
+		  if ((Ra.top - P) <= 0) {
+			if ((Ra.top - P) <= R) {
+			  b.className = 'stop';
+			  b.style.top = - R +'px';
+			} else {
+			  b.className = 'sticky';
+			  b.style.top = P + 'px';
+			}
+		  } else {
+			b.className = '';
+			b.style.top = '';
+		  }
+		  window.addEventListener('resize', function() {
+			a.children[0].style.width = getComputedStyle(a, '').width
+		  }, false);
+		}
+})()	
+</script>

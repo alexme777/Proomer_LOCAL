@@ -1,0 +1,15 @@
+
+<div class="content-container">
+    <?= EZendManager::profileSidebar() ?>
+
+    <div class="profile-content">
+        <h2>Мои заказы</h2>
+      
+        <div class="results">
+			<?Zend_Registry::get('BX_APPLICATION')->IncludeComponent("bitrix:sale.personal.order","",Array(
+
+    )
+);?>
+        </div>
+    </div>
+</div>

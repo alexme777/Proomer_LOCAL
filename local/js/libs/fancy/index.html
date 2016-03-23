@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<title>FancyBox</title>
+	<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox.css" media="screen" />
+	<script type="text/javascript" src="fancybox/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="fancybox/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="fancybox/jquery.fancybox-1.2.1.pack.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("a.gallery, a.iframe").fancybox();
+		
+url = $("a.modalbox").attr('href').replace("for_spider","content2");
+$("a.modalbox").attr("href", url);	
+$("a.modalbox").fancybox(
+{								  
+			"frameWidth" : 400,	 
+			"frameHeight" : 400 
+								  
+});
+
+			$("a.gallery2").fancybox(
+			{						
+"padding" : 20, // отступ контента от краев окна
+"imageScale" : false, // Принимает значение true - контент(изображения) масштабируется по размеру окна, или false - окно вытягивается по размеру контента. По умолчанию - TRUE
+			"zoomOpacity" : false,	// изменение прозрачности контента во время анимации (по умолчанию false)
+			"zoomSpeedIn" : 1000,	// скорость анимации в мс при увеличении фото (по умолчанию 0)
+			"zoomSpeedOut" : 1000,	// скорость анимации в мс при уменьшении фото (по умолчанию 0)
+			"zoomSpeedChange" : 1000, // скорость анимации в мс при смене фото (по умолчанию 0)
+			"frameWidth" : 700,	 // ширина окна, px (425px - по умолчанию)
+			"frameHeight" : 600, // высота окна, px(355px - по умолчанию)
+			"overlayShow" : true, // если true затеняят страницу под всплывающим окном. (по умолчанию true). Цвет задается в jquery.fancybox.css - div#fancy_overlay 
+			"overlayOpacity" : 0.8,	 // Прозрачность затенения 	(0.3 по умолчанию)
+			"hideOnContentClick" :false, // Если TRUE  закрывает окно по клику по любой его точке (кроме элементов навигации). Поумолчанию TRUE		
+			"centerOnScroll" : false // Если TRUE окно центрируется на экране, когда пользователь прокручивает страницу		
+				
+			});
+		
+		$("#menu a, .anim").hover( function() {
+      $(this).animate({"paddingLeft" : "10px"}, 300)},
+	  function() {$(this).animate({"paddingLeft" : "0"}, 300);
+});
+
+$("a.iframe").fancybox(
+{								  
+			"frameWidth" : 800,	 // ширина окна, px (425px - по умолчанию)
+			"frameHeight" : 600 // высота окна, px(355px - по умолчанию)
+								  
+});
+
+		
+		});
+	</script>
+	<style>
+		html, body {
+			font: normal 12px Tahoma;
+			color: #333;
+		}
+		
+		a {
+			outline: none;	
+		}
+		
+		div#wrap {
+			width: 500px;
+			margin: 50px auto;	
+		}
+
+		img {
+			border: 1px solid #CCC;
+			padding: 2px;	
+			margin: 10px 5px 10px 0;
+			
+			
+		}
+		
+		.green 
+		{color:#060; font-size:14px}
+	
+	</style>
+</head>
+<body>
+<div id="wrap">
+	<h1>FancyBox - Фотогалерея</h1>
+
+
+	<h3>Одиночная картинка</h3>
+		<a class="gallery" title="Одиночная картинка" href="images/1_b.jpg"><img src="images/1_s.jpg" /></a>
+	
+		
+	<h3>Группа картинок (галерея изображений)</h3>
+		<a class="gallery" rel="group" title="это фото 1" href="images/2_b.jpg"><img src="images/2_s.jpg" /></a>
+		<a class="gallery" rel="group" title="это фото 2" href="images/3_b.jpg"><img src="images/3_s.jpg" /></a>
+		<a class="gallery" rel="group" href="images/4_b.jpg"><img src="images/4_s.jpg" /></a>
+
+
+
+	<h3>Группа картинок (галерея изображений) с измененными  параметрами </h3>
+		<a class="gallery2" rel="group" title="Вот такое вот 4-ое мая :(" href="images/my_foto1.jpg"><img src="images/my_foto1_s.jpg" /></a>
+		<a class="gallery2" rel="group" title="Вишня после дождя" href="images/my_foto2.jpg"><img src="images/my_foto2_s.jpg" /></a>
+		<a class="gallery2" rel="group" title="Лето, утро. Где-то за Кувандыком" href="images/my_foto3.jpg"><img src="images/my_foto3_s.jpg" /></a>
+
+
+<br>
+<br>
+
+<h1>FancyBox - Контент в модальных окнах</h1>
+   
+<h3>Видео с youtube.com (или аналогичного сервиса) в модальном окне</h3>  
+    
+ <a class="gallery" href="#testube"><img alt="" src="images/atb_s.jpg" /></a>
+ 
+ <div style="display:none" id="testube">
+ <!-- HTML - код ролика -->
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/sh08XGBE8qc&hl=ru&fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/sh08XGBE8qc&hl=ru&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+</div>
+ 
+ 
+<br>
+<br>
+<br>
+<h3>Открываем другой сайт в модальном Окне</h3>   
+<a class="iframe" href="http://www.google.ru">Погуглим?</a><br><br>
+
+
+<br>
+<br>
+<br>
+<h3>Свой контент в модальном окне</h3> 
+<a class="gallery2" title="Простая HTML" href="content.html">Клик</a>
+
+<br>
+<br>
+<br>
+<h3>Свой контент в модальном окне вариант 2.</h3> 
+<a  href="content2.php?id=1" class="gallery">Первое окно</a><br>
+<a  href="content2.php?id=2" class="gallery">Второе окно</a><br>
+
+
+<h3>Свой контент в модальном окне вариант 2 с дублированием.</h3> 
+<a  href="for_spider.php?id=1" class="modalbox">Первое окно</a><br>
+<a  href="for_spider.php?id=2" class="modalbox">Второе окно</a><br>
+    
+</div>
+
+
+
+
+
+</body>
+</html>

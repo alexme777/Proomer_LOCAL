@@ -1,0 +1,8 @@
+<? if ($this->discount > 0): ?>
+<div id="disc" class="list-goods">
+	<h2>Скидки</h2>
+	<div class="js-ajax-list-content">
+		<?= $this->render('shop/shop-discount-list.ajax.phtml') ?>
+	</div> 
+</div>
+<? endif ?>

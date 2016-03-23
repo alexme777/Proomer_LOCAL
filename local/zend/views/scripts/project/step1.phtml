@@ -1,0 +1,176 @@
+<?
+
+	$itemList = $this->itemList;
+	$PLAN_SAVE = $this->PLAN_SAVE;
+	$PLAN_OPTION_SAVE = $this->PLAN_OPTION_SAVE;
+	$projectData = $this->projectData;
+	$starting_price = $this->starting_price;
+	$step = $this->step;
+	$nextstep = $this->nextstep;
+	$url = $this->url;
+	$nextstep_d = $this->nextstep_d;
+	$uploadItemList = $this->uploadItemList;
+	$step = $this->step;
+	$cityModel    = new Sibirix_Model_City();
+	$nextstepfile = true;
+	$PLAN_ARR = $this->PLAN_ARR;
+	$auth = $this->auth;
+	$access = $this->access;
+	
+?>
+<input type="hidden" id="designId" name="designId" value="2475">
+<div id="service-page" data-step=<?=$step?>>
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта</h2>
+				<div id="service_menu">
+					<ul>
+						<li class="selected"><a href="/project/step1/">Выбор планировки</a></li>
+						<li><?if($projectData->PROPERTY_STEP_VALUE < 2){?><div class="overlap"></div><?};?><a class="under-link" href="/project/step2/">Параметры дизайн-проекта</a></li>
+						<li><?if($projectData->PROPERTY_STEP_VALUE < 3){?><div class="overlap"></div><?};?><a class="under-link" href="/project/step3/">Оформление</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="content-container">
+			<div class="left_bn preloaderController">
+				<div class="content">
+					<h2 class="page-title">Выбор квартиры</h2>
+					<p class="simple_text">Обратите внимание! Тут будет текстовое описание<br/>
+					Чем выше цену вы ставите, тем больше шанс, что проектом заинтересуются профессионалы</p>
+					<div class="row row-btn-top project_step1">	
+						<!--<a href="#selectplan" data-page="select" id="btn_select_plan" class="js-open-page under-link-dashed style2">Выбрать готовую</a>
+						&nbsp; &nbsp; &nbsp; &nbsp;<span class="or">или</span>&nbsp; &nbsp; &nbsp; &nbsp;  
+						<a href="#uploadplan" data-page="upload" id="btn_upload_plan" class="js-open-page style3">Загрузить свою</a>-->
+						<div class="call-super-man"><a class="js-call-super-man super-man btn blue waves-effect js-fancybox fancyboxLink" data-step="4" href="#call-super-man">
+						ВЫЗВАТЬ ЗАМЕРЩИКА БЕСПЛАТНО</a></div>
+					</div>
+				</div>
+				<div id="select_plan" class="project-select">
+					<input type="hidden" id="page" value="<?if($_GET['page']){echo $_GET['page'];}else{echo '2';};?>" name="page"/>
+					<div class="js-ajax-list-content preloaderController">			
+						<?= $this->render('project/apartment.ajax.phtml') ?>
+					</div>
+					<?if(count($this->itemList) > 0){?>
+						<div class="row-submit"><a class="js-submit-show btn waves-effect">Показать ещё</a></div>
+					<?};?>
+				</div>
+				
+				<?= $this->render('project/planlist.ajax.phtml') ?>
+					
+				<div id="upload_plan" class="project-upload" style="display:none">
+					<div class="content">
+					<?
+					if (Sibirix_Model_User::isAuthorized()) {
+						echo '<p>Вы можете в любой момент вернуться к заполнению проекта.<br/>
+						Найти проект можно в <a class="under-link style1" href="/profile">личном кабинете</a></p>';
+					}
+					else{
+						echo '<p>Обращаем внимание!<br/>
+						Для того, чтобы мы согли проверить загруженные файлы планировки,<br/> 
+						вам необходимо <a class="under-link style1 js-fancybox fancyboxLink" href="#registration-popup">зарегистрироваться</a> или <a href="#login-popup" class="under-link style1 js-fancybox fancyboxLink">войти под своим логином</a></p>';
+					}
+					?>
+						<div class="area-upload <?if (!Sibirix_Model_User::isAuthorized()) {echo 'ghost';}?>">
+						<?if (!Sibirix_Model_User::isAuthorized()) {?>
+								<div class="overlap ghost">
+								</div>
+						<?}?>
+							<label>Загрузите скрин-копию вашей планировки:</label>
+							<form>
+							<div class="upload-area js-docs-dropzone inline  dropzoneArea dz-clickable preloaderController"><div class="js-dz-text text">Перетащите файлы в эту область для их загрузки или нажмите <a href="javascript:void(0);" class="upload-link">загрузить</a></div></div>
+							</form>
+							<p class="i file_res">Для загрузки допускаются файлы до 2Мб, форматов: jpg, png, bmp</p>
+						</div>
+						<?if (Sibirix_Model_User::isAuthorized()) {?>
+						<hr/>
+							<?if(count($uploadItemList) > 0){?>
+							<div class="result">
+								<p class="title">Загруженные файлы:</p>
+								<p class="i">Как только мы проверим загруженные файлы, на соответствие требованиям,<br/>
+								вы сможете перейти к следующему шагу</p>
+								<div class="list-result">
+									<div class="row">
+									<?foreach($uploadItemList as $item){
+										if($item->PROPERTY_STATUS_ENUM_ID != PLAN_STATUS_PUBLISHED){
+											$nextstepfile = false;
+										};
+										
+										$class = '';
+										if($item->PROPERTY_STATUS_ENUM_ID == PLAN_STATUS_MODERATION){
+											$class = 'moderation';
+										}
+										else if($item->PROPERTY_STATUS_ENUM_ID == PLAN_STATUS_PUBLISHED){
+											$class = 'checked';
+										}
+										else{
+											$class = 'moderation';
+										}
+									?>
+										<div class="col-xs-2 col-sm-2 col-md-2 plan-offset">
+											<div class="item-elem">
+												<div class="picture" style="background-image:url(<?=$item->DETAIL_PICTURE['SRC']?>);"></div>
+												<div class="info">
+													<p class="name"><?=$item->DETAIL_PICTURE['ORIGINAL_NAME']?></p>
+													<p class="status <?=$class?>"><?=$item->PROPERTY_STATUS?></p>
+												</div>
+											</div>
+										</div>
+									<?};?>
+										<!--<div class="col-xs-2 col-sm-2 col-md-2 plan-offset">
+											<div class="item-elem">
+												<div class="picture">
+													
+												</div>
+												<div class="info">
+													<p class="name">1.jpg</p>
+													<p class="status moderation">На модерации</p>
+												</div>
+											</div>
+										</div>-->
+									</div>
+								</div>
+							</div>
+							<?};?>
+						<?};?>
+					</div>
+				</div>
+			</div>
+			<div class="right_bn" data-fixed = "0">
+				<div class="right_bn_inner">
+					<input type="hidden" id="select_step_1" class="select_val" value="<?if(!empty($projectData -> PROPERTY_ID_FLAT_VALUE)){echo $projectData -> PROPERTY_ID_FLAT_VALUE;};?>"/>
+					<input type="hidden" id="select_step_2" class="select_val" value="<?if(!empty($projectData -> PROPERTY_ID_OPTION_PLAN_VALUE)){echo $projectData -> PROPERTY_ID_OPTION_PLAN_VALUE;};?>"/>
+					<?= $this->partial('project/partials/right_bn.phtml', array('access' => $access, 'auth' => $auth, 'starting_price' => $starting_price, 'projectData' => $projectData, 'url' => $url, 'nextstep' => $nextstep, 'nextstep_d' => $nextstep_d, 'nextstepfile' => $nextstepfile, 'PLAN_SAVE' => $PLAN_SAVE, 'PLAN_OPTION_SAVE' => $PLAN_OPTION_SAVE)) ?>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+</div>
+<style>
+.sticky {
+  position: fixed;
+  z-index: 101;
+}
+.stop {
+  position: relative;
+  z-index: 101;
+}
+</style>
+
+<script>
+	$(function() {
+		var offset = $(".right_bn_inner").offset();
+		console.log(offset);
+		var topPadding = 15;
+		$(window).scroll(function() {
+			if ($(window).scrollTop() > offset.top) {
+				$(".right_bn_inner").stop().animate({marginTop: $(window).scrollTop() - offset.top + topPadding});
+			}
+			else {	
+			//	$(".right_bn_inner").stop().animate({marginTop: 0});
+			};
+			});
+	});
+</script>

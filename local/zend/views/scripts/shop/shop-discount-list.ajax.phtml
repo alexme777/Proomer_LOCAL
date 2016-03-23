@@ -1,0 +1,14 @@
+<? 
+if (count($this->itemList) > 0): ?>
+    <div class="shop-detail">
+        <? 	foreach ($this->itemList as $item){ 
+				if(isset($item->DISCOUNT)){
+					echo $this->partial("shop/partials/shop-item.phtml", ["item" => $item, "designer" => true]);
+				}
+			}  ?>
+    </div>
+	<div class="clear"></div>
+	
+<? else: ?>
+    <?= $this->partial("_partials/not-found-status/design.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]) ?>
+<? endif ?>

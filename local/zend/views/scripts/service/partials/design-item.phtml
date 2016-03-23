@@ -1,0 +1,41 @@
+<?
+/**
+ * @var $item Sibirix_Model_Complex_Row
+ */
+$item = $this->item;
+$class = $this->class;
+
+if (!empty($item->DETAIL_PICTURE)) {
+    $image = Resizer::resizeImage($item->DETAIL_PICTURE, "DESIGN_LIST");
+} else {
+   // $image = Resizer::resizeImage(Settings::getOptionFile('defaultComplexImage'), 'COMPLEX_LIST');
+   $image = '/local/images/proomer2.png';
+}
+?>
+
+<div class="col-xs-3 col-sm-3 col-md-3 design-item design-offset <?=$class?>">
+	<div class="design" data-id="<?=$item->ID?>">
+		<div class="design-inner">
+			<div class="picture">
+				<img src="<?=$image?>"/>
+			</div>
+			<div class="info">
+				<p class="name"><?=$item->NAME?></p>
+				<p>
+				<?if($item->PROPERTY_BUDGET){
+				?>
+				<span class="val"><?=$item->PROPERTY_BUDGET?></span>
+				<?}?>
+			
+				<span class="val">50 дней</span>
+				
+				</p>
+			</div>
+			<div class="selected_design">
+				<a class="js-call-super-man btn blue waves-effect js-fancybox fancyboxLink" data-step="4" href="#call-super-man">
+							Выбрать это решение
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

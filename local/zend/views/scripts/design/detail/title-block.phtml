@@ -1,0 +1,103 @@
+<?
+    $design = $this->design;
+    $price = $design->getPrice();
+?>
+
+<div class="detail-title-block">
+    <div class="image" style="background-image: url('<?= $design->DETAIL_PICTURE['SRC'] ?>');"></div>
+    <div class="label">
+        <div class="label-inner">
+            Планировка: <nobr><?= $design->PROPERTY_PLAN_NAME ?></nobr>
+        </div>
+    </div>
+    <?= $this->Like()->button($design->ID, $design->PROPERTY_LIKE_CNT_VALUE, $design->IS_LIKED) ?>
+<!--    <a href="javascript:void(0)" class="favourite js-tooltip" data-description="Добавить в избранное"></a> TODO: Избранное -->
+    <div class="project-about">
+        <div class="title"><?= $design->NAME ?></div>
+        <div class="description">
+            <a class="designer under-link" title="<?= $design->DESIGNER->getFullName(); ?>" href="<?= $this->url(['elementId' => $design->DESIGNER->ID], 'designer-detail') ?>">Дизайнер <?= $design->DESIGNER->getFullName() ?></a>
+            <div class="about">
+                <?= $design->PREVIEW_TEXT ?>
+            </div>
+            <? if (!empty($design->PROPERTY_STYLE_VALUE)) {?>
+                <div class="categories">
+                    <span class="categories-title">Стиль:</span>
+                    <? foreach($design->PROPERTY_STYLE_VALUE as $ind => $style) {?>
+                        <span class="category"><?= $style?></span>
+                    <? } ?>
+                </div>
+            <? } ?>
+            <? if (!empty($design->PROPERTY_PRIMARY_COLOR_VALUE)) { ?>
+                <div class="colors">
+                    <? foreach($design->PROPERTY_PRIMARY_COLOR_VALUE as $ind => $color) {?>
+                        <div style="background:<?= $color ?>"></div>
+                    <? } ?>
+                </div>
+            <? } ?>
+            <div class="square">Общая площадь <?= $design->PROPERTY_AREA_VALUE ?> М<sup>2</sup>, <a href="<?= $design->PROPERTY_PLAN_FLAT_VALUE[0]["SRC"] ?>" title="<?= $design->NAME ?> / Планировка" rel="plan" class="js-fancybox-thumb js-scroll-to under-link">планировка</a></div>
+            <? if (count($design->PROPERTY_PLAN_FLAT_VALUE) > 1) { ?>
+                <div class="plans" style="display:none">
+                    <? foreach ($design->PROPERTY_PLAN_FLAT_VALUE as $ind => $plan) {?>
+                        <? if ($ind == 0) { continue; }?>
+                        <a href="<?= $plan['SRC'] ?>" rel="plan" class="js-fancybox-thumb" title="<?= $design->NAME ?> / Планировка"></a>
+                    <? } ?>
+                </div>
+            <? } ?>
+            <? if (!empty($design->ROOMS)) { ?>
+                <ul class="room-list">
+                    <? foreach ($design->ROOMS as $ind => $room) { ?>
+                        <li>
+                            <div class="room"><?= $room->NAME ?></div><div class="room-square"><?= $room->PROPERTY_AREA_VALUE ?> М<sup>2</sup></div>
+                        </li>
+                    <? } ?>
+                </ul>
+            <? } ?>
+
+            <? if ($price > 0) { ?>
+                <div class="cost">Дизайн <span><?= EHelper::price($price); ?> <i class="ruble"></i></span></div>
+            <? } else { ?>
+                <div class="cost">Дизайн бесплатно</div>
+            <? } ?>
+            <? if ($design->PROPERTY_BUDGET_VALUE) { ?>
+                <? if ($design->PROPERTY_ESTIMATE_VALUE['SRC']) { ?>
+                    <a href="<?= $design->PROPERTY_ESTIMATE_VALUE['SRC'] ?>" download class="cost">Бюджет <span>от <?= EHelper::price($design->PROPERTY_BUDGET_VALUE) ?> <i class="ruble"></i> на М<sup>2</sup></span></a>
+                <?} else {?>
+                    <div class="cost">Бюджет <span>от <?= EHelper::price($design->PROPERTY_BUDGET_VALUE) ?> <i class="ruble"></i> на М<sup>2</sup></span></div>
+                <? } ?>
+            <? } ?>
+
+            <? if ($price > 0) {?>
+
+                <a href="<?= ($design->IS_IN_BASKET)?$this->url([], "basket"):'javascript:void(0);'?>" class="btn blue waves-effect<?= ($design->IS_IN_BASKET)?' in-basket':' js-add-basket'?>" data-element-id="<?= $design->ID ?>">
+                    <?= ($design->IS_IN_BASKET)?'Проект в корзине':'<span class="plus"></span>Купить проект'?>
+                </a>
+            <? } else { ?>
+                <? if (!empty($design->PROPERTY_DOCUMENTS_VALUE)) { ?>
+                    <? if (Sibirix_Model_User::isAuthorized()) { ?>
+                        <a href="<?= $design->PROPERTY_DOCUMENTS_VALUE['SRC'] ?>" download class="btn blue waves-effect"><span class="plus"></span>Скачать документы</a>
+                    <? } else { ?>
+                        <a href="#login-popup" class="btn blue waves-effect js-fancybox"><span class="plus"></span>Скачать документы</a>
+                    <? } ?>
+                <? } ?>
+            <? } ?>
+
+            <? if ($price > 0) {?>
+                <div class="center-wrapper">
+                    <a href="#info-popup" class="detail js-fancybox"><?= Settings::getOption('aboutDesignProductLink') ?></a>
+                </div>
+            <? } ?>
+        </div>
+        <?
+            $image = Resizer::resizeImage($design->DETAIL_PICTURE, 'SHARE_IMG');
+        ?>
+
+        <div class="socials">
+            <div class="share42init"
+                 data-url="http://<?= $_SERVER["SERVER_NAME"]?><?= $this->url() ?>"
+                 data-title="<?= $design->NAME ?>"
+                 data-image="http://<?= $_SERVER["SERVER_NAME"]?><?= $image ?>"
+                 data-description="<?= $design->PREVIEW_TEXT ?>">
+            </div>
+        </div>
+    </div>
+</div>

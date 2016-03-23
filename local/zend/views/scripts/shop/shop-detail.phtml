@@ -1,0 +1,35 @@
+		<div class="js-ajax-list-content">
+            <?= $this->render('shop/shop-detail.ajax.phtml') ?>
+        </div>
+<?
+	/*		$i = 1;
+			$id = null;	
+			foreach($row_goods as $item){
+				if($id == $item->ID){continue;};
+				if($i > 3){$i = 1;};
+?>
+	                                          				
+				<div <?if($i == 2){echo '';}?> class="item goods-item">
+					<a href="javascript:void(0)" class="favourite js-tooltip" data-description="Добавить в избранное"></a>
+					<div class="image" style="background:url(<?if($item->PREVIEW_PICTURE){echo $item->PREVIEW_PICTURE;}else{echo '/local/images/proomer.png';}?>) no-repeat 50%;background-size:100%;">
+						<!--$this->Like()->button($item->ID, $item->PROPERTY_LIKE_CNT_VALUE, $item->IS_LIKED)	-->	
+					</div>
+					<div class="content">
+						<a href="javascript:void(0)" class="to-basket basket js-add-basket" data-element-id="<?=$item->ID?>"></a>
+						<a href="/shop/<?=$item->IBLOCK_SECTION_ID?>/<?=$item->ID?>" class="title"><?=$item->NAME?>  </a>
+						<div class="description">
+							Цена
+<?							if($item->PROPERTY_PRICE_VALUE > 0){
+								echo '<span class="price">'.$item->PROPERTY_PRICE_VALUE .' <span class="ruble">&#8399</span></span>';}
+							else{
+								echo ' Бесплатно';
+							};
+?>
+						</div>
+					</div>
+				</div>	
+<?
+				$i+=1;
+				$id = $item->ID;
+			}*/
+?>        				

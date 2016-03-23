@@ -1,0 +1,17 @@
+<? if (count($this->itemList) > 0): ?>
+    <div class="shop-detail">
+        <? foreach ($this->itemList as $item): ?>
+            <?= $this->partial("shop/partials/shop-item.phtml", ["item" => $item, "designer" => true]) ?>
+        <? endforeach ?>
+    </div>
+	<div class="clear"></div>
+	
+	<?= $this->paginationControl(
+        $this->paginator,
+        'Sliding',
+        '_partials/paginator.phtml'
+    ); ?>
+	
+<? else: ?>
+    <?= $this->partial("_partials/not-found-status/design.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]) ?>
+<? endif ?>

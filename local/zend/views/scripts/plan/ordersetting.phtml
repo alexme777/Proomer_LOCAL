@@ -1,0 +1,192 @@
+<?
+ $step4Form = $this->step4Form;
+ ?>
+
+<div id="service-page">
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта готовой планировки</h2>
+				<div id="service_menu">
+					<ul>
+						<li><a class="under-link" href="/service/step1">Выбор планировки</a></li>
+						<li><a class="under-link" href="/service/step2">Варианты планировок</a></li>
+						<li><a class="under-link" href="/service/step3">Варианты дизайна</a></li>
+						<li><a class="under-link" href="/service/step4">Состав семьи</a></li>
+						<li class="selected"><a href="/service/step5">Настройка заказа</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content service-content">
+		<div class="content-container">
+			<h2 class="page-title">Настройка заказа</h2>
+			<div class="left_bn">		
+				<div class="form-content">
+					<form enctype="application/x-www-form-urlencoded" class="js-order-settings-form ordersettings formTabber" data-title="Ваше сообщение получено" data-text="Мы рассмотрим ваше обращение в ближайшее время" action="/service/super-man" method="post" novalidate="novalidate">
+						<div class="input-out">	
+							<div class="input-row">
+								<label for="price_project" class="required">Стоимость проекта за 1м&#178;</label>
+								<input type="text" name="price_project" id="price_project" class="required view_n2" maxlength="100" value="100 &#8381;" placeholder="">
+								<span class="js-error error-message"></span>
+								<div class="slider slider_price"></div>
+								<p class="count left">
+									<span class="b">Мало</span><br/><span>(Наша комиссия 21%)</span>
+								</p>
+								<p class="count center">
+									<span class="b">Нормально</span><br/><span>(Наша комиссия 21%)</span>
+								</p>
+								<p class="count right">
+									<span class="b">Самое то!</span><br/><span>(Наша комиссия 21%)</span>
+								</p>
+								<div id="slider-result"></div>  
+								<div class="final">
+									<p><span class="big">Итого: <span id="result_price">9000</span> &#8381;</span>
+									<span class="brackets">&nbsp;}&nbsp;</span>
+									<span class="formula">(300 &#8381; * 76 м&#178;) +  850 &#8381;(20% комиссия за пользование системы)</span></p>
+								</div>
+							</div>
+							<div class="help_bn">
+								Обратите внимание!</br>
+								Чем выше цену вы ставить, тем больше шанс, что проектом заинтересуются профессионалы
+							</div>
+						</div>
+						<div class="input-out">	
+							<div class="input-row">
+								<label for="comments" class="required">Ваши пожелания к будущему дизайну</label>
+								<textarea name="comments" id="comments" value="" class="required" maxlength="1024" rows="10" placeholder=""></textarea>
+								<span class="js-error error-message"></span>
+							</div>
+							<div class="help_bn">
+								Обратите внимание!</br>
+								Тут необходимо расписать как необходимо заполнять пожелания к дизайну
+							</div>
+						</div>
+						<div class="input-out">	
+							<div class="upload-area js-docs-dropzone inline  dropzoneArea dz-clickable preloaderController"><div class="js-dz-text text">Перетащите файлы в эту область для их загрузки или нажмите <a href="javascript:void(0);" class="upload-link">загрузить</a></div></div>
+						</div>
+						<div class="input-out">	
+							<div class="input-row">
+								<label for="slider_time" class="required">Срок исполнения проекта</label>
+								<input type="text" name="slider_time" id="slider_time" class="required view_n2" maxlength="100" value="30 дней" placeholder="">
+								<span class="js-error error-message"></span>
+								<div class="slider slider_time"></div>
+								<p class="count left">
+									<span class="b">Мало</span>
+								</p>
+								<p class="count center">
+									<span class="b">Нормально</span>
+								</p>
+								<p class="count right">
+									<span class="b">Самое то!</span>
+								</p>
+								<div id="slider-result"></div>  
+							</div>
+						</div>
+						<input type="hidden" name="protect" value="proomer-i-am-not-bot" class="js-protect" id="protect">
+						<div class="step">
+							<a class="blue waves-effect btn_arrow">Перейти к оплате</a>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="right_bn">
+				<div class="project">
+					<div class="border-style1"></div>
+					<div class="project-inner">
+						<h2 class="title">Проект</h2>
+						<hr/>
+						<p class="sub-title">Планировка</p>
+						<div class="prop">
+							<p>Количество комнат........<span class="value">5 комнат</span></p>
+							<p>Общая площадь..............<span class="value">76 м&#178;</span></p>
+							<p>Жилая площадь..............<span class="value">66 м&#178;</span></p>
+						</div>
+						<div class="list-selected">
+							<ul>
+								<li>
+									<div class="picture">
+										<img src="/upload/resize_cache/iblock/744/280_279_1/744906c174215d3eae158bddf2cbfb6e.jpg">
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="clearfix"></div>
+						<hr/>
+						<div class="step">
+							<a href="javascript:void(0);" class="btn">ДАЛЕЕ</a><a class="style4 cont" href="">К вариантам<br/>
+							планировок</a>
+						</div>
+						<!--<p>Загрузите скан-копию планировки, 
+						чтобы продолжить!
+						<br/><br/>
+						Если у вас нет скана,
+						<a class="under-link style1" href="">вызовите бесплатного замерщика</a>
+						</p>
+						<hr/>
+						<div class="categories">
+						<a href="javascript:void(0);" class="category">ДАЛЕЕ</a><a class="i style4 cont" href="">К вариантам<br/>
+						планировок</a>
+						</div>
+						<p class="i mess" style="text-align:center">
+						Для того, чтобы продолжить пользоваться<br/>
+						сервисом, пожалуйста, дождитесь проверки<br/>
+						загруженных файлов!
+						</p>-->
+					</div>
+				</div>
+				<div class="help">
+					<h2 class="title">Нужна помощь?</h2>
+					<p style="text-align:center;">Наши специалисты помогут вам<br/> разобраться с сервисом</p>
+					<span class="phone">+7 (975) 856-14-56</span>
+					<span class="time_job">Работаем с 8:00 до 22:00</span>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$( ".slider_price" ).slider({
+		animate: true,
+		range: "min",
+		value: 50,
+		min: 100,
+		max: 1000,
+		step: 10,
+		//Получаем значение и выводим его на странице
+		slide: function( event, ui ) {
+		var val = $(' <span class="rur"> &#8381;<span>')
+			$("#price_project").attr("value",ui.value + val.text());
+			var price_cube = ui.value * 75;
+			var percent = price_cube/100 * 20;
+			var price = price_cube + percent;
+			$("#result_price").html(price);
+		},
+		//Обновляем скрытое поле формы, так что можно передать данные с помощью формы
+		/*change: function(event, ui) { 
+			$('#hidden').attr('value', ui.value);
+		}*/
+	});
+	$( ".slider_time" ).slider({
+		animate: true,
+		range: "min",
+		value: 50,
+		min: 1,
+		max: 365,
+		step: 1,
+		//Получаем значение и выводим его на странице
+		slide: function( event, ui ) {
+			var val = ' дней';
+			$("#slider_time").attr("value",ui.value + val);
+		},
+		//Обновляем скрытое поле формы, так что можно передать данные с помощью формы
+		/*change: function(event, ui) { 
+			$('#hidden').attr('value', ui.value);
+		}*/
+	});
+
+
+</script>
+

@@ -1,0 +1,196 @@
+@import "../_var";
+@import "../_mixins";
+
+.text-page {
+    main {
+        background-color: #f2f7f8;
+    }
+
+    .static-content {
+        height: 100%;
+        width: 1260px;
+        .sizing();
+        background-color: #fff;
+        padding: 10px 54px 86px;
+        font: 400 16px/24px @ff-fira;
+        color: @blue-text;
+
+        h1, h2, h3, h4, h5, h6 {
+            font: 300 40px/29px @ff-fira;
+            color: @blue-text;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 50px 0 33px;
+            font-size: 40px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 32px;
+            line-height: 36px;
+            margin: 42px 0 27px;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 38px 0 17px;
+        }
+
+        h4 {
+            font-size: 22px;
+            margin: 36px 0 17px;
+        }
+        h5, h6 {
+            font-size: 18px;
+            margin: 38px 0 17px;
+        }
+
+        p {
+            margin: 0 0 18px;
+            font: 400 16px/24px @ff-fira;
+            color: @blue-text;
+
+            a {
+                font-weight: 500;
+                color: @link-color;
+            }
+        }
+
+        a {
+            .transition();
+            border-bottom: 1px solid transparent;
+
+            &:hover {
+                border-bottom: 1px solid @link-color;
+            }
+        }
+
+        blockquote {
+            width: 1040px;
+            position: relative;
+            border: 1px solid #dde6ec;
+            padding: 24px 35px 24px 65px;
+            font: 400 18px/26px @ff-fira;
+            color: #7c99ac;
+            margin: 23px auto;
+
+            &:before {
+                content: "«";
+                position: absolute;
+                top: -11px;
+                left: 31px;
+                padding: 0 5px;
+                font: 400 44px/24px @ff-fira;
+                .size(20px, 30px);
+                background-color: #fff;
+            }
+        }
+
+        figure {
+            position: relative;
+            float: right;
+            margin: 5px 11px 30px 30px;
+            width: 420px;
+            border-bottom: 1px solid #dde6ec;
+            z-index: 5;
+
+            figcaption {
+                font: 300 15px/20px @ff-fira;
+                color: @blue-text;
+                width: 420px;
+                margin: 7px 0 5px;
+
+                a {
+                    font-weight: 400;
+                    color: @link-color;
+                }
+            }
+
+            img {
+                width: 420px;
+            }
+        }
+
+        ul {
+            li {
+                position: relative;
+                font: 400 16px/24px @ff-fira;
+                color: @blue-text;
+                padding: 0 0 0 21px;
+                margin: 0 0 8px;
+
+                &:before {
+                    .pseudo();
+                    top: 10px;
+                    left: 1px;
+                    .size(4px);
+                    background-image: data-uri('@{path-images}base64/marker-text.png');
+                }
+            }
+        }
+
+        ol {
+            padding: 0;
+            list-style-type: none;
+            counter-reset:  item;
+
+            li {
+                position: relative;
+                font: 400 16px/24px @ff-fira;
+                color: @blue-text;
+                padding: 0 0 0 31px;
+                margin: 0 0 8px;
+
+                &:before {
+                    .pseudo();
+                    .size(21px);
+                    background-color: #166597;
+                    content: counter(item);
+                    counter-increment: item;
+                    color: #fff;
+                    font: 400 12px/22px @ff-fira;
+                    text-align: center;
+                    border-radius: 50%;
+                    top: 1px;
+                    left: 1px;
+                }
+            }
+        }
+
+        table {
+            width: 100%;
+            margin: 27px 0 36px;
+
+            caption {
+                margin: 0;
+                font: 300 22px/30px @ff-fira;
+                color: @blue-text;
+            }
+
+            tr {
+                text-align: left;
+                border-bottom: 1px solid #dce5eb;
+            }
+
+            th {
+                font: 400 15px/20px @ff-fira;
+                color: #bdc0c3;
+                text-transform: uppercase;
+                padding: 16px 0;
+            }
+
+            td {
+                font: 400 15px/20px @ff-fira;
+                color: @blue-text;
+                padding: 11px 43px 10px 0;
+
+                &:first-child {
+                    font-weight: 300;
+                    width: 605px;
+                }
+            }
+        }
+    }
+}

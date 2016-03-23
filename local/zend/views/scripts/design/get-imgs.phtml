@@ -1,0 +1,53 @@
+<? if(!empty($this->imageUrl)): ?>
+    <? $size = getimagesize (P_DR . $this->imageUrl); ?>
+    <img class="js-slide-image admin-slide-image" src="<?= $this->imageUrl ?>" <?= $size[3] ?>>
+<?
+	foreach($this->item->PINS as $pin){
+?>
+		<div class="pin" style="top:<?=$pin->Y.'px'?>; left:<?=$pin->X.'px'?>;" data-pin-id="<?=$pin->ID?>"><span class="name" data-pin-id="<?=$pin->ID?>"><span><?=$pin->NAME?></span><a href="javascript:void(0);" class="delete js-delete-pin" data-has-img="" title="Удалить"></a></span></div>
+<?
+	};
+?>
+	<input class="js-slide-input" type="hidden" value = ""/>
+	<div class="add-pin-step" style="width:488px">
+		<form>
+			<div class="js-add-room-panel add-pin">
+				<div class="fields">
+					<span class="room-input-wrap">
+						<input type="text" name="pinName" id="pinName" value="" placeholder="Введите название" class="room-name-input" maxlength="70"><span class="js-error error-message"></span>
+					</span>
+					<span class="room-input-wrap">
+						<input type="text" name="pinURL" id="pinURL" value="" placeholder="Ссылка на товар" class="js-is-numeric room-square-input"><span class="js-error error-message"></span>
+					</span>
+					<span class="room-input-wrap">
+						<input type="text" name="pinCoords" id="pinCoords" value="" placeholder="Координаты x,y" class="js-is-numeric room-square-input"><span class="js-error error-message"></span>
+					</span>
+					<div class="js-add-pin button add-button waves-effect">Добавить метку</div>
+				</div>
+			</div>
+		</form>
+	
+	<!--<form method="post" action="">
+		<div class="input-row valid">
+			<label for="pinName" class="required">Название</label>
+			<input type="text" name="pinName" id="pinName" value="" class="required" maxlength="50">
+			<span class="js-error error-message">Это поле необходимо заполнить.</span>
+		</div>
+		<div class="input-row valid">
+			<label for="pinURL" class="required">URL</label>
+			<input type="text" name="pinURL" id="pinURL" value="" class="required" maxlength="256">
+			<span class="js-error error-message">Это поле необходимо заполнить.</span>
+		</div>
+		<div class="input-row valid">
+			<label for="pinCoords" class="required">Координаты</label>
+			<input type="text" name="pinCoords" id="pinCoords" value="" class="required" maxlength="256">
+			<span class="js-error error-message">Это поле необходимо заполнить.</span>
+		</div>
+		<div class="btn-wrapper">
+			<a class="js-add-pin btn blue waves-effect" data-step="1" href="javascript:void(0);">Добавить</a>
+		</div>
+	</form/>-->
+<? else: ?>
+    <div style="position: absolute;top: 50%;width: 100%;text-align: center;transform: translateY(-50%);font-weight: bold;">Изображение не найдено</div>
+<? endif ?>
+

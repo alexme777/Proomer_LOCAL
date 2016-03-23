@@ -1,0 +1,27 @@
+@import "_var";
+@import "_mixins";
+
+/****
+ * Внешние либы, ресеты
+ ****/
+@import "_reset";
+@import "_common";
+@import "_popup";
+@import "_plugins";
+
+/****
+ * Основные стили
+ ****/
+@import "pages/_include";
+@import "partials/_include";
+@import "plugins/_include";
+
+/****
+ * Адаптивный дизайн
+ ****/
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    @import "_ipad";
+}
+
+@import "_ie";

@@ -1,0 +1,41 @@
+<?
+$orderData = $this->orderData;
+?>
+
+<h1>Оплата</h1>
+
+<div class="content-container order-container clearfix">
+
+    <div class="personal-block">
+        <div class="title">Личные данные плательщика</div>
+        <div class="name"><?= trim($orderData->PROPS['NAME'] . ' ' . $orderData->PROPS['LAST_NAME']) ?></div>
+        <div class="contacts">
+            <div class="phone"><?= $orderData->PROPS['PHONE'] ?></div>
+            <div class="email"><?= $orderData->PROPS['EMAIL'] ?></div>
+        </div>
+    </div>
+
+    <div class="order-block">
+        <div class="title">Заказ #<?= $orderData->ID ?></div>
+        <ol>
+            <? foreach ($orderData->PRODUCTS as $product) {?>
+                <li>
+                    <div class="line"><span class="name"><?= $product['NAME'] ?></span><span class="price"><?= EHelper::price($product['PRICE']) ?><i class="ruble"></i></span></div>
+                </li>
+            <? } ?>
+        </ol>
+    </div>
+
+    <div class="result-block">
+        <div class="price-line-big">
+            <span>Итого к оплате</span>
+            <span class="js-total">
+                <small>
+                    <?= count($orderData->PRODUCTS) . ' ' . EHelper::getWordForm(count($orderData->PRODUCTS), ["проект", "проекта", "проектов"]); ?>,
+                </small> <?= EHelper::price($orderData->PRICE); ?> <i class="ruble"></i>
+            </span>
+        </div>
+    </div>
+
+    <? $orderData->includePaySystem() ?>
+</div>

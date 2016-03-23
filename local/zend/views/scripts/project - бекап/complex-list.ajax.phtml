@@ -1,0 +1,16 @@
+<? if (count($this->itemList) > 0): ?>
+    <div class="complex-list">
+        <? foreach ($this->itemList as $item): ?>
+            <?= $this->partial("complex/partials/complex-item.phtml", ["item" => $item]) ?>
+        <? endforeach ?>
+    </div>
+
+    <?= $this->paginationControl(
+        $this->paginator,
+        'Sliding',
+        '_partials/paginator.phtml'
+    ); ?>
+
+<? else: ?>
+    <?= $this->partial("_partials/not-found-status/complex.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]) ?>
+<? endif ?>

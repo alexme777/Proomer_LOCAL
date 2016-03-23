@@ -1,0 +1,32 @@
+
+<div class="plan-list preloaderController">
+<?if(isset($this->planList->items) && count($this->planList->items) > 0){?>
+	<div class="content">
+		<h2 class="page-title">Выбор планировки</h2>
+	</div>
+	<div id="select_plan" class="project-select">
+		<div class="js-ajax-list-content">
+			<div class="list-plan">
+				<div class="row">
+				<?if(count($this->planList->items) > 0){?>
+						<?
+						$i=0; 
+						foreach ($this->planList->items as $item): ?>
+							<?
+								if($i < 5){$class="show";}else{$class="hide";};
+							?>
+							<?=$this->partial("project/partials/plan-item-a.phtml", ["item" => $item,"class"=>$class]) ?>
+						<?
+						$i+=1;
+						endforeach ?>	
+
+				<?};?>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<?}?>
+</div>
+
+

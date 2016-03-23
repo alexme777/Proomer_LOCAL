@@ -1,0 +1,338 @@
+<?
+	$projectData = $this->projectData;
+	$starting_price = $this->starting_price;
+	$layout = $this->layout;
+	$url = $this->url;
+	$item_save = $this->item_save;
+	$nextstep = $this->nextstep;
+	$nextstep_d = $this->nextstep_d;
+	$itemList = $this->itemList;
+	$image = '';
+
+	if($item_save){
+		if($item_save[0]->PROPERTY_IMAGES_VALUE){
+			$image = Resizer::resizeImage($item_save[0]->PROPERTY_IMAGES_VALUE, "SERVICE_PLAN");
+		}else{
+			$image = '/local/images/proomer2.png';
+			
+		}
+		$html .= '<li><div class="picture"><img src="'.$image.'"/></div></li>';
+	}
+?>
+
+<div id="service-page">
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта</h2>
+				<div id="service_menu">
+					<ul>
+						<li><a class="under-link" href="/project/step1/">Выбор планировки</a></li>
+						<li><a class="under-link" href="/project/step2/">Варианты планировок</a></li>
+						<li><a class="under-link" href="/project/step3/">Варианты дизайна</a></li>
+						<li class="selected"><a href="/project/step4/">Состав семьи</a></li>
+						<li><a class="under-link" href="/project/step5/">Настройка заказа</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content service-content">
+
+		<div class="content-container">
+			<h2 class="page-title">Создание семьи</h2>
+			<div class="left_bn">
+				<div class="help_bn">
+					При проектировании дизайна вашего интерьера, очень важно учитывать всех членов семьи,
+					которые будут проживать в квартире. Поэтому отнеситесь к этому блоку очень серьезно
+				</div>
+				<form enctype="application/x-www-form-urlencoded" class="js-family-form" action="/project/savestep4" method="post" novalidate="novalidate">
+					<div class="row">
+							<label class="type_family">Взрослые</label>
+							<div class="list-item-family">
+								<?
+								if(count($projectData -> PROPERTY_MAN_FAMILY_VALUE) > 0){
+									foreach($projectData -> PROPERTY_MAN_FAMILY_VALUE as $prop){
+										$data_prop = explode("&&", $prop);
+									?>
+									<div class="item-family">
+										<span class="icon_family"></span>
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+													<select class="js-age-1" name="age_man[]">
+														<option value="18-23" <?if($data_prop[0] == "18-23"){echo "selected";};?>>18-23</option>
+														<option value="23-28" <?if($data_prop[0] == "23-28"){echo "selected";};?>>23-28</option>
+														<option value="28-35" <?if($data_prop[0] == "28-35"){echo "selected";};?>>28-35</option>
+														<option value="35-50" <?if($data_prop[0] == "35-50"){echo "selected";};?>>35-50</option>
+														<option value="50-100" <?if($data_prop[0] == "50-100"){echo "selected";};?>>50-100</option>
+													</select>
+											</div>
+										</div>
+										<div class="select2_view_n3">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Где будет жить</label>
+													<select class="js-age-1" name="place_man[]">
+														<?
+															for($i = 1; $i <= $item_save[0]->PROPERTY_ROOM_VALUE; $i++){
+														?>
+															<option value="<?=$i?>" <?if($data_prop[1] == $i){echo "selected";};?>>Комната №<?=$i?></option>
+														<?
+															}
+														?>
+													</select>
+											</div>
+										</div>
+									</div>
+									<?}
+								}
+								else{
+								?>
+									<div class="item-family">
+										<span class="icon_family"></span>
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+													<select class="js-age-1" name="age_man[]">
+														<option value="18-23" selected>18-23</option>
+														<option value="23-28">23-28</option>
+														<option value="28-35">28-35</option>
+														<option value="35-50">35-50</option>
+														<option value="50-100">50-100</option>
+													</select>
+											</div>
+										</div>
+										<div class="select2_view_n3">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Где будет жить</label>
+													<select class="js-age-1" name="place_man[]">
+														<?
+															for($i = 1; $i <= $item_save[0]->PROPERTY_ROOM_VALUE; $i++){
+														?>
+															<option value="<?=$i?>">Комната №<?=$i?></option>
+														<?
+															}
+														?>
+													</select>
+											</div>
+										</div>
+									</div>
+								<?}?>
+							</div>
+							<div class="family-management btns">
+								<div class="js-add-family add btn">
+									<div class="item-family clone">
+										<span class="icon_family"></span>
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+												<select class="js-age-1" name="age_man[]">
+													<option value="18-23" selected>18-23</option>
+													<option value="23-28">23-28</option>
+													<option value="28-35">28-35</option>
+													<option value="35-50">35-50</option>
+													<option value="50-100">50-100</option>
+												</select>
+											</div>
+										</div>
+										<div class="select2_view_n3">
+										<div class="select2-container select-container-age-1" style="position:relative">
+											<label>Где будет жить</label>
+											<select class="js-age-1" name="place_man[]">
+											<?
+												for($i = 1; $i <= $item_save[0]->PROPERTY_ROOM_VALUE; $i++){
+											?>
+												<option value="<?=$i?>">Комната №<?=$i?></option>
+											<?
+												}
+											?>
+											</select>
+										</div>
+										</div>
+									</div>
+								</div>
+								<div class="js-remove-family remove btn"></div>
+							</div>
+					</div>
+					<hr class="line-service-page-family"/>
+					<div class="row">
+							<label class="type_family">Дети до 18</label>
+							<div class="list-item-family">
+							<?
+								if(count($projectData -> PROPERTY_CHILDREN_FAMILY_VALUE) > 0){								
+									foreach($projectData -> PROPERTY_CHILDREN_FAMILY_VALUE as $prop){
+										$data_prop = explode("&&", $prop);
+									?>
+										<div class="item-family">
+											<span class="icon_family"></span>
+											<div class="select2_view_n1">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<label>Возраст</label>
+														<select class="js-age-1" name="age_children[]">
+															<option value="0-3" <?if($data_prop[0] == "0-3"){echo "selected";};?>>0-3</option>
+															<option value="3-7" <?if($data_prop[0] == "3-7"){echo "selected";};?>>3-7</option>
+															<option value="7-12" <?if($data_prop[0] == "7-12"){echo "selected";};?>>7-12</option>
+															<option value="12-14" <?if($data_prop[0] == "12-14"){echo "selected";};?>>12-14</option>
+															<option value="14-17" <?if($data_prop[0] == "14-17"){echo "selected";};?>>14-17</option>
+														</select>
+												</div>
+											</div>
+											<div class="select2_view_n3">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<label>Где будет жить</label>
+														<select class="js-age-1" name="place_children[]">
+														<?
+															for($i = 1; $i <= $item_save[0]->PROPERTY_ROOM_VALUE; $i++){
+														?>
+															<option value="<?=$i?>" <?if($data_prop[1] == $i){echo "selected";};?>>Комната №<?=$i?></option>
+														<?
+															}
+														?>
+														</select>
+												</div>
+											</div>
+										</div>
+									<?};
+								}else{
+								?>
+									<div class="item-family">
+											<span class="icon_family"></span>
+											<div class="select2_view_n1">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<label>Возраст</label>
+														<select class="js-age-1" name="age_children[]">
+															<option value="0-3" selected>0-3</option>
+															<option value="3-7">3-7</option>
+															<option value="7-12">7-12</option>
+															<option value="12-14">12-14</option>
+															<option value="14-17">14-17</option>
+														</select>
+												</div>
+											</div>
+											<div class="select2_view_n3">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<label>Где будет жить</label>
+														<select class="js-age-1" name="place_children[]">
+														<?
+															for($i = 1; $i <= $item_save[0]->PROPERTY_ROOM_VALUE; $i++){
+														?>
+															<option value="<?=$i?>">Комната №<?=$i?></option>
+														<?
+															}
+														?>
+														</select>
+												</div>
+											</div>
+										</div>
+								<?}?>
+							</div>
+							<div class="family-management btns">
+								<div class="js-add-family add btn">
+									<div class="item-family clone">
+										<span class="icon_family"></span>
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+												<select class="js-age-1" name="age_children[]">
+													<option value="0-3" selected>0-3</option>
+													<option value="3-7">3-7</option>
+													<option value="7-12">7-12</option>
+													<option value="12-14">12-14</option>
+													<option value="14-17">14-17</option>
+												</select>
+											</div>
+										</div>																
+										<div class="select2_view_n3">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Где будет жить</label>
+												<select class="js-age-1" name="place_children[]">
+														<?
+															for($i = 1; $i <= $item_save->PROPERTY_ROOM_VALUE; $i++){
+														?>
+															<option value="<?=$i?>">Комната №<?=$i?></option>
+														<?
+															}
+														?>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="js-remove-family remove btn"></div>
+							</div>
+					</div>			
+					<hr class="line-service-page-family"/>
+					<div class="row">
+						<div class="select2_view_n2">
+							<label class="type_family">Домашние животные</label>
+							<div class="list-item-family">
+								<?
+									if(count($projectData -> PROPERTY_ANIMAL_FAMILY) > 0){					
+										foreach($projectData -> PROPERTY_ANIMAL_FAMILY as $prop){?>
+											<div class="item-family">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<select class="js-age-1" name="animal[]">
+														<option value="Кошка" <?if($prop == 'Кошка'){echo 'selected';};?>>Кошка</option>
+														<option value="Собака" <?if($prop == 'Собака'){echo 'selected';};?>>Собака</option>
+														<option value="Шиншила" <?if($prop == 'Шиншила'){echo 'selected';};?>>Шиншила</option>
+														<option value="Мышка" <?if($prop == 'Мышка'){echo 'selected';};?>>Мышка</option>
+														<option value="Хомячок" <?if($prop == 'Хомячок'){echo 'selected';};?>>Хомячок</option>
+													</select>
+												</div>
+											</div>
+									<?}
+									}else{
+									?>
+											<div class="item-family">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<select class="js-age-1" name="animal[]">
+														<option value="Кошка" selected>Кошка</option>
+														<option value="Собака">Собака</option>
+														<option value="Шиншила">Шиншила</option>
+														<option value="Мышка">Мышка</option>
+														<option value="Хомячок">Хомячок</option>
+													</select>
+												</div>
+											</div>
+									<?}?>
+							</div>
+							<div class="family-management btns">
+								<div class="js-add-family add btn">
+									<div class="item-family clone">
+										<div class="select2-container select-container-age-1" style="position:relative">
+											<select class="js-age-1" name="animal[]">
+												<option value="Кошка" selected>Кошка</option>
+												<option value="Собака">Собака</option>
+												<option value="Шиншила">Шиншила</option>
+												<option value="Мышка">Мышка</option>
+												<option value="Хомячок">Хомячок</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="js-remove-family remove btn"></div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div id="layout">
+					<img src="<?=$image?>"/>
+					<?
+						$i = 1;
+						foreach($item_save[0]->PROPERTY_COORDS_VALUE as $marker){
+							$coords = explode(",", $marker);
+					?>
+							<div class="mark" style="left:<?=$coords[0]?>px; top:<?=$coords[1]?>px;">Комната №<?=$i?></div>
+					<?
+							$i+=1;
+						};
+					?>
+				</div>
+			</div>
+				<div class="right_bn">
+				<?= $this->partial('project/partials/right_bn.phtml', array('starting_price' => $starting_price, 'projectData' => $projectData, 'url' => $url, 'nextstep' => $nextstep, 'nextstep_d' => $nextstep_d, 'item_save' => $item_save)) ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>

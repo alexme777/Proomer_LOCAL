@@ -1,0 +1,22 @@
+<div class="title-image-block">
+    <div class="title-image">
+        <div class="image" style="background-image: url('<?= P_PICTURES ?>complex-list/title-image.jpg');"></div>
+    </div>
+
+    <div class="content-container search-form-wrapper">
+        <h1>Жилищные комплексы</h1>
+        <?= $this->filter ?>
+    </div>
+</div>
+
+<div class="catalog-block">
+    <div class="content-container">
+        <div class="filter"<?= (empty($this->itemList))? ' style="visibility:hidden"' : '' ?>>
+            <?= EZendManager::sorting("complex") ?>
+            <?= EZendManager::elementCntList() ?>
+        </div>
+        <div class="js-ajax-list-content">
+            <?= $this->render('complex/complex-list.ajax.phtml') ?>
+        </div>
+    </div>
+</div>

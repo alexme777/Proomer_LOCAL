@@ -1,0 +1,31 @@
+<?
+    $designs = $this->itemList;
+?>
+
+
+<div class="content-container">
+    <?= EZendManager::profileSidebar() ?>
+
+    <div class="profile-content">
+        <h2>Мои дизайн-проекты</h2>
+        <a href="<?= $this->url([], 'profile-design-add')?>" class="add-project">Добавить новый проект</a>
+
+        <div class="filter-form js-profile-filter-form">
+            <div class="js-form-wrapper">
+            <?= $this->filter ?>
+            </div>
+            <a href="javascript:void(0);" class="js-switcher-filter switcher active under-link">Свернуть фильтр</a>
+        </div>
+
+        <div class="results">
+            <div class="filter"<?= (empty($designs))? ' style="visibility:hidden"' : '' ?>>
+                <?= EZendManager::sorting("design") ?>
+                <?= EZendManager::elementCntList(true) ?>
+            </div>
+
+            <div class="js-ajax-list-content">
+                <?= $this->render('profile/design.ajax.phtml') ?>
+            </div>
+        </div>
+    </div>
+</div>

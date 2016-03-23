@@ -1,0 +1,616 @@
+<?
+	$PLAN_SAVE = $this->PLAN_SAVE;
+	$PLAN_OPTION_SAVE = $this->PLAN_OPTION_SAVE;
+	$ARR_ROOM = $this->ARR_ROOM;
+	$ARR_PROJECT_ROOM = $this->ARR_PROJECT_ROOM;
+	$projectData = $this->projectData;//заказ
+	$starting_price = $this->starting_price;//цена
+	$step = $this->step;
+	$nextstep = $this->nextstep;
+	$nextstep_d = $this->nextstep_d;
+	$url = $this->url;
+	$cityModel    = new Sibirix_Model_City();
+	$item_save = $this->item_save;
+	$access = $this->access;
+	$auth = $this->auth;
+?>
+
+<script>
+		$(function() {
+		$(".knob").knob({
+			//other parameters-----
+			inputColor : '#34EB40'
+		});
+
+			// Example of infinite knob, iPod click wheel
+			var val,up=0,down=0,i=0
+				,$idir = $("div.idir")
+				,$ival = $("div.ival")
+				,incr = function() { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
+				,decr = function() { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
+			$("input.infinite").knob(
+								{
+								'min':0
+								,'max':20
+								,'stopper':false
+								,'change':function(v){
+											if(val>v){
+												if(up){
+													decr();
+													up=0;
+												}else{up=1;down=0;}
+											}else{
+												if(down){
+													incr();
+													down=0;
+												}else{down=1;up=0;}
+											}
+											val=v;
+										}
+								}
+								);
+
+
+		});
+</script>
+<input type="hidden" id="designId" name="designId" value="2475">
+<div id="service-page" data-step=<?=$step?>>
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта</h2>
+				<div id="service_menu">
+					<ul>
+						<li><a class="under-link" href="/project/step1/">Выбор планировки</a></li>
+						<li  class="selected"><a href="/project/step2/">Параметры дизайн-проекта</a></li>
+						<li><?if($projectData->PROPERTY_STEP_VALUE < 3){?><div class="overlap"></div><?};?><a class="under-link" href="/project/step3/">Оформление</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content-container">
+		<div class="left_bn">
+			<div class="content">
+				<h2 class="page-title">Параметры проекта</h2>
+				<p class="simple_text">Обратите внимание! Тут будет текстовое описание<br/>
+				Чем выше цену вы ставите, тем больше шанс, что проектом заинтересуются профессионалы</p>
+			</div>
+			<?
+			$i = 0;
+			foreach($ARR_ROOM as $room){
+				
+				if($i == 0){
+					$class = "open";
+				}
+				else{
+					$class = "closeroom";
+				}
+			?>
+			<div class="content"><div class="open-close-room js-close-open-room <?=$class?>" data-for="room_n_<?=$i?>"><span class="status"></span><span class="room_txt">Комната №<?=$i?>(<?=$room->PROPERTY_AREA_VALUE?>м&#178;)</span><span class="arrow"></span></div></div>
+			<div class="room_option <?=$class?>" id="room_n_<?=$i?>">
+				<form enctype="application/x-www-form-urlencoded" class="js-room-form room_form" action="/project/savestep2" method="post" novalidate="novalidate">
+					<div class="content">
+							
+							
+							<?if(isset($ARR_PROJECT_ROOM[$i] -> PROPERTY_TYPE_ROOM_VALUE) && !empty($ARR_PROJECT_ROOM[$i] -> PROPERTY_TYPE_ROOM_VALUE)){
+								$data_prop = $ARR_PROJECT_ROOM[$i] -> PROPERTY_TYPE_ROOM_VALUE;
+							?>
+									<input type="hidden" name="id_room" value="<?=$ARR_PROJECT_ROOM[$i]->ID?>"/>
+									<div class="type_room">
+										<div class="select2_view_n4">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Назначение комнаты</label>
+												<select class="js-type-3" name="type_room">
+													<option value="Спальня" <?if($data_prop == "Спальня"){echo "selected";};?>>Спальня</option>
+													<option value="Зал" <?if($data_prop == "Зал"){echo "selected";};?>>Зал</option>
+													<option value="Кухня" <?if($data_prop == "Кухня"){echo "selected";};?>>Кухня</option>
+													<option value="Прихожая" <?if($data_prop == "Прихожая"){echo "selected";};?>>Прихожая</option>
+													<option value="Зал-студия" <?if($data_prop == "Зал-студия"){echo "selected";};?>>Зал-студия</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								<?
+								}else{
+								?>
+									<div class="type_room">
+										<div class="select2_view_n4">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Назначение комнаты</label>
+												<select class="js-type-3" name="type_room">
+													<option value="Спальня" selected>Спальня</option>
+													<option value="Зал">Зал</option>
+													<option value="Кухня">Кухня</option>
+													<option value="Прихожая">Прихожая</option>
+													<option value="Зал-студия">Зал-студия</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								<?}?>
+							
+						
+						
+						
+						
+						
+						
+						
+						
+						
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<hr/>
+						<h2 class="sub-title">Выберите дизайн, который вам нравится</h2>
+					</div>
+					<input type="hidden" name="area" value="<?=$room->PROPERTY_AREA_VALUE?>"/>
+					<input type="hidden" name="price_square" value="<?=$room->PROPERTY_PRICE_SQUARE?>"/>
+					<div id="show-design">
+						<div class="list-design" style="height:240px;">
+							<div class="row js-select-design">
+								<div class="variant_designs active">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/1.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img  class="picture_design" src="/local/images/design/2.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/3.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/4.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img  class="picture_design" src="/local/images/design/5.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/6.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/7.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/8.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/9.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/10.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/11.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/12.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/13.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/14.jpg"/></div>
+									</div>
+								</div>
+								
+								<div class="variant_designs">
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/15.jpg"/></div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 design-offset">
+										<div class="design"><img class="picture_design" src="/local/images/design/16.jpg"/></div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<div class="progressBar" style="padding:40px;position:relative;">
+							<div class="overlap"></div>
+							<input data-bgColor="#dddddd" data-fgColor="#3fb1da" data-thickness="0.1" class="knob"data-width="72" data-min="0" data-max="8" data-angleOffset="0" data-displayPrevious=true value="0">
+							<p style="text-align:center;">из 8 вариантов</p>
+						</div>
+					</div>
+					<div class="content">
+						<hr/>
+						<h2 class="sub-title">Кто будет жить в этой комнате</h2>
+					</div>		
+					<div class="content">
+						<div class="row">
+						
+							<div class="list-item-family" id="list-people-family">
+								<?
+								if(count($ARR_PROJECT_ROOM[$i] -> PROPERTY_PEOPLE_VALUE) > 0){
+									foreach($ARR_PROJECT_ROOM[$i] -> PROPERTY_PEOPLE_VALUE as $data_prop){
+										$data_prop = explode("&&", $prop);
+									?>
+									<div class="item-family">
+										<!--<span class="icon_family"></span>-->
+
+										<div class="tag">
+											<input class="gender female" type="radio" name="gender[]" value="female" data-name=""/>
+											<label for="gender-1" value="female" data-title="1234"></label>
+											<input class="gender man" type="radio" name="gender[]" value="man" data-name=""/>
+											<label for="gender-2" value="man" data-title=""></label>
+										</div>
+													
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+													<select class="js-type-1" name="age_man[]">
+														<option value="18-23" <?if($data_prop == "18-23"){echo "selected";};?>>18-23</option>
+														<option value="23-28" <?if($data_prop == "23-28"){echo "selected";};?>>23-28</option>
+														<option value="28-35" <?if($data_prop == "28-35"){echo "selected";};?>>28-35</option>
+														<option value="35-50" <?if($data_prop == "35-50"){echo "selected";};?>>35-50</option>
+														<option value="50-100" <?if($data_prop == "50-100"){echo "selected";};?>>50-100</option>
+													</select>
+											</div>
+										</div>
+									</div>
+									<?}
+								}
+								else{
+								?>
+									<div class="item-family">
+										<div class="tag">
+											<input class="gender female" type="radio" name="gender[]" value="female" data-name=""/>
+											<label for="gender-1" value="female" data-title="1234"></label>
+											<input class="gender man" type="radio" name="gender[]" value="man" data-name=""/>
+											<label for="gender-2" value="man" data-title=""></label>
+										</div>
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+													<select class="js-type-1" name="age_man[]">
+														<option value="18-23" selected>18-23</option>
+														<option value="23-28">23-28</option>
+														<option value="28-35">28-35</option>
+														<option value="35-50">35-50</option>
+														<option value="50-100">50-100</option>
+													</select>
+											</div>
+										</div>
+									</div>
+								<?}?>
+							</div>
+							<div class="family-management btns">
+								<div class="js-add-family add btn">
+
+								</div>
+								<div class="js-remove-family remove btn"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="option_family">
+								<label class="type_family">Есть ли дети до 18 лет?</label>
+								<div class="list-item-family" id="list-people-children-family">
+								
+								<?
+									if(count($ARR_PROJECT_ROOM -> PROPERTY_PEOPLE_CHILDREN_VALUE) > 0){								
+										foreach($ARR_PROJECT_ROOM -> PROPERTY_PEOPLE_CHILDREN_VALUE as $data_prop){
+											$data_prop = explode("&&", $prop);
+										?>
+											<div class="item-family">
+												<div class="tag">
+													<input class="gender female" type="radio" name="gender[]" value="female" data-name=""/>
+													<label for="gender-1" value="female" data-title="1234"></label>
+													<input class="gender man" type="radio" name="gender[]" value="man" data-name=""/>
+													<label for="gender-2" value="man" data-title=""></label>
+												</div>
+												<div class="select2_view_n1">
+													<div class="select2-container select-container-age-1" style="position:relative">
+														<label>Возраст</label>
+															<select class="js-type-1" name="age_children[]">
+																<option value="0-3" <?if($data_prop == "0-3"){echo "selected";};?>>0-3</option>
+																<option value="3-7" <?if($data_prop == "3-7"){echo "selected";};?>>3-7</option>
+																<option value="7-12" <?if($data_prop == "7-12"){echo "selected";};?>>7-12</option>
+																<option value="12-14" <?if($data_prop == "12-14"){echo "selected";};?>>12-14</option>
+																<option value="14-17" <?if($data_prop == "14-17"){echo "selected";};?>>14-17</option>
+															</select>
+													</div>
+												</div>
+											</div>
+										<?};
+									}else{
+									?>
+										<div class="item-family">
+											<div class="tag">
+
+												<input class="gender female" type="radio" name="gender[]" value="female" data-name=""/>
+												<label for="gender-1" value="female" data-title="1234"></label>
+												<input class="gender man" type="radio" name="gender[]" value="man" data-name=""/>
+												<label for="gender-2" value="man" data-title=""></label>
+											</div>
+											<div class="select2_view_n1">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<label>Возраст</label>
+													<select class="js-type-1" name="age_children[]">
+														<option value="0-3" selected>0-3</option>
+														<option value="3-7">3-7</option>
+														<option value="7-12">7-12</option>
+														<option value="12-14">12-14</option>
+														<option value="14-17">14-17</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									<?}?>
+								</div>
+								<div class="family-management btns">
+									<div class="js-add-family-children add btn">
+									</div>
+									<div class="js-remove-family-children remove btn"></div>
+								</div>
+							</div>
+						</div>	
+						<hr/>
+						<h2 class="sub-title">Настройки заказа</h2>
+						<input type="hidden" id="layout" value="<?=$layout?>"/>
+						<?if($ARR_PROJECT_ROOM[$i]->PRICE_ROOM){?>
+						<div class="input-out">	
+							<div class="input-row">
+								<!--<label for="price_square" class="required">Стоимость проекта за 1м&#178;</label>
+								<input type="text" name="price_square" id="price_square" class="required view_n2" maxlength="100" value="500 &#8381;" placeholder="">-->
+								<!--<span class="js-error error-message"></span>
+								<div class="slider price_square"></div>
+								<p class="count left">
+									<span class="b">Мало</span><br/><span>(Наша комиссия 21%)</span>
+								</p>
+								<p class="count center">
+									<span class="b">Нормально</span><br/><span>(Наша комиссия 21%)</span>
+								</p>
+								<p class="count right">
+									<span class="b">Самое то!</span><br/><span>(Наша комиссия 21%)</span>
+								</p>-->
+								<div id="slider-result"></div>
+								
+								<div class="final">
+									<p><span class="big">Итого: <span id="result_price"><?=$ARR_PROJECT_ROOM[$i]->PRICE_ROOM;?></span> &#8381;</span>
+									<span class="brackets">&nbsp;}&nbsp;</span>
+									<span class="formula">(300 &#8381; * 76 м&#178;) +  850 &#8381;(21% комиссия за пользование системы)</span></p>
+								</div>
+								
+							</div>
+						</div>
+						<?}?>
+						<div class="input-out">	
+							<div class="input-row">
+								<label for="comments" class="required">Ваши пожелания к будущему дизайну</label>
+								<textarea name="comments" id="comments" value="" class="required" maxlength="1024" rows="10" placeholder=""><?if(isset($ARR_PROJECT_ROOM[$i] -> PROPERTY_SUGGEST_VALUE['TEXT']) && !empty($ARR_PROJECT_ROOM[$i] -> PROPERTY_SUGGEST_VALUE['TEXT'])){echo $ARR_PROJECT_ROOM[$i] -> PROPERTY_SUGGEST_VALUE['TEXT'];}?>	
+								</textarea>
+								<span class="js-error error-message"></span>
+							</div>
+							<div class="help_bn">
+								Обратите внимание!</br>
+								Тут необходимо расписать как необходимо заполнять пожелания к дизайну
+							</div>
+						</div>
+						<!--<div class="input-out">
+							<div class="input-row">
+								<label for="comments" class="required">Прикрепите файл</label>
+								<div class="upload-area js-docs-dropzone inline  dropzoneArea dz-clickable preloaderController"><div class="js-dz-text text">Перетащите файлы в эту область для их загрузки или нажмите <a href="javascript:void(0);" class="upload-link">загрузить</a></div></div>
+								<p class="i file_res">Для загрузки допускаются файлы до 2Мб, форматов: jpg, png, bmp</p>
+							</div>
+						</div>-->
+						<div class="input-out">	
+							<div class="input-row">
+								<label for="slider_time" class="required">Срок исполнения проекта</label>
+								<input type="text" name="slider_time" id="slider_time<?=$i?>" class="required view_n2" maxlength="100" value="<?if(isset($ARR_PROJECT_ROOM[$i] -> PROPERTY_TIME_VALUE) 
+																																				&& !empty($ARR_PROJECT_ROOM[$i] -> PROPERTY_TIME_VALUE)){
+																																					echo $ARR_PROJECT_ROOM[$i] -> PROPERTY_TIME_VALUE;}
+																																				else{
+																																					echo "30 дней";
+																																				}?>" placeholder="">
+								<span class="js-error error-message"></span>
+								<div class="slider slider_time<?=$i?>"></div>
+								<p class="count left">
+									<span class="b">Мало</span>
+								</p>
+								<p class="count center">
+									<span class="b">Нормально</span>
+								</p>
+								<p class="count right">
+									<span class="b">Самое то!</span>
+								</p>
+								<div id="slider-result"></div>  
+							</div>
+						</div>
+						<input type="hidden" name="protect" value="proomer-i-am-not-bot" class="js-protect" id="protect">
+						<!--<div class="step active" id="deneg_day">
+							<a id="nextstep" class="js-submit btn">Перейти к оплате</a>
+						</div>-->	
+					</div>					
+				</form>
+				<div id="people_family">
+					<div class="item-family clone">
+						<div class="tag">
+							<input class="gender female" type="radio" name="gender[]" id="gender-1" value="female" data-name=""/>
+							<label for="gender-1" value="female" data-title="1234"></label>
+							<input class="gender man" type="radio" name="gender[]" id="gender-2" value="man" data-name=""/>
+							<label for="gender-2" value="man" data-title=""></label>
+						</div>
+						<div class="select2_view_n1">
+							<div class="select2-container select-container-age-1" style="position:relative">
+								<label>Возраст</label>
+								<select class="js-type-1" name="age_man[]">
+									<option value="18-23" selected>18-23</option>
+									<option value="23-28">23-28</option>
+									<option value="28-35">28-35</option>
+									<option value="35-50">35-50</option>
+									<option value="50-100">50-100</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="people_family_children">
+					<div class="item-family clone">
+						<div class="tag">
+							<input class="gender female" type="radio" name="gender[]" id="gender-1" value="female" data-name=""/>
+							<label for="gender-1" value="female" data-title="1234"></label>
+							<input class="gender man" type="radio" name="gender[]" id="gender-2" value="man" data-name=""/>
+							<label for="gender-2" value="man" data-title=""></label>
+						</div>
+						<div class="select2_view_n1">
+							<div class="select2-container select-container-age-1" style="position:relative">
+								<label>Возраст</label>
+								<select class="js-type-1" name="age_children[]">
+									<option value="0-3" selected>0-3</option>
+									<option value="3-7">3-7</option>
+									<option value="7-12">7-12</option>
+									<option value="12-14">12-14</option>
+									<option value="14-17">14-17</option>
+								</select>
+							</div>
+						</div>																
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+	$( ".price_square" ).slider({
+		animate: true,
+		range: "min",
+		value: 50,
+		min: 100,
+		max: 1000,
+		step: 10,
+		//Получаем значение и выводим его на странице
+		slide: function( event, ui ) {
+			
+		var val = $(' <span class="rur"> &#8381;<span>')
+			$("#price_square").attr("value",ui.value + val.text());
+			var price_cube = ui.value * $("#layout").val();
+			var percent = price_cube/100 * 20;
+			var price = price_cube + percent;
+			$("#result_price").html(price);
+			$(".right_bn .prop .price .summ").html(price);
+		},
+		//Обновляем скрытое поле формы, так что можно передать данные с помощью формы
+		/*change: function(event, ui) { 
+			$('#hidden').attr('value', ui.value);
+		}*/
+	});
+	$(".slider_time<?=$i?>").slider({
+		animate: true,
+		range: "min",
+		value: 50,
+		min: 7,
+		max: 365,
+		step: 1,
+		//Получаем значение и выводим его на странице
+		slide: function( event, ui ) {
+			var val = ' дней';
+			$("#slider_time<?=$i?>").attr("value",ui.value + val);
+		},
+		//Обновляем скрытое поле формы, так что можно передать данные с помощью формы
+		/*change: function(event, ui) { 
+			$('#hidden').attr('value', ui.value);
+		}*/
+	});
+
+
+</script>
+			
+			
+			
+			
+			<?
+			$i+=1;
+			}?>
+		</div>
+		<div class="right_bn">
+			<?= $this->partial('project/partials/right_bn.phtml', array('access' => $access, 'auth' => $auth, 'starting_price' => $starting_price, 'projectData' => $projectData, 'url' => $url, 'nextstep' => $nextstep, 'nextstep_d' => $nextstep_d, 'PLAN_SAVE' => $PLAN_SAVE, 'PLAN_OPTION_SAVE' => $PLAN_OPTION_SAVE)) ?>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<script>
+	//Времмено находится тут
+	(function(){
+		var a = document.querySelector('.right_bn'), b = null, P = 10;
+		window.addEventListener('scroll', Ascroll, false);
+		document.body.addEventListener('scroll', Ascroll, false);
+		function Ascroll() {
+		  if (b == null) {
+			var Sa = getComputedStyle(a, ''), s = '';
+			for (var i = 0; i < Sa.length; i++) {
+			  if (Sa[i].indexOf('overflow') == 0 || Sa[i].indexOf('padding') == 0 || Sa[i].indexOf('border') == 0 || Sa[i].indexOf('outline') == 0 || Sa[i].indexOf('box-shadow') == 0 || Sa[i].indexOf('background') == 0) {
+				s += Sa[i] + ': ' +Sa.getPropertyValue(Sa[i]) + '; '
+			  }
+			}
+			b = document.createElement('div');
+			b.style.cssText = s + ' box-sizing: border-box; width: ' + a.offsetWidth + 'px;';
+			a.insertBefore(b, a.firstChild);
+			var l = a.childNodes.length;
+			for (var i = 1; i < l; i++) {
+			  b.appendChild(a.childNodes[1]);
+			}
+			a.style.height = b.getBoundingClientRect().height + 'px';
+			a.style.padding = '0';
+			a.style.border = '0';
+		  }
+		  var Ra = a.getBoundingClientRect(),
+			  R = Math.round(Ra.top + b.getBoundingClientRect().height - document.querySelector('footer').getBoundingClientRect().top);  // селектор блока, при достижении нижнего края которого нужно открепить прилипающий элемент
+		  if ((Ra.top - P) <= 0) {
+			if ((Ra.top - P) <= R) {
+			  b.className = 'stop';
+			  b.style.top = - R +'px';
+			} else {
+			  b.className = 'sticky';
+			  b.style.top = P + 'px';
+			}
+		  } else {
+			b.className = '';
+			b.style.top = '';
+		  }
+		  window.addEventListener('resize', function() {
+			a.children[0].style.width = getComputedStyle(a, '').width
+		  }, false);
+		}
+})()	
+</script>

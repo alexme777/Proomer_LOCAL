@@ -1,0 +1,73 @@
+@import "fancybox.css";
+
+.admin-slide-image{
+    cursor: crosshair;
+}
+
+.point {
+    position: absolute;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font: 700 14px/28px 'Fira Sans',sans-serif;
+    color: #fff;
+    background-color: #e53c3c;
+    text-align: center;
+    overflow: hidden;
+}
+
+.point:after {
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 14px;
+    height: 14px;
+    background: url(/local/images/sprite.png) -530px -140px no-repeat
+}
+
+
+.adm-submenu-item-name {
+    margin-bottom:0;
+}
+
+.adm-submenu-item-name,
+.adm-submenu-item-name-link,
+.adm-submenu-item-name:hover .adm-submenu-item-name-link,
+.adm-submenu-current-fav .adm-submenu-item-name-link,
+.adm-submenu-item-active > .adm-submenu-item-name > .adm-submenu-item-name-link,
+.adm-submenu-item-active > .adm-submenu-item-name {
+    height:auto !important;
+}
+
+.adm-header-right,
+.adm-submenu-item-name:hover,
+.adm-submenu-current-fav,
+.adm-favorites-sub-menu-wrap,
+.adm-favorites-sub-menu-wrap .adm-submenu-item-name {
+    height:auto !important;
+}
+
+.adm-submenu-item-name-link-text {
+    padding-top:3px;
+    padding-bottom:2px;
+}
+
+.adm-submenu-item-arrow {
+    top:-5px;
+}
+
+.adm-submenu-item-link-icon {
+    margin-top:-1px;
+}
+
+.adm-submenu-item-name-link .adm-submenu-item-link-icon {
+    margin-top: -2px;
+}
+
+.adm-header-left {
+    padding-top: 5px;
+}

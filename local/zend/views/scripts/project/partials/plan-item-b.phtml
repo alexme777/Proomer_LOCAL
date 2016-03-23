@@ -1,0 +1,26 @@
+<?
+/**
+ * @var $item Sibirix_Model_Complex_Row
+ */
+$item = $this->item;
+$class = $this->class;
+?>
+<div class="col-xs-3 col-sm-3 col-md-3 plan-item plan-offset <?=$class?>">
+	<div class="plan_outer">
+		<div data-id-plan="<?=$item->ID?>" data-type="apartment" class="plan js-select-item-plan">
+			<div class="picture">
+				<img src="<?=$item->PLAN_IMAGE?>"/>
+			</div>
+			<div class="info">
+				<?if(isset($item->PROPERTY_ROOM_VALUE) && !empty($item->PROPERTY_ROOM_VALUE)){
+				?>
+				<p>Комнат: <span class="val"><?=$item->PROPERTY_ROOM_VALUE?></span></p>
+				<?}?>
+				<?if(isset($item->PROPERTY_AREA_VALUE) && !empty($item->PROPERTY_AREA_VALUE)){
+				?>
+				<p>Площадь: <span class="val"><?=$item->PROPERTY_AREA_VALUE?> м&#178;</span></p>
+				<?}?>
+			</div>
+		</div>
+	</div>
+</div>

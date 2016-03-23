@@ -1,0 +1,37 @@
+<?if(count($this->itemList) > 0){?>
+<div class="list-plan">
+	<div class="row">
+		<?
+		$i=0; 
+		foreach ($this->itemList as $item): ?>
+			<?
+				if($i < 5){$class="show";}else{$class="hide";};
+			?>
+			<?= $this->partial("service/partials/plan-item-b.phtml", ["item" => $item,"class"=>$class]) ?>
+		<?
+		$i+=1;
+		endforeach ?>
+		<div class="col-xs-3 col-sm-3 col-md-3 plan-offset">
+			<div class="plan alien note taupe">
+				<a class="js-fancybox fancyboxLink" href="#planirovka">
+					<span class="ask">Не нашли нужную
+					планировку?</span>
+					<span class="mess">Загрузите свою планировку
+					или вызовите замерщика
+					бесплатно</span>
+				</a>
+				<div class="line_1"></div>
+				<div class="line_2"></div>
+			</div>
+		</div>		
+	</div>
+</div>
+<?/*= $this->paginationControl(
+$this->paginator,
+'Sliding',
+'_partials/paginator.phtml'
+); */
+}
+else{
+	echo $this->partial("_partials/not-found-status/complex.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]);
+};

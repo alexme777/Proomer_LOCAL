@@ -1,0 +1,66 @@
+<?
+    $designer = $this->designer;
+    $designs = $this->designs;
+?>
+
+<div class="content-container">
+    <div class="sidebar">
+        <? if (!empty($designer->PERSONAL_PHOTO)) {
+            $image = Resizer::resizeImage($designer->PERSONAL_PHOTO, 'PROFILE_AVATAR');
+        } else {
+            $image = Resizer::resizeImage(Settings::getOptionFile('defaultAvatar'), 'PROFILE_AVATAR');
+        } ?>
+
+        <div class="avatar" style="background-image: url('<?= $image ?>')">
+        </div>
+        <div class="top-part">
+            <div class="name"><?= $designer->getFullName(); ?></div>
+            <div class="type"><?= $designer->getTextType()['fullName'] ?></div>
+<!--            <div class="rating">4,8</div> TODO: рейтинг -->
+        </div>
+        <div class="bottom-part">
+            <div class="contacts">
+                <? if (!empty($designer->EMAIL)) { ?>
+                    <a href="mailto:<?= $designer->EMAIL ?>" class="email"><?= $designer->EMAIL ?></a>
+                <? } ?>
+                <? if (!empty($designer->PERSONAL_PHONE)) { ?>
+                    <div class="phone"><?= $designer->PERSONAL_PHONE ?></div>
+                <? } ?>
+                <? if (!empty($designer->WORK_WWW)) { ?>
+                    <? $www = (substr($designer->WORK_WWW, 0, 7) != 'http://' && substr($designer->WORK_WWW, 0, 8) != 'https://')?
+                        'http://' . $designer->WORK_WWW : $designer->WORK_WWW ?>
+                    <a class="site" href="<?= $www ?>" target="_blank"><?= $designer->WORK_WWW ?></a>
+                <? } ?>
+            </div>
+            <? if (!empty($designer->UF_STYLES)) { ?>
+                <div class="tags">
+                    <div class="label">Стили работ:</div>
+                    <? foreach ($designer->UF_STYLES as $style) { ?>
+                        <span class="tag category"><?= $style ?></span>
+                    <? } ?>
+                </div>
+            <? } ?>
+            <? if (!empty($designer->WORK_PROFILE)) { ?>
+                <div class="about">
+                    <div class="label">О себе:</div>
+                    <div class="text"><?= $designer->WORK_PROFILE ?></div>
+                </div>
+            <? } ?>
+            <? $time = $designer->onSiteTime(); ?>
+            <? if (!empty($time)) { ?>
+            <div class="on-site-time">
+                <div class="label">На сайте:</div>
+                <div class="inline-text"><?= $time ?></div>
+            </div>
+            <? } ?>
+        </div>
+    </div>
+
+    <div class="profile-content">
+
+        <div class="js-ajax-list-content">
+            <?= $this->render('designer/detail.ajax.phtml') ?>
+        </div>
+
+    </div>
+</div>

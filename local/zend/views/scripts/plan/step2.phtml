@@ -1,0 +1,331 @@
+<?
+	$itemList = $this->itemList;
+	$PLAN_SAVE = $this->PLAN_SAVE;
+	$PLAN_OPTION_SAVE = $this->PLAN_OPTION_SAVE;
+	$projectData = $this->projectData;
+	$starting_price = $this->starting_price;
+	$step = $this->step;
+	$nextstep = $this->nextstep;
+	$url = $this->url;
+	$nextstep_d = $this->nextstep_d;
+	$uploadItemList = $this->uploadItemList;
+	$step = $this->step;
+	$cityModel    = new Sibirix_Model_City();
+	$nextstepfile = true;
+	$PLAN_ARR = $this->PLAN_ARR;
+	$auth = $this->auth;
+	$access = $this->access;
+?>
+<div id="service-page">
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта готовой планировки</h2>
+				<div id="service_menu">
+					<ul>
+						<li><a  class="under-link" href="/plan/step1/">Выбор планировки</a></li>
+						<li class="selected"><a class="under-link" href="/plan/step2/">Состав семьи</a></li>
+						<li><?if($projectData->PROPERTY_STEP_VALUE < 3){?><div class="overlap"></div><?};?><a class="under-link" href="/plan/step3/">Настройки заказа</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content service-content">
+
+		<div class="content-container">
+			<div class="left_bn">
+				<div class="content"><h2 class="page-title">Состав семьи</h2>
+				<div class="help_bn">
+					При проектировании дизайна вашего интерьера, очень важно учитывать всех членов семьи,
+					которые будут проживать в квартире. Поэтому отнеситесь к этому блоку очень серьезно
+				</div>
+				<form enctype="application/x-www-form-urlencoded" class="js-family-form family_composition" action="/project/savestep4" method="post" novalidate="novalidate">
+					<div class="row">
+							<label class="type_family">Взрослые</label>
+							<div class="list-item-family" id="list-people-family">
+								<?
+								if(count($projectData -> PROPERTY_PEOPLE_VALUE) > 0){
+									foreach($projectData -> PROPERTY_PEOPLE_VALUE as $prop){
+						
+									?>
+									<div class="item-family">
+										<div class="tag">
+											<input class="gender female" type="radio" name="gender[]" id="gender-1" value="female" data-name=""/>
+											<label for="gender-1" value="female" data-title="1234"></label>
+											<input class="gender man" type="radio" name="gender[]" id="gender-2" value="man" data-name=""/>
+											<label for="gender-2" value="man" data-title=""></label>
+										</div>
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+													<select class="js-type-1" name="age_man[]">
+														<option value="18-23" <?if($data_prop == "18-23"){echo "selected";};?>>18-23</option>
+														<option value="23-28" <?if($data_prop == "23-28"){echo "selected";};?>>23-28</option>
+														<option value="28-35" <?if($data_prop == "28-35"){echo "selected";};?>>28-35</option>
+														<option value="35-50" <?if($data_prop == "35-50"){echo "selected";};?>>35-50</option>
+														<option value="50-100" <?if($data_prop == "50-100"){echo "selected";};?>>50-100</option>
+													</select>
+											</div>
+										</div>
+									</div>
+									<?}
+								}
+								else{
+								?>
+									<div class="item-family">
+										<div class="tag">
+											<input class="gender female" type="radio" name="gender[]" id="gender-1" value="female" data-name=""/>
+											<label for="gender-1" value="female" data-title="1234"></label>
+											<input class="gender man" type="radio" name="gender[]" id="gender-2" value="man" data-name=""/>
+											<label for="gender-2" value="man" data-title=""></label>
+										</div>
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+													<select class="js-type-1" name="age_man[]">
+														<option value="18-23" selected>18-23</option>
+														<option value="23-28">23-28</option>
+														<option value="28-35">28-35</option>
+														<option value="35-50">35-50</option>
+														<option value="50-100">50-100</option>
+													</select>
+											</div>
+										</div>
+									</div>
+								<?}?>
+							</div>
+							<div class="family-management btns">
+								<div class="js-add-family add btn">
+
+								</div>
+								<div class="js-remove-family remove btn"></div>
+							</div>
+					</div>
+					<hr class="line-plan-page-family"/>
+					<div class="row">
+							<label class="type_family">Дети до 18</label>
+							<div class="list-item-family" id="list-people-children-family">
+
+							<?
+								if(count($projectData -> PROPERTY_PEOPLE_CHILDREN_VALUE) > 0){								
+									foreach($projectData -> PROPERTY_PEOPLE_CHILDREN_VALUE as $prop){
+									?>
+										<div class="item-family">
+											<div class="tag">
+												<input class="gender female" type="radio" name="gender[]" id="gender-1" value="female" data-name=""/>
+												<label for="gender-1" value="female" data-title="1234"></label>
+												<input class="gender man" type="radio" name="gender[]" id="gender-2" value="man" data-name=""/>
+												<label for="gender-2" value="man" data-title=""></label>
+											</div>
+											<div class="select2_view_n1">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<label>Возраст</label>
+														<select class="js-type-1" name="age_children[]">
+															<option value="0-3" <?if($data_prop == "0-3"){echo "selected";};?>>0-3</option>
+															<option value="3-7" <?if($data_prop == "3-7"){echo "selected";};?>>3-7</option>
+															<option value="7-12" <?if($data_prop == "7-12"){echo "selected";};?>>7-12</option>
+															<option value="12-14" <?if($data_prop == "12-14"){echo "selected";};?>>12-14</option>
+															<option value="14-17" <?if($data_prop == "14-17"){echo "selected";};?>>14-17</option>
+														</select>
+												</div>
+											</div>
+										</div>
+									<?};
+								}else{
+								?>
+									<div class="item-family">
+										<div class="tag">
+											<input class="gender female" type="radio" name="gender[]" id="gender-1" value="female" data-name=""/>
+											<label for="gender-1" value="female" data-title="1234"></label>
+											<input class="gender man" type="radio" name="gender[]" id="gender-2" value="man" data-name=""/>
+											<label for="gender-2" value="man" data-title=""></label>
+										</div>
+										<div class="select2_view_n1">
+											<div class="select2-container select-container-age-1" style="position:relative">
+												<label>Возраст</label>
+													<select class="js-type-1" name="age_children[]">
+														<option value="0-3" selected>0-3</option>
+														<option value="3-7">3-7</option>
+														<option value="7-12">7-12</option>
+														<option value="12-14">12-14</option>
+														<option value="14-17">14-17</option>
+													</select>
+											</div>
+										</div>
+									</div>
+								<?}?>
+							</div>
+							<div class="family-management btns">
+								<div class="js-add-family-children add btn">
+								</div>
+								<div class="js-remove-family-children remove btn"></div>
+							</div>
+					</div>			
+					<hr class="line-plan-page-family"/>
+					<div class="row">
+						<div class="select2_view_n2">
+							<label class="type_family">Домашние животные</label>
+							<div class="list-item-family" id="list-people-animal-family">
+								<?
+									if(count($projectData -> PROPERTY_ANIMAL_VALUE) > 0){					
+										foreach($projectData -> PROPERTY_ANIMAL_VALUE as $prop){?>
+											<div class="item-family">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<select class="js-type-1" name="animal[]">
+														<option value="Кошка" <?if($prop == 'Кошка'){echo 'selected';};?>>Кошка</option>
+														<option value="Собака" <?if($prop == 'Собака'){echo 'selected';};?>>Собака</option>
+														<option value="Шиншила" <?if($prop == 'Шиншила'){echo 'selected';};?>>Шиншила</option>
+														<option value="Мышка" <?if($prop == 'Мышка'){echo 'selected';};?>>Мышка</option>
+														<option value="Хомячок" <?if($prop == 'Хомячок'){echo 'selected';};?>>Хомячок</option>
+													</select>
+												</div>
+											</div>
+									<?}
+									}else{
+									?>
+											<div class="item-family">
+												<div class="select2-container select-container-age-1" style="position:relative">
+													<select class="js-type-1" name="animal[]">
+														<option value="Кошка" selected>Кошка</option>
+														<option value="Собака">Собака</option>
+														<option value="Шиншила">Шиншила</option>
+														<option value="Мышка">Мышка</option>
+														<option value="Хомячок">Хомячок</option>
+													</select>
+												</div>
+											</div>
+									<?}?>
+							</div>
+							<div class="family-management btns">
+								<div class="js-add-family-animal add btn">
+								</div>
+								<div class="js-remove-family-animal remove btn"></div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div id="people_family">
+					<div class="item-family clone">
+						<div class="tag">
+							<input class="gender female" type="radio" name="gender[]" id="gender-1" value="female" data-name=""/>
+							<label for="gender-1" value="female" data-title="1234"></label>
+							<input class="gender man" type="radio" name="gender[]" id="gender-2" value="man" data-name=""/>
+							<label for="gender-2" value="man" data-title=""></label>
+						</div>
+						<div class="select2_view_n1">
+							<div class="select2-container select-container-age-1" style="position:relative">
+								<label>Возраст</label>
+								<select class="js-type-1" name="age_man[]">
+									<option value="18-23" selected>18-23</option>
+									<option value="23-28">23-28</option>
+									<option value="28-35">28-35</option>
+									<option value="35-50">35-50</option>
+									<option value="50-100">50-100</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="people_family_children">
+					<div class="item-family clone">
+						<div class="tag">
+							<input class="gender female" type="radio" name="gender[]" id="gender-1" value="female" data-name=""/>
+							<label for="gender-1" value="female" data-title="1234"></label>
+							<input class="gender man" type="radio" name="gender[]" id="gender-2" value="man" data-name=""/>
+							<label for="gender-2" value="man" data-title=""></label>
+						</div>
+						<div class="select2_view_n1">
+							<div class="select2-container select-container-age-1" style="position:relative">
+								<label>Возраст</label>
+								<select class="js-type-1" name="age_children[]">
+									<option value="0-3" selected>0-3</option>
+									<option value="3-7">3-7</option>
+									<option value="7-12">7-12</option>
+									<option value="12-14">12-14</option>
+									<option value="14-17">14-17</option>
+								</select>
+							</div>
+						</div>																
+					</div>
+				</div>
+				<div id="people_family_animal">
+				<div class="item-family clone">
+					<div class="select2-container select-container-age-1" style="position:relative">
+						<select class="js-type-1" name="animal[]">
+							<option value="Кошка" selected>Кошка</option>
+							<option value="Собака">Собака</option>
+							<option value="Шиншила">Шиншила</option>
+							<option value="Мышка">Мышка</option>
+							<option value="Хомячок">Хомячок</option>
+						</select>
+					</div>
+				</div>
+				</div>
+				</div>
+				<div id="layout">
+					<img src="<?=$image?>"/>
+					<?
+						$i = 1;
+						foreach($item_save[0]->PROPERTY_COORDS_VALUE as $marker){
+							$coords = explode(",", $marker);
+					?>
+							<div class="mark" style="left:<?=$coords[0]?>px; top:<?=$coords[1]?>px;">Комната №<?=$i?></div>
+					<?
+							$i+=1;
+						};
+					?>
+				</div>
+			</div>
+			<div class="right_bn">
+				<?= $this->partial('plan/partials/right_bn.phtml', array('access' => $access, 'auth' => $auth, 'starting_price' => $starting_price, 'projectData' => $projectData, 'url' => $url, 'nextstep' => $nextstep, 'nextstep_d' => $nextstep_d, 'nextstepfile' => $nextstepfile, 'PLAN_SAVE' => $PLAN_SAVE, 'PLAN_OPTION_SAVE' => $PLAN_OPTION_SAVE)) ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<script>
+	//Времмено находится тут
+	/*(function(){
+		var a = document.querySelector('.right_bn'), b = null, P = 10;
+		window.addEventListener('scroll', Ascroll, false);
+		document.body.addEventListener('scroll', Ascroll, false);
+		function Ascroll() {
+		  if (b == null) {
+			var Sa = getComputedStyle(a, ''), s = '';
+			for (var i = 0; i < Sa.length; i++) {
+			  if (Sa[i].indexOf('overflow') == 0 || Sa[i].indexOf('padding') == 0 || Sa[i].indexOf('border') == 0 || Sa[i].indexOf('outline') == 0 || Sa[i].indexOf('box-shadow') == 0 || Sa[i].indexOf('background') == 0) {
+				s += Sa[i] + ': ' +Sa.getPropertyValue(Sa[i]) + '; '
+			  }
+			}
+			b = document.createElement('div');
+			b.style.cssText = s + ' box-sizing: border-box; width: ' + a.offsetWidth + 'px;';
+			a.insertBefore(b, a.firstChild);
+			var l = a.childNodes.length;
+			for (var i = 1; i < l; i++) {
+			  b.appendChild(a.childNodes[1]);
+			}
+			a.style.height = b.getBoundingClientRect().height + 'px';
+			a.style.padding = '0';
+			a.style.border = '0';
+		  }
+		  var Ra = a.getBoundingClientRect(),
+			  R = Math.round(Ra.top + b.getBoundingClientRect().height - document.querySelector('footer').getBoundingClientRect().top);  // селектор блока, при достижении нижнего края которого нужно открепить прилипающий элемент
+		  if ((Ra.top - P) <= 0) {
+			if ((Ra.top - P) <= R) {
+			  b.className = 'stop';
+			  b.style.top = - R +'px';
+			} else {
+			  b.className = 'sticky';
+			  b.style.top = P + 'px';
+			}
+		  } else {
+			b.className = '';
+			b.style.top = '';
+		  }
+		  window.addEventListener('resize', function() {
+			a.children[0].style.width = getComputedStyle(a, '').width
+		  }, false);
+		}
+})()	*/
+</script>

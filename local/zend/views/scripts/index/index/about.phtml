@@ -1,0 +1,35 @@
+<?
+    $promo = $this->promo
+?>
+
+<div class="about-block">
+    <div class="content-container">
+        <!--<div class="logo"><?// EHelper::includeArea("index/promo-image") ?></div>-->
+		<h1 class="title">Что такое Proomer?</h1>
+        <div class="description"><? EHelper::includeArea("index/promo-text") ?></div>
+        <? if (!empty($promo)) { ?>
+			<div class="feature-out">
+				<div class="feature-list row">
+					<? foreach ($promo as $ind => $item) { ?>
+						<div class="out-feature-item col-xs-3 col-sm-3 col-md-3">
+							<div class="feature-item">
+								<div class="image-wrapper">
+									<? $image = Resizer::resizeImage($item->PREVIEW_PICTURE, 'PROMO_PHOTO'); ?>
+									<div class="image" style="background-image:url('<?= $image ?>');"></div>
+								</div>
+								<div class="title"><?= $item->NAME ?></div>
+								<div class="description"><?= $item->PREVIEW_TEXT ?></div>
+								<? if (!empty($item->PROPERTY_LINK_VALUE)) { ?>
+									<a href="<?= $item->PROPERTY_LINK_VALUE ?>" class="play"></a>
+									<div class="btn-wrapper">
+										<a href="<?= $item->PROPERTY_LINK_VALUE ?>" class="feature-link waves-effect">Подобрать</a>
+									</div>
+								<? } ?>
+							</div>
+						</div>
+					<? } ?>
+				</div>
+			</div>
+        <? } ?>
+    </div>
+</div>

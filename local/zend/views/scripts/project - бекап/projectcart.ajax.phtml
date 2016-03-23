@@ -1,0 +1,130 @@
+<?
+$item_ajax = $this->item_ajax;
+$item_save = $this->item_save;
+
+if($item_ajax){
+	$items = $item_ajax;
+}
+else if($item_save){
+	$items = $item_save;
+}
+$nextstep = $this->nextstep;
+$url = $this->url;
+$projectData = $this->projectData;
+$nextstep_d = $this->nextstep_d;
+$nextstepfile = $this->nextstepfile;
+$starting_price = $this->starting_price;
+
+//если выбрали планировку, то показываем карточку
+$html = '';
+$image = '';
+if($items){
+foreach($items as $item){
+	if(!empty($item->PREVIEW_PICTURE)){
+		$image = Resizer::resizeImage($item->PREVIEW_PICTURE, "COMPLEX_LIST");
+	}else{
+		$image = '/local/images/proomer2.png';
+	}
+	$html .= '<li><div class="picture"><img src="'.$image.'"/></div></li>';
+}
+
+?>
+	<div class="project project-select">
+		<div class="border-style1"></div>
+		<input type="hidden" id="select_step_1" class="select_val" value="<?if(!empty($projectData -> PROPERTY_ID_PLAN_VALUE)){echo $projectData -> PROPERTY_ID_PLAN_VALUE;};?>"/>
+		<input type="hidden" id="select_step_2" class="select_val" value="<?if(!empty($projectData -> PROPERTY_ID_OPTION_PLAN_VALUE)){echo $projectData -> PROPERTY_ID_OPTION_PLAN_VALUE;};?>"/>
+		<div class="project-inner">
+			<h2 class="title">Проект</h2>
+			<hr/>
+			<p class="sub-title">Планировка</p>
+			<div class="prop">
+			<?if(!empty($items[0] -> PROPERTY_ROOM_VALUE)){?>
+				<p>Количество комнат........<span class="value"><?=$items[0] -> PROPERTY_ROOM_VALUE?>  <?= EHelper::getWordForm($items[0] -> PROPERTY_ROOM_VALUE, ["комната", "комнаты", "комнат"]); ?></span></p>
+			<?};?>
+			<?if(!empty($items[0] -> PROPERTY_AREA_VALUE)){?>
+				<p>Площадь.............................<span class="value"><?=$items[0] -> PROPERTY_AREA_VALUE?>м&#178;</span></p>
+			<?};?>
+				<!--<p>Общая площадь..............<span class="value">76 м&#178;</span></p>-->
+				<!--<p>Жилая площадь..............<span class="value">66 м&#178;</span></p>-->
+				<div class="list-selected">
+					<ul>
+						<?=$html;?>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<?if(count($projectData->PROPERTY_MAN_FAMILY_VALUE) > 0 || count($projectData->PROPERTY_CHILDREN_FAMILY_VALUE) > 0 || count($projectData->PROPERTY_ANIMAL_FAMILY_VALUE) > 0){
+			?>
+				<hr/>
+				<p class="sub-title">Состав семьи</p>
+				<div class="prop">
+					<?if(count($projectData->PROPERTY_MAN_FAMILY_VALUE) > 0){?>
+						<p>Взрослых....................................<span class="value"><?echo count($projectData->PROPERTY_MAN_FAMILY_VALUE); echo EHelper::getWordForm(count($projectData->PROPERTY_MAN_FAMILY_VALUE), [" человек", " человека", " человек"]);?></span></p>
+					<?};?>
+					<?if(count($projectData->PROPERTY_CHILDREN_FAMILY_VALUE) > 0){?>
+						<p>Детей............................................<span class="value"><?echo count($projectData->PROPERTY_CHILDREN_FAMILY_VALUE); echo EHelper::getWordForm(count($projectData->PROPERTY_CHILDREN_FAMILY_VALUE), [" ребенок", " ребенка", " детей"]);?></span></p>
+					<?};?>
+					<?if(count($projectData->PROPERTY_ANIMAL_FAMILY_VALUE) > 0){?>
+						<p>Домашние животные.............
+							<?foreach($projectData->PROPERTY_ANIMAL_FAMILY_VALUE as $animal){
+					?>
+							<span class="value"><?=$animal?></span>
+							<?};?>
+						</p>
+					<?};?>
+				</div>
+			<?}?>
+			<?if($starting_price){?>
+				<p class="sub-title">Стоимость проекта</p>
+				<div class="prop">
+					<p class="price"><span class="summ"><?echo $starting_price;?></span>&#8381;</p>
+					<p>(300&#8381; *  76 м&#178;) + 21%</p>
+				</div>
+			<?}?>
+			<div class="step active">
+				<a id="nextstep" class="btn js-<?=$nextstep;?>" href="<?=$url?>" class="btn">ДАЛЕЕ</a><span class="style4 cont" href=""><?=$nextstep_d;?></span>
+			</div>
+		</div>
+	</div>
+<?
+}else{};
+?>
+	<?
+	if($nextstepfile){
+		$class = "active";
+	}
+	else{
+		$class = "noactive";
+	};
+	?>
+	<div class="project project-upload">
+		<div class="border-style1"></div>
+		<div class="project-inner">
+			<h2 class="title">Проект</h2>
+			<hr/>
+			<br/>
+			<p>
+				Загрузите скан-копию планировки, 
+				чтобы продолжить!
+				<br/><br/>
+				Если у вас нет скана,
+				<a class="under-link style1 js-fancybox fancyboxLink" href="#call-super-man">вызовите бесплатного замерщика</a>
+			</p>
+			<div class="clearfix"></div>
+			<br/>
+			<hr/>
+			<div class="step <?=$class?>">
+				<a href="javascript:void(0);" class="btn">ДАЛЕЕ</a><span class="style4 cont" href="">К вариантам<br/>
+				планировок</span>
+			</div>
+			<br/>
+			<p class="i mess" style="text-align:center">
+				Для того, чтобы продолжить пользоваться<br/>
+				сервисом, пожалуйста, дождитесь проверки<br/>
+				загруженных файлов!
+			</p>
+			<br/>
+		</div>
+	</div>
+	
+	

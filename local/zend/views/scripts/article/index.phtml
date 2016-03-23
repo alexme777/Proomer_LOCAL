@@ -1,0 +1,839 @@
+<?
+    $user = $this->user;
+	$categories = $this->categories;
+	$error = $this->error;
+	$data = $this->data;
+	$row_goods = $this->row_goods;
+?><pre><?//echo print_r($row_goods);?></pre><?
+    $type = $user->getType();
+	$all_items = count($row_goods['ITEMS']);
+	$moderation = 0;
+	$show = 0;
+	$cancel = 0;
+	foreach($row_goods['ITEMS'] as $elem){
+		if($elem->PROPERTY_STATUS_ENUM_ID == 16){
+			$moderation+=1;
+		}
+		else if($elem->PROPERTY_STATUS_ENUM_ID == 15){
+			$show+=1;
+		}
+		else if($elem->PROPERTY_STATUS_ENUM_ID == 17){
+			$cancel+=1;
+		}
+	};
+	/*ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+	include $_SERVER['DOCUMENT_ROOT'].'/local/include/SimpleImaged.php';*/
+	//$img = new SimpleImaged();
+?>
+
+<div class="content-container">
+    <?= EZendManager::profileSidebar() ?>
+    <div class="profile-content js-profile-content" data-type="<?= $type ?>">
+		<h2 style="display:inline-block">Добавление товаров</h2>
+		<div class="bn_right">
+			<p><b>Тарифный план: </b>Расширенный</p>
+			<p><b>Баланс: </b>154 000 р.</p>
+		</div>
+				
+		<p id="add_price"><a href="">Добавление по прайсу</a></p>
+		<p class="format_file">Форматы YML</p>
+		
+		
+		<form class="add_goods" enctype="multipart/form-data"  action="" method="post" novalidate="novalidate">
+			<div class="form-block js-form-block">
+				<hr/>
+				<input type="hidden" name="userId" value="1" id="userId">
+				<div id="add_one" class="row add_one <?if($error){echo 'show';}else{echo 'hide';};?>" onclick="Open2OrClose(this);">
+					<p><span for="checkbox-id">Указать настройки выгрузки из файла</span><label class="status"></label></p>
+				</div>
+				<div class="block" id="option_add_goods" style="display:none">
+					<p>Укажите названия элементов из вашего файла. Например для &#060;name&#062;&#060;/name&#062; достаточно указать name</p>
+					<div class="row">
+						<div class="col-50p" id="elements">
+							<div class="input-row <?if(isset($error['NAME'])){echo 'error';};?>"><label for="name" class="required">Заголовок товарного предложения</label>
+								<input type="text" name="name" id="name" value="name" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['NAME'])){echo $error['NAME'];};?></span>
+							</div>
+							<div class="input-row <?if(isset($error['NAME'])){echo 'error';};?>"><label for="name" class="required">Цена</label>
+								<input type="text" name="name" id="name" value="price" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['NAME'])){echo $error['NAME'];};?></span>
+							</div>
+							<div class="input-row <?if(isset($error['NAME'])){echo 'error';};?>"><label for="name" class="required">Ссылка товарного предложения</label>
+								<input type="text" name="name" id="name" value="url" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['NAME'])){echo $error['NAME'];};?></span>
+							</div>
+							<div class="input-row <?if(isset($error['NAME'])){echo 'error';};?>"><label for="name" class="required">URL-адрес изображений</label>
+								<input type="text" name="name" id="name" value="picture" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['NAME'])){echo $error['NAME'];};?></span>
+							</div>
+							<div class="input-row <?if(isset($error['NAME'])){echo 'error';};?>"><label for="name" class="required">Описание товарного предложения</label>
+								<input type="text" name="name" id="name" value="discription" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['NAME'])){echo $error['NAME'];};?></span>
+							</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-50p"><div class="input-row <?if(isset($error['PROPERTY_VALUES']['STYLE'])){echo 'error';};?>"><label for="category" class="required"></label>
+							<select name="color" onchange="addElement()" class="slt slt-list waves-effect" value="Добавить элемент">
+								<option value="18">Добавить элемент</option>
+								<option value="19">Желтый</option>
+								<option value="20">Зеленый</option>
+							</select>
+							<span class="js-error error-message"><?if(isset($error['PROPERTY_VALUES']['COLOR'])){echo $error['PROPERTY_VALUES']['COLOR'];};?></span></div>
+						</div>
+					</div>
+					<!--<div class="row-submit-add">
+						<button class="btn blue waves-effect" type="submit" name="addgoods" value="Добавить">Добавить</button><!--<a class="btn blue waves-effect">Добавить</a>-->
+					<!--</div>-->
+				</div>
+			</div>
+		</form>
+		
+		
+		
+				
+		<form id="add_file_form" method="post" action="" enctype="multipart/form-data" novalidate="" class="box has-advanced-upload js-profile-form profileForm formTabber preloaderController">
+				
+			<div class="form-block js-form-block">
+		
+				<div class="box__input">
+					<input type="file" name="files" id="file" class="box__file" data-multiple-caption="{count} files selected" multiple="">
+					
+					<div class="upload_ico_d"></div>
+					
+					<label for="file"><span class="box__dragndrop">Перетащите файл в эту область для его загрузки или нажмите </span><span class="upload_button"><span class="upload_ico"></span> Загрузить</span></label>
+					<button type="submit" class="box__button">Upload</button>
+				</div>
+
+				
+				<div class="box__uploading">Загрузка...</div>
+				<div class="box__success">Товары отправленны на модерацию. <a href="https://css-tricks.com/examples/DragAndDropFileUploading//?" class="box__restart" role="button">Загрузить ещё?</a></div>
+				<div class="box__error">Ошибка! <span></span> <a href="https://css-tricks.com/examples/DragAndDropFileUploading//?" class="box__restart" role="button">Повторить попытку?</a></div>
+				<input type="hidden" name="ajax" value="1">
+			</div>
+				<div id="add_file" class="row-submit">
+					<a class="btn blue waves-effect">Добавить</a>
+				</div>
+		</form>
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!--<form action="/goods/addgoods" class="regForm">
+				<!--<input type="file" id="fileUpload0" multiple="true" size="60">-->
+			<!--	<div id="fileUpload0"></div>
+				<div class="row-submit-add">
+					<input class="btn blue" type="submit" value="Добавить">
+				</div>
+		</form>-->
+		
+		<!--<div id="dropzone">
+			<form action="/goods/addgoods" class="dropzone needsclick dz-clickable" id="demo-upload">
+				<div class="dz-message needsclick">
+					<div class="upload_ico_d"></div><br/>
+					Перетащите файл в эту область для его загрузки или нажмите <span class="upload_button"><span class="upload_ico"></span> загрузить</span><br>
+				</div>
+				<!--<div class="row-submit-add">
+					<button class="btn blue waves-effect" type="submit" name="addgoods" value="Добавить">Добавить</button><!--<a class="btn blue waves-effect">Добавить</a>-->
+				<!--</div>-->
+			<!--</form>
+		</div>-->
+		
+	
+		<!--<div id="bx_file_detail_picture_block" class="adm-fileinput-area   mode-pict adm-fileinput-drag-area dragn-drop-area" dropzone="copy f:*/*">
+			<div class="adm-fileinput-area-container" id="bx_file_detail_picture_container"></div>
+			<span class="adm-fileinput-drag-area-hint" id="bx_file_detail_pictureNotice">
+				<div class="upload_ico_d"></div>
+				<br> Перетащите файл в эту область для его загрузки или нажмите <span class="upload_button"><span class="upload_ico"></span> загрузить</span>
+			</span>
+			<script>
+				(function(BX)
+				{
+					if (BX)
+					{
+						BX.ready(function(){
+							new BX.UI.FileInput('bx_file_detail_picture', {'upload':'YTozOntzOjI6ImlkIjtzOjQ6InBhdGgiO3M6MTE6ImFsbG93VXBsb2FkIjtzOjE6IkkiO3M6MTQ6ImFsbG93VXBsb2FkRXh0IjtzOjA6IiI7fQ==.012b697d759bf56989bdc193dff5230bc933dd064c214c20bc795d793327fe96','uploadType':'path','medialib':{'click':'OpenMedialibDialogbx_file_detail_picture','handler':'SetValueFromMedialibbx_file_detail_picture'},'fileDialog':{'click':'OpenFileDialogbx_file_detail_picture','handler':'SetValueFromFileDialogbx_file_detail_picture'},'cloud':false,'maxCount':'1','maxSize':'0','allowUpload':'I','allowUploadExt':'','allowSort':'Y','mode':'mode-pict'}, {'name':'DETAIL_PICTURE','description':true,'delete':true,'edit':true,'thumbSize':'640'}, [], '<div class=\"adm-fileinput-item\"><div class=\"adm-fileinput-item-preview\"><span class=\"adm-fileinput-item-loading\"><span class=\"container-loading-title\">Идёт загрузка...<\/span><span class=\"container-loading-bg\"><span class=\"container-loading-bg-progress\" style=\"width: 5%;\" id=\"#id#Progress\"><\/span><\/span><\/span><div class=\"adm-fileinput-item-preview-icon\"><div class=\"bx-file-icon-container-medium icon-#ext#\"><div class=\"bx-file-icon-cover\"><div class=\"bx-file-icon-corner\"><div class=\"bx-file-icon-corner-fix\"><\/div><\/div><div class=\"bx-file-icon-images\"><\/div><\/div><div class=\"bx-file-icon-label\"><\/div><\/div><span class=\"container-doc-title\" id=\"#id#Name\">#name#<\/span><\/div><div class=\"adm-fileinput-item-preview-img\">#preview#<\/div><input class=\"bx-bxu-fileinput-value\" type=\"hidden\" id=\"#id#Value\" name=\"DETAIL_PICTURE\" value=\"\" /><\/div><input type=\"text\" id=\"#id#Description\" name=\"DETAIL_PICTURE_descr\" value=\"\" class=\"adm-fileinput-item-description\" /><div class=\"adm-fileinput-item-panel\"><span class=\"adm-fileinput-item-panel-btn adm-btn-setting\" id=\"#id#Edit\">&nbsp;<\/span><span class=\"adm-fileinput-item-panel-btn adm-btn-del\" id=\"#id#Del\">&nbsp;<\/span><\/div><div id=\"#id#Properties\" class=\"adm-fileinput-item-properties\"><\/div><\/div>');
+						});
+					}
+				})(window["BX"] || top["BX"]);
+			</script>
+			<input class="adm-fileinput-drag-area-input" type="file" id="bx_file_detail_picture_input" data-fileinput="Y" name="bxu_files[]" accept="image/*">
+		</div>-->
+		
+		
+		
+		<!--<div class="row-submit">
+			<a class="btn blue waves-effect">Добавить</a>
+		</div>-->
+		
+		<form class="add_goods" enctype="multipart/form-data"  action="" method="post" novalidate="novalidate">
+			<div class="form-block js-form-block">
+				<hr/>
+				<input type="hidden" name="userId" value="1" id="userId">
+				<div id="add_one" class="row add_one <?if($error){echo 'show';}else{echo 'hide';};?>" onclick="OpenOrClose(this);">
+					<p><span for="checkbox-id">Добавить поштучно</span><label class="status"></label></p>
+				</div>
+				
+				<div class="block" id="inner_add_goods" <?if($error){echo 'style="display:block"';};?>>	
+					<div class="row">
+						<div class="col-50p">
+							<div class="input-row <?if(isset($error['NAME'])){echo 'error';};?>"><label for="name" class="required">Название</label>
+								<input type="text" name="name" id="name" value="<?if(isset($data['NAME']) && !empty($error)){echo $data['NAME'];};?>" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['NAME'])){echo $error['NAME'];};?></span>
+							</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-50p"><div class="input-row <?if(isset($error['NAME'])){echo 'error';};?>"><label for="category" class="required">Категория</label>
+							<select name="category" class="slt slt-list waves-effect">
+								<option value="">Выбрать категорию</option>
+		<?						foreach($categories as $cat){
+		?>
+								<option value="<?=$cat->ID?>" <?if(isset($data['IBLOCK_SECTION_ID']) && $data['IBLOCK_SECTION_ID'] == $cat->ID){echo 'selected';};?>><?=$cat->NAME?></option>
+		<?
+								}
+		?>
+							</select>
+							<span class="js-error error-message"><?if(isset($error['IBLOCK_SECTION_ID'])){echo $error['IBLOCK_SECTION_ID'];};?></span></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-50p"><div class="input-row <?if(isset($error['PROPERTY_VALUES']['STYLE'])){echo 'error';};?>"><label for="category" class="required">Цвет</label>
+							<select name="color" class="slt slt-list waves-effect">
+								<option value="">Выбрать цвет</option>
+								<option value="18">Красный</option>
+								<option value="19">Желтый</option>
+								<option value="20">Зеленый</option>
+								<option value="21">Синий</option>
+								<option value="24">Серый</option>
+								<option value="22">Черный</option>
+								<option value="25">Бежевый</option>
+								<option value="26">Лазурный</option>
+								<option value="27">Белый</option>
+							</select>
+							<span class="js-error error-message"><?if(isset($error['PROPERTY_VALUES']['COLOR'])){echo $error['PROPERTY_VALUES']['COLOR'];};?></span></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-50p"><div class="input-row <?if(isset($error['PROPERTY_VALUES']['STYLE'])){echo 'error';};?>"><label for="category" class="required">Производитель</label>
+							<select name="madein" class="slt slt-list waves-effect">
+								<option value="">Выбрать производителя</option>
+								<option value="23">Ikea</option>
+							</select>
+							<span class="js-error error-message"><?if(isset($error['PROPERTY_VALUES']['MADEIN'])){echo $error['PROPERTY_VALUES']['MADEIN'];};?></span></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-50p"><div class="input-row <?if(isset($error['PROPERTY_VALUES']['STYLE'])){echo 'error';};?>"><label for="category" class="required">Стиль</label>
+							<select name="style" class="slt slt-list waves-effect">
+								<option value="">Выбрать стиль</option>
+									<option value="27">Лофт</option>
+									<option value="28">Модерн</option>
+									<option value="29">Минимализм</option>
+									<option value="30">Восточный</option>
+									<option value="31">Хай-тек</option>
+									<option value="32">Скандинавский</option>
+									<option value="33">Американский</option>
+									<option value="34">Римский</option>
+									<option value="35">Классика</option>
+									<option value="36">Прованс</option>
+									<option value="37">Классика</option>
+									<option value="38">Авангард</option>
+									<option value="39">Ампир</option>
+									<option value="40">Арт-деко</option>
+									<option value="41">Барокко</option>
+									<option value="42">Кантри</option>
+									<option value="43">Поп-арт</option>
+									<option value="44">Шале</option>
+									<option value="45">Эко стиль</option>
+									<option value="46">Фьюжн</option>
+									<option value="47">Китч</option>
+									<option value="48">Эклектика</option>
+									<option value="49">Техно</option>
+									<option value="50">Японский</option>
+							</select>
+							<span class="js-error error-message"><?if(isset($error['PROPERTY_VALUES']['STYLE'])){echo $error['PROPERTY_VALUES']['STYLE'];};?></span></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-50p">
+							<div class="input-row"><label for="image" class="required">Фото</label>
+								<input type="file" name="image" id="image" multiple title="Загрузите фотографию"/>
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-30p first_operator">
+							<div class="input-row <?if(isset($error['PROPERTY_VALUES']['PROFILE'])){echo 'error';};?>">
+								<label for="length" class="required">Габариты</label>
+								<input type="text" name="length" id="length" value="<?if(isset($data['PROPERTY_VALUES']['LENGTH']) && !empty($error)){echo $data['PROPERTY_VALUES']['LENGTH'];};?>" class="required" autocomplete="off" maxlength="100">
+							</div>
+						</div>
+						<span class="operator">x</span>
+						<div class="col-30p"><div class="input-row <?if(isset($error['PROPERTY_VALUES']['PROFILE'])){echo 'error';};?>"><label for="width" class="required"></label>
+							<input type="text" name="width" id="width" value="<?if(isset($data['PROPERTY_VALUES']['WIDTH']) && !empty($error)){echo $data['PROPERTY_VALUES']['WIDTH'];};?>" class="required" autocomplete="off" maxlength="100">
+							<span class="js-error error-message"></span></div>
+						</div>
+						<span class="operator">x</span>
+						<div class="col-30p"><div class="input-row <?if(isset($error['PROPERTY_VALUES']['PROFILE'])){echo 'error';};?>"><label for="height" class="required"></label>
+							<input type="text" name="height" id="height" value="<?if(isset($data['PROPERTY_VALUES']['HEIGHT']) && !empty($error)){echo $data['PROPERTY_VALUES']['HEIGHT'];};?>" class="required" autocomplete="off" maxlength="100">
+							<span class="js-error error-message"></span></div>
+						</div>	
+						<span class="operator">см</span>
+						
+					</div>
+					<div class="row">
+						<div class="col-50p">
+							<div class="input-row <?if(isset($error['PROPERTY_VALUES']['MATERIAL'])){echo 'error';};?>"><label for="material" class="required">Материал</label>
+								<input type="text" name="material" id="material" value="<?if(isset($data['PROPERTY_VALUES']['MATERIAL']) && !empty($error)){echo $data['PROPERTY_VALUES']['MATERIAL'];};?>" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['PROPERTY_VALUES']['MATERIAL'])){echo $error['PROPERTY_VALUES']['MATERIAL'];};?></span>
+							</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-50p">
+							<div class="input-row <?if(isset($error['PROPERTY_VALUES']['PRICE'])){echo 'error';};?>"><label for="price" class="required">Цена</label>
+								<input type="text" name="price" id="price" value="<?if(isset($data['PROPERTY_VALUES']['PRICE']) && !empty($error)){echo $data['PROPERTY_VALUES']['PRICE'];};?>" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['PROPERTY_VALUES']['PRICE'])){echo $error['PROPERTY_VALUES']['PRICE'];};?></span>
+							</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-50p">
+							<div class="input-row <?if(isset($error['PROPERTY_VALUES']['ARTICLE'])){echo 'error';};?>"><label for="article" class="required">Артикул</label>
+								<input type="text" name="article" id="article" value="<?if(isset($data['PROPERTY_VALUES']['ARTICLE']) && !empty($error)){echo $data['PROPERTY_VALUES']['ARTICLE'];};?>" class="required" autocomplete="off" maxlength="100">
+								<span class="js-error error-message"><?if(isset($error['PROPERTY_VALUES']['ARTICLE'])){echo $error['PROPERTY_VALUES']['ARTICLE'];};?></span>
+							</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-50p">
+							<div class="input-row <?if(isset($error['DETAIL_TEXT'])){echo 'error';};?>"><label for="image" class="required">Описание</label>
+								<textarea name="disc" rows="10"><?if(isset($data['DETAIL_TEXT']) && !empty($error)){echo $data['DETAIL_TEXT'];};?></textarea>
+								<span class="js-error error-message"><?if(isset($error['DETAIL_TEXT'])){echo $error['DETAIL_TEXT'];};?></span>
+							</div>	
+						</div>
+					</div>
+					<div class="row-submit-add">
+						<button class="btn blue waves-effect" type="submit" name="addgoods" value="Добавить">Добавить</button><!--<a class="btn blue waves-effect">Добавить</a>-->
+					</div>
+				</div>
+			</div>
+		</form>
+			
+		<script type="text/javascript">
+	
+			var flag = 0;
+			function OpenOrClose(elem){
+	
+				if(flag == 0){
+					console.log(elem)
+					$(elem).removeClass("hide");
+					$(elem).addClass("show");
+					$( "#inner_add_goods" ).show('medium');
+					flag = 1;
+				}
+				else{
+				
+					$(elem).removeClass("show");
+					$(elem).addClass("hide");
+					$( "#inner_add_goods" ).hide('medium');
+					flag = 0;
+				}
+				return false;
+			};
+			
+			var flag2 = 0;
+			function Open2OrClose(elem){
+	
+				if(flag2 == 0){
+					console.log(elem)
+					$(elem).removeClass("hide");
+					$(elem).addClass("show");
+					$( "#option_add_goods" ).show('medium');
+					flag2 = 1;
+				}
+				else{
+				
+					$(elem).removeClass("show");
+					$(elem).addClass("hide");
+					$( "#option_add_goods" ).hide('medium');
+					flag2 = 0;
+				}
+				return false;
+			};
+		
+		</script>
+		<h2>Товары</h2>
+		<table class="inf_good">
+			<thead>
+				<tr>
+					<td>Опубликовано</td>
+					<td>На модерации</td>
+					<td>Отклонено</td>
+					<td>Всего товаров</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><?=$show?></td>
+					<td><?=$moderation?></td>
+					<td><?=$cancel?></td>
+					<td><?=$all_items?></td>
+				</tr>
+			</tbody>
+		</table>
+<?
+		if($all_items > 0){
+?>
+		<div class="controls">
+			<p>Выбранное<br/><span id="del_btn" class="btn_del">Удалить</span><span id="set_status" class="btn_moder">На модерацию</span></p>
+		</div>
+		<form>
+			<table id="list_elem_n1" class="list_good">
+				<thead>
+					<tr>
+						<td class="first_elem"><input type="checkbox" id="c1" name="cc" onclick="checkAll(this)"/><label for="c1"><span></span></label></td>
+						<td></td>
+						<td>Название</td>
+						<td>Состояние</td>
+						<td>Категория</td>
+						<td>Цена</td>
+						<td>Наличие</td>
+					</tr>
+				</thead>
+				<tbody>
+				<?
+					foreach($row_goods['ITEMS'] as $elem){
+?>
+					<tr data-check="0" data-u-id="<?=$elem->PROPERTY_ID_USER_VALUE?>" data-num-row="<?=$elem->ID?>">
+
+						<td class="first_elem"><input data-id-elem="<?=$elem->ID?>" type="checkbox" id="c<?=$elem->ID?>" name="cc" /><label for="c<?=$elem->ID?>"><span></span></label></td>
+						<td><?if(!empty($elem->PROPERTY_IMG_VALUE)){echo "<img width='90' src='$elem->PROPERTY_IMG_VALUE'/>";};?></td>
+						<td><?=$elem->NAME?></td>
+						<td><?=$elem->PROPERTY_STATUS_VALUE?></td>
+						<td><?=$elem->IBLOCK_SECTION_NAME?></td>
+						<td><?=$elem->PROPERTY_PRICE_VALUE?> р. кв.м.</td>
+						<td>Отсутствует</td>
+
+					</tr>
+<?
+					};
+?>
+				</tbody>
+			</table>
+		</form>
+<?
+		};
+?>
+	<script type="text/javascript">
+		var list_elem_n1 = document.getElementById('list_elem_n1');
+		var del_btn = document.getElementById('del_btn');
+		var set_status = document.getElementById('set_status');
+		
+		function addElement(){
+			alert('2222222');
+			$('#elements').append('	<div class="input-row"><label for="name" class="required">URL-адрес изображений</label><input type="text" name="name" id="name" value="picture" class="required" autocomplete="off" maxlength="100"></div>');
+		}
+		
+		function checkAll(obj) {
+		  'use strict';
+		  // Получаем NodeList дочерних элементов input формы: 
+		  var items = obj.form.getElementsByTagName("input"), 
+			  len, i;
+		  // Здесь, увы цикл по элементам формы:
+		  for (i = 0, len = items.length; i < len; i += 1) {
+			// Если текущий элемент является чекбоксом...
+			if (items.item(i).type && items.item(i).type === "checkbox") {
+			  // Дальше логика простая: если checkbox "Выбрать всё" - отмечен            
+			  if (obj.checked) {
+				// Отмечаем все чекбоксы...
+				items.item(i).checked = true;
+			  } else {
+				// Иначе снимаем отметки со всех чекбоксов:
+				items.item(i).checked = false;
+			  }       
+			}
+		  }
+		}
+		
+		//массив содержит в себе id checked элементов
+		var arr_check_elem = [];
+		//следит за отмеченными элементами
+		function checkElem(event){
+			// получить объект событие.
+			// вместо event лучше писать window.event
+			var event = event || window.event
+			// кросс-браузерно получить target
+			var target = event.target || event.srcElement
+			// цикл двигается вверх от target к родителям до table
+			while (target != this) {
+				if (target.tagName == 'INPUT' && target.getAttribute('type') == "checkbox") {
+					
+					// нашли элемент, который нас интересует!
+					var id_elem = target.getAttribute('data-id-elem');
+					//нужно пройти по массиву и проверитть есть ли там уже выбранный элемент
+					
+					
+					//если поставили галочку
+					
+					if(target.checked === true){
+						
+						if(arr_check_elem.length > 0){
+							var i = 0;
+							var flag = 1;
+							for(i = 0; i < arr_check_elem.length; i++){
+								if(arr_check_elem[i] == id_elem){
+									flag = 0;
+								}
+							}
+							arr_check_elem.push(target.getAttribute('data-id-elem'));
+							target.parentNode.parentNode.setAttribute('data-check', 1);
+						}
+						else{
+							arr_check_elem.push(target.getAttribute('data-id-elem'));
+							target.parentNode.parentNode.setAttribute('data-check', 1);
+						}
+					
+					}
+					else{
+						//пройдемся по всем элементам чтобы узать какой из них удалили
+						var i = 0;
+						if(arr_check_elem.length > 0){
+							for(i = 0; i < arr_check_elem.length; i++){
+								if(arr_check_elem[i] == id_elem){
+									arr_check_elem.splice(i, 1); // начиная с позиции 1, удалить 1 элемент
+									target.parentNode.parentNode.setAttribute('data-check', 0);
+								}
+							};
+						};
+					};
+					
+					return;
+				}
+				target = target.parentNode;
+			}
+		}
+		
+		//удаляет выбранные елементы
+		function delElems(event){
+			// получить объект событие.
+			// вместо event лучше писать window.event
+			var event = event || window.event
+			// кросс-браузерно получить target
+			var target = event.target || event.srcElement
+			var result = confirm('Удалить выбранные товары?');
+			if(result){
+				$.ajax({
+					type: "POST",
+					url: "/goods/delgoods",
+					data: "elems="+JSON.stringify(arr_check_elem),
+					success: function(msg){
+						var list_tr = list_elem_n1.getElementsByTagName('TBODY')[0].getElementsByTagName('TR');
+						var i = 0;
+						for(i; i < list_tr.length; i++){
+							if(list_tr[i].getAttribute('data-check') == 1){
+								list_tr[i].style.display = 'none';
+							};
+						}
+						while (target != this) {
+							if (target.tagName == 'INPUT' && target.getAttribute('type') == "checkbox") {
+								
+								return;
+							}
+							target = target.parentNode;
+						}		
+					}
+				});
+			};
+		}
+		
+		//меняет статус товара
+		function changeStatus(event){
+			// получить объект событие.
+			// вместо event лучше писать window.event
+			var event = event || window.event
+			// кросс-браузерно получить target
+			var target = event.target || event.srcElement
+			var result = confirm('Отправить выбранные товары на модерацию?');
+			if(result){
+				$.ajax({
+					type: "POST",
+					url: "/goods/changestatusgoods",
+					data: "elems="+JSON.stringify(arr_check_elem),
+					success: function(msg){
+						var list_tr = list_elem_n1.getElementsByTagName('TBODY')[0].getElementsByTagName('TR');
+						var i = 0;
+						for(i; i < list_tr.length; i++){
+							if(list_tr[i].getAttribute('data-check') == 1){
+								list_tr[i].style.display = 'none';
+							};
+						}
+						while (target != this) {
+							if (target.tagName == 'INPUT' && target.getAttribute('type') == "checkbox") {
+								
+								return;
+							}
+							target = target.parentNode;
+						}		
+					}
+				});
+			};
+		}
+		
+		//тык-тык
+		list_elem_n1.onclick = checkElem;
+		del_btn.onclick = delElems;
+		set_status.onclick = changeStatus;
+		</script>
+ 
+
+	</div>
+	
+	
+    <!--<div class="profile-content js-profile-content" data-type="<?= $type ?>">
+		<!--<div class="profile-form">
+            <?= ($type == DESIGNER_TYPE_ID)?new Sibirix_Form_ProfileDesigner():new Sibirix_Form_ProfileClient(); ?>
+        </div>-->
+
+        <!--<div class="profile-form">
+           <?= new Sibirix_Form_ProfileChangePassword() ?>
+        </div>-->
+   <!-- </div>-->
+
+
+	<script>
+
+	'use strict';
+
+	;( function ( document, window, index )
+	{
+		// feature detection for drag&drop upload
+		var isAdvancedUpload = function()
+			{
+				var div = document.createElement( 'div' );
+				return ( ( 'draggable' in div ) || ( 'ondragstart' in div && 'ondrop' in div ) ) && 'FormData' in window && 'FileReader' in window;
+			}();
+
+		// applying the effect for every form
+		var forms = document.querySelectorAll( '.box' );
+		Array.prototype.forEach.call( forms, function( form )
+		{
+			var input		 = form.querySelector( 'input[type="file"]' ),
+				label		 = form.querySelector( 'label' ),
+				errorMsg	 = form.querySelector( '.box__error span' ),
+				restart		 = form.querySelectorAll( '.box__restart' ),
+				droppedFiles = false,
+				showFiles	 = function( files )
+				{
+					label.textContent = files.length > 1 ? ( input.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', files.length ) : files[ 0 ].name;
+				},
+				triggerFormSubmit = function()
+				{
+					var event = document.createEvent( 'HTMLEvents' );
+					event.initEvent( 'submit', true, false );
+					form.dispatchEvent( event );
+				};
+
+			// letting the server side to know we are going to make an Ajax request
+			var ajaxFlag = document.createElement( 'input' );
+			ajaxFlag.setAttribute( 'type', 'hidden' );
+			ajaxFlag.setAttribute( 'name', 'ajax' );
+			ajaxFlag.setAttribute( 'value', 1 );
+			form.appendChild( ajaxFlag );
+
+			// automatically submit the form on file select
+			input.addEventListener( 'change', function( e )
+			{
+				var i = 0;
+				for(i; i < e.target.files.length; i++){
+					if(e.target.files[ i ].type != 'text/xml'){
+						alert('Возможна загрузка только YML (Yandex Market Language) файлов.');
+						return false;
+					}
+				}
+				showFiles( e.target.files );
+				triggerFormSubmit();
+			});
+			
+			// drag&drop files if the feature is available
+			if( isAdvancedUpload )
+			{
+				form.classList.add( 'has-advanced-upload' ); // letting the CSS part to know drag&drop is supported by the browser
+
+				[ 'drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop' ].forEach( function( event )
+				{
+					form.addEventListener( event, function( e )
+					{
+						// preventing the unwanted behaviours
+						e.preventDefault();
+						e.stopPropagation();
+					});
+				});
+				[ 'dragover', 'dragenter' ].forEach( function( event )
+				{
+					form.addEventListener( event, function()
+					{
+						form.classList.add( 'is-dragover' );
+					});
+				});
+				[ 'dragleave', 'dragend', 'drop' ].forEach( function( event )
+				{
+					form.addEventListener( event, function()
+					{
+						form.classList.remove( 'is-dragover' );
+					});
+				});
+				form.addEventListener( 'drop', function( e )
+				{
+					droppedFiles = e.dataTransfer.files; // the files that were dropped
+					showFiles( droppedFiles );
+					triggerFormSubmit();
+
+									});
+			}
+
+			
+			// if the form was submitted
+			form.addEventListener( 'submit', function( e )
+			{
+				// preventing the duplicate submissions if the current one is in progress
+				if( form.classList.contains( 'is-uploading' ) ) return false;
+
+				form.classList.add( 'is-uploading' );
+				form.classList.remove( 'is-error' );
+
+				if( isAdvancedUpload ) // ajax file upload for modern browsers
+				{
+					e.preventDefault();
+
+					// gathering the form data
+					var ajaxData = new FormData( form );
+				
+					if( droppedFiles )
+					{
+						Array.prototype.forEach.call( droppedFiles, function( file )
+						{
+							ajaxData.append( input.getAttribute( 'name' ), file );
+						});
+					}
+
+					// ajax request
+					var ajax = new XMLHttpRequest();
+					ajax.open( form.getAttribute( 'method' ), '/goods/addgoods', true );
+					// просто загружает файл на сервер
+					ajax.onload = function()
+					{
+						form.classList.remove( 'is-uploading' );
+						//если все хорошо
+						if( ajax.status >= 200 && ajax.status < 400 )
+						{
+							//берем ответ
+							var data = JSON.parse(ajax.responseText);
+							//в зависимости от ответа добавляется соответствующий класс
+							form.classList.add( data.success == true ? 'editing' : 'is-error' );
+							if( !data.success ) errorMsg.textContent = data.error;
+							
+							var add_file = document.getElementById('add_file');
+							//если был тык-тык на "добавить", то парсим загруженный файл
+							add_file.onclick = function(){
+								var params = "file=" + encodeURIComponent(data.url);
+								var ajax = new XMLHttpRequest();
+								ajax.open('post', '/goods/parse?'+params, true );
+								ajax.onload = function(){
+									form.classList.remove( 'editing' );
+									if( ajax.status >= 200 && ajax.status < 400 )
+									{
+										console.log(JSON.parse(ajax.responseText))
+										var msg = JSON.parse(ajax.responseText);
+										//временный костыль
+										//window.location = "/goods/";
+		
+										form.classList.add( data.success == true ? 'is-success' : 'is-error' );
+										if( !data.success ) errorMsg.textContent = data.error;		
+									}
+									else alert( 'Error. Please, contact the webmaster!' );
+								};
+								ajax.onerror = function()
+								{
+									form.classList.remove( 'is-uploading' );
+									alert( 'Error. Please, try again!' );
+								};
+								ajax.send( params );
+								return false;		
+							}
+								
+						}
+						else {alert( 'Error. Please, contact the webmaster!' )};
+							
+					};
+
+					ajax.onerror = function()
+					{
+						form.classList.remove( 'is-uploading' );
+						alert( 'Error. Please, try again!' );
+					};
+					//console.log( ajaxData.get('files'));
+					ajax.send( ajaxData );
+				}
+				else // fallback Ajax solution upload for older browsers
+				{
+					var iframeName	= 'uploadiframe' + new Date().getTime(),
+						iframe		= document.createElement( 'iframe' );
+
+						$iframe		= $( '<iframe name="' + iframeName + '" style="display: none;"></iframe>' );
+
+					iframe.setAttribute( 'name', iframeName );
+					iframe.style.display = 'none';
+
+					document.body.appendChild( iframe );
+					form.setAttribute( 'target', iframeName );
+
+					iframe.addEventListener( 'load', function()
+					{
+						var data = JSON.parse( iframe.contentDocument.body.innerHTML );
+						form.classList.remove( 'is-uploading' )
+						form.classList.add( data.success == true ? 'is-success' : 'is-error' )
+						form.removeAttribute( 'target' );
+						if( !data.success ) errorMsg.textContent = data.error;
+						iframe.parentNode.removeChild( iframe );
+					});
+				}
+			});
+
+
+			// restart the form if has a state of error/success
+			Array.prototype.forEach.call( restart, function( entry )
+			{
+				entry.addEventListener( 'click', function( e )
+				{
+					e.preventDefault();
+					form.classList.remove( 'is-error', 'is-success' );
+					input.click();
+				});
+			});
+
+			// Firefox focus bug fix for file input
+			input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+			input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+
+		});
+	}( document, window, 0 ));
+
+</script>
+</div>

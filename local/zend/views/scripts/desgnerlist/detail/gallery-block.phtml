@@ -1,0 +1,29 @@
+<?
+    $design = $this->design;
+    $rooms = $design->ROOMS;
+
+    foreach ($rooms as $ind => $room) {
+        if (empty($room->PROPERTY_IMAGES_VALUE)) {
+            unset($rooms[$ind]);
+        }
+    }
+    $roomRows = array_chunk($rooms, 2);
+?>
+
+<div class="gallery-block">
+    <? foreach ($roomRows as $rowInd => $row) { ?>
+        <div class="row">
+            <? foreach ($row as $ind => $item) { ?>
+                <div class="cell<?= (count($row) == 1)? ' full-row' : ''?>">
+                    <div class="title"><?= $item->NAME ?></div>
+                    <div class="gallery-slider<?= (count($item->PROPERTY_IMAGES_VALUE) > 1)?' js-gallery-slider':'' ?>">
+                        <? foreach ($item->PROPERTY_IMAGES_VALUE as $photo) { ?>
+                            <a href="<?= $photo["SRC"] ?>" title="<?= $design->NAME ?> / <?= $item->NAME?>"
+                               rel="room<?= $item->ID ?>" class="slide js-fancybox-thumb" style="background-image: url('<?= $photo["SRC"] ?>')"></a>
+                        <? } ?>
+                    </div>
+                </div>
+            <? } ?>
+        </div>
+    <? } ?>
+</div>

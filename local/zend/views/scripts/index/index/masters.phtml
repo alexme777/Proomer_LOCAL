@@ -1,0 +1,35 @@
+<?
+	$userList = $this->userList;
+?>
+<div class="master-block">
+    <div class="content-container">
+		<div class="head">
+			<h2 class="master-title">Опытные мастера помогут вам что-то сделать <a href="" class="blue">(Придумать)</a></h2>
+			<div class="subtitle">Уже стали счастливым собственником жилья или только присматриваетесь к будущей квартире? Посмотрите идеи для своего интерьера.</div>
+		</div>
+        <div class="master-list row">
+		<?foreach($userList as $user){
+			if($user->ID == 1 || $user->ID == 83){
+				continue;
+			}
+			?>
+			<div class="col-xs-2 col-sm-2 col-md-2">
+				<div class="master">
+					<div class="top">
+						<!--<div class="likes"><?//=$this->Like()->button($item->ID, 999, 1)?></div>-->
+						<a href="/designer/<?=$user->ID?>"><img src="<?=$user->PERSONAL_PHOTO?>" alt="<?=$user->NAME .' '.$user->LAST_NAME?>"/></a>
+					</div>
+					<div class="content">
+						<a href="/designer/<?=$user->ID?>" class="name"><?=$user->NAME .' '.$user->LAST_NAME?></a>
+						<p class="type"><?=$user->WORK_PROFILE?></p>
+					</div>
+				</div>
+			</div>
+		<?};?>
+        </div>
+		<div class="clear"></div>
+        <div class="btn-wrapper">
+            <a href="/designerlist/" class="btn blue waves-effect view_n3">Все дизайнеры</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<?
+    $complexId = $this->complexId;
+    $designs = $this->designs;
+    $slides = array_chunk($designs, 4);
+?>
+
+<div class="design-slider<?= (count($designs) > 4)?' js-design-slider':' designs' ?>">
+    <? foreach ($slides as $designs) { ?>
+        <div class="slide">
+            <? foreach ($designs as $ind => $item) { ?>
+                <?= $this->partial('./design/partials/design-item.phtml', ["item" => $item, "designer" => true]) ?>
+            <? } ?>
+        </div>
+    <? } ?>
+</div>
+<div class="btn-wrapper">
+    <a href="<?= EZendManager::url([], 'design-list'); ?>?complexId=<?= $complexId ?>" class="btn waves-effect">Смотреть все</a>
+</div>

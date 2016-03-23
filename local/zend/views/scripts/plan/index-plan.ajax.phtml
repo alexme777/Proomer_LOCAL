@@ -1,0 +1,40 @@
+<?if(count($this->itemListPlan) > 0){?>
+<div class="list-plan js-list-plan">
+	<div class="content"><h2 class="title sub_title">Для вашей квартиры есть <?=count($this->itemListPlan)?> предполагаемые планировки(с перегородками)</h2></div>
+	<div class="row">
+		<?
+		$i=0; 
+		foreach ($this->itemListPlan as $item): ?>
+			<?
+				if($i < 5){$class="show";}else{$class="hide";};
+			?>
+			<?= $this->partial("service/partials/plan-item.phtml", ["item" => $item,"class"=>$class]) ?>
+		<?
+		$i+=1;
+		endforeach ?>						
+		<div class="col-xs-2 col-sm-2 col-md-2 plan-offset">
+			<div class="plan alien note taupe">
+				<a class="js-fancybox fancyboxLink" href="#planirovka">
+					<span class="ask">Не нашли нужную
+					планировку?</span>
+					<span class="mess">Закажите индивидуальную планировку прямо сейчас</span>
+				</a>
+				<div class="line_1"></div>
+				<div class="line_2"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row-submit"><a class="js-submit-show btn waves-effect">Ещё <?=count($this->itemList) - 5?> планировок</a></div>
+<?/*= $this->paginationControl(
+$this->paginator,
+'Sliding',
+'_partials/paginator.phtml'
+); */
+}
+else{
+?>
+
+<?
+	//echo $this->partial("_partials/not-found-status/complex.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]);
+};

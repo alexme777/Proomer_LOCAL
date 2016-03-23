@@ -1,0 +1,117 @@
+<?
+	$itemList = $this->itemList;
+	$nextstep = $this->nextstep;
+	$nextstep_d = $this->nextstep_d;
+	$step = $this->step;
+	$cityModel    = new Sibirix_Model_City();
+	$item_save = $this->item_save;
+?>
+<input type="hidden" id="designId" name="designId" value="2475">
+<div id="service-page">
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта</h2>
+				<div id="service_menu">
+					<ul>
+						<li><a class="under-link" href="/service/step1">Выбор планировки</a></li>
+						<li  class="selected"><a href="/service/step2">Варианты планировок</a></li>
+						<li><a class="under-link" href="/service/step3">Варианты дизайна</a></li>
+						<li><a class="under-link" href="/service/step4">Состав семьи</a></li>
+						<li><a class="under-link" href="/service/step5">Настройка заказа</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="content-container">
+			<div class="content"><h2 class="page-title">Выбор планировки</h2></div>
+			<div class="left_bn">
+				<!--<div class="content">
+					<div class="row row-btn-top">	
+						<a href="#selectplan" data-page="select" id="btn_select_plan" class="js-open-page under-link-dashed style2">Выбрать готовую</a>
+						&nbsp; &nbsp; &nbsp; &nbsp;<span class="or">или</span>&nbsp; &nbsp; &nbsp; &nbsp;  
+						<a href="#uploadplan" data-page="upload" id="btn_upload_plan" class="js-open-page style3">Загрузить свою</a>
+						<div class="call-super-man"><a class="js-call-super-man btn blue waves-effect js-fancybox fancyboxLink" data-step="4" href="#call-super-man">
+						ВЫЗВАТЬ ЗАМЕРЩИКА БЕСПЛАТНО</a></div>
+					</div>
+				</div>-->
+				<div class="content">
+					<div class="help_bn">
+					<p>Обратите внимание!<br/>
+					Если вы хотите заказать дизайн всей квартиры целеком, то пропустите этот шаг и переходите сразу к <a class="under-link style1" href="/service/step3">выбору дизайна</a></p>
+					</div>
+					<br/><br/>
+				</div>
+				<div id="select_plan" class="project-select">
+					<div class="js-ajax-list-content">
+						<?= $this->render('service/selectplan.ajax.phtml') ?>
+					</div>
+				</div>
+				<div id="upload_plan" class="project-upload" style="display:none">
+					<div class="content">
+					<?
+					if (Sibirix_Model_User::isAuthorized()) {
+						echo '<p>Вы можете в любой момент вернуться к заполнению проекта.<br/>
+						Найти проект можно в <a class="under-link style1" href="/profile">личном кабинете</a></p>';
+					}
+					else{
+						echo '<p>Обращаем внимание!<br/>
+						Для того, чтобы мы согли проверить загруженные файлы планировки,<br/> 
+						вам необходимо <a class="under-link style1 js-fancybox fancyboxLink" href="#registration-popup">зарегистрироваться</a> или <a href="#login-popup" class="under-link style1 js-fancybox fancyboxLink">войти под своим логином</a></p>';
+					}
+					?>
+						<div class="area-upload <?if (!Sibirix_Model_User::isAuthorized()) {echo 'ghost';}?>">
+						<?if (!Sibirix_Model_User::isAuthorized()) {?>
+								<div class="overlap ghost">
+								</div>
+						<?}?>
+							<label>Загрузите скрин-копию вашей планировки:</label>
+							<form>
+							<div class="upload-area js-docs-dropzone inline  dropzoneArea dz-clickable preloaderController"><div class="js-dz-text text">Перетащите файлы в эту область для их загрузки или нажмите <a href="javascript:void(0);" class="upload-link">загрузить</a></div></div>
+							</form>
+							<p class="i file_res">Для загрузки допускаются файлы до 2Мб, форматов: jpg, png, bmp</p>
+						</div>
+						<?if (Sibirix_Model_User::isAuthorized()) {?>
+						<hr/>
+						<div class="result">
+							<p class="title">Загруженные файлы:</p>
+							<p class="i">Как только мы проверим загруженные файлы, на соответствие требованиям,<br/>
+							вы сможете перейти к следующему шагу</p>
+							<div class="list-result">
+								<div class="row">
+									<div class="col-xs-2 col-sm-2 col-md-2 plan-offset">
+										<div class="item-elem">
+											<div class="picture">
+												
+											</div>
+											<div class="info">
+												<p class="name">1.jpg</p>
+												<p class="status checked">Проверено</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-2 col-sm-2 col-md-2 plan-offset">
+										<div class="item-elem">
+											<div class="picture">
+												
+											</div>
+											<div class="info">
+												<p class="name">1.jpg</p>
+												<p class="status moderation">На модерации</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?};?>
+					</div>
+				</div>
+			</div>
+			<div class="right_bn">
+				<?= $this->partial('service/partials/right_bn.phtml', array('nextstep' => $nextstep, 'nextstep_d' => $nextstep_d, 'item_save' => $item_save)) ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+</div>

@@ -1,0 +1,92 @@
+@import "../_var";
+@import "../_mixins";
+
+.complex-list-page {
+
+    .title-image {
+        height: 435px;
+        background-color: @dark-bg;
+
+        .image {
+            height: 100%;
+            opacity: .07;
+            background-size: cover;
+        }
+    }
+
+    .search-form-wrapper {
+        top: 30px;
+        position: absolute;
+        width: 920px;
+        left: 50%;
+        margin: 0 0 0 -460px;
+
+        .search-form {
+            padding: 34px 59px;
+
+            .row {
+                margin: 0 0 36px;
+            }
+
+            .row-submit {
+                padding: 4px 0 0;
+            }
+        }
+
+        h1 {
+            font: 300 40px @ff-fira;
+            text-transform: uppercase;
+            margin: 20px 0 50px;
+        }
+
+        .search {
+            position: relative;
+
+            &+.input-cell {
+                .sizing();
+                padding: 4px 0 0;
+            }
+
+            &:after {
+                .pseudo();
+                .sprite(680px, 40px, 15px);
+                top: 34px;
+                right: 5px;
+            }
+
+            input[type="text"] {
+                margin-top: -3px;
+                padding: 0 25px 0 0;
+
+                &:focus {
+                    padding: 0 25px 0 8px;
+                }
+            }
+        }
+    }
+
+    .catalog-block {
+        padding: 62px 0 90px;
+        background-color: #f2f7f8;
+    }
+
+    .complex-list {
+        .clearfix();
+
+        .item {
+            margin: 0 27px 27px 0;
+
+            &:nth-child(4n) {
+                margin: 0 0 27px;
+            }
+        }
+    }
+
+    .pagination {
+        padding: 18px 0 11px;
+    }
+
+    .not-found-message {
+        text-align: center;
+    }
+}

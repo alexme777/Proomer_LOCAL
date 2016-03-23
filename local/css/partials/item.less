@@ -1,0 +1,319 @@
+@import "../_var";
+@import "../_mixins";
+
+// дизайны, товары
+.item {
+    .sizing();
+    float: left;
+    .size(280px, 493px);
+    background-color: #fff;
+    box-shadow: 0 0 4px 0 rgba(1,1,1,.2);
+
+    .image {
+        position: relative;
+        .size(100%, 279px);
+        background-size: cover;
+        opacity: .9;
+
+        &:after {
+            .pseudo();
+            .size(100%);
+            top: 0;
+            left: 0;
+            background-color: rgba(35,45,55,.2);
+            z-index: 1;
+        }
+    }
+
+    .favourite {
+        position: absolute;
+        top: 27px;
+        left: 29px;
+        z-index: 2;
+    }
+
+    .like {
+        position: absolute;
+        right: 51px;
+        top: 28px;
+        z-index: 2;
+    }
+
+    .delete {
+        .sprite(311px, 61px, 16px);
+        position: absolute;
+        right: 24px;
+        top: 30px;
+        z-index: 2;
+        left: auto!important;
+    }
+
+    .content {
+        position: relative;
+        .sizing();
+        .size(100%, 213px);
+        padding: 24px 27px;
+
+        .basket, .gift, .edit {
+            .transition(background-color);
+            .transition(opacity);
+            .transition(box-shadow);
+            .size(42px);
+            position: absolute;
+            top: -20px;
+            right: 16px;
+            .sprite(240px, 90px, 42px);
+            border-radius: 50%;
+            background-color: #4ebde3;
+
+            &:hover {
+                background-color: #67cced;
+                box-shadow: 2px 2px 3px 0 rgba(1,1,1,.38);
+            }
+
+            &:after {
+                .pseudo();
+                .transition(opacity);
+                .size(0, 42px);
+                border-radius: 50%;
+                opacity: 0.7;
+                background-color: #fff;
+                top: 0;
+                left: 0;
+            }
+
+            &.basket-adding {
+                &:after {
+                    width: 42px;
+                    opacity: .7;
+                }
+            }
+
+            &.disabled {
+                &:after {
+                    width: 42px;
+                    opacity: .7;
+                }
+
+                &:hover {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .to-basket {
+            .sprite(240px, 90px, 42px);
+            background-color: #4ebde3;
+        }
+
+        .in-basket {
+            .sprite(710px, 90px, 42px);
+            background-color: #4ebde3;
+
+            &:hover {
+                box-shadow: none;
+                cursor: default;
+                background-color: #4ebde3;
+            }
+        }
+
+        .gift {
+            .sprite(760px, 90px, 42px);
+            background-color: #fff;
+
+            &:hover {
+                cursor: default;
+                box-shadow: none;
+                background-color: #fff;
+            }
+        }
+
+        .edit {
+            .sprite(120px, 240px, 42px);
+            background-color: #fff;
+            top: -21px;
+            right: 20px;
+
+            &:hover {
+                background-color: #fff;
+                box-shadow: 2px 2px 3px 0 rgba(1,1,1,.38);
+            }
+        }
+
+        .title {
+            .transition();
+            display: block;
+            font: 300 18px/20px @ff-fira;
+            color: @grey-text;
+            margin: 0 0 20px;
+            height: 39px;
+            overflow: hidden;
+            text-align: left;
+
+            &:hover {
+                color: @blue-text;
+            }
+        }
+
+        .description {
+            font: 300 15px/20px @ff-fira;
+            color: @grey-text;
+            text-align: left;
+
+            .ruble {
+                .sprite(130px, 40px, 8px, 11px);
+            }
+        }
+
+        .status {
+            font: 400 12px/20px @ff-fira;
+            margin: -16px -3px 2px;
+
+            &.moderation {
+                color: #e78e1a;
+            }
+
+            &.draft {
+                color: #5e6e7e;
+            }
+
+            &.err {
+                color: #971616;
+            }
+
+            &.published {
+                color: #13bb37;
+            }
+        }
+    }
+}
+
+.slide .item {
+    float: left;
+
+    &+.item {
+        margin: 0 0 0 27px!important;
+    }
+}
+
+.product-item {
+    height: 375px;
+
+    .content {
+        height: 96px;
+        padding: 24px;
+
+        .title {
+            margin: 0;
+            height: 27px;
+        }
+    }
+}
+
+.design-item {
+    .designer {
+        .sizing();
+        .size(100%, 75px);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 16px 28px;
+        border-top: 1px solid @border-grey;
+
+        .photo {
+            float: left;
+            .size(42px);
+            border-radius: 50%;
+            background-size: cover;
+        }
+
+        .info {
+            .size(165px, 100%);
+            float: left;
+            padding: 0 0 0 15px;
+            text-align: left;
+
+            .label {
+                font: 300 15px/21px @ff-fira;
+                color: @grey-text;
+            }
+
+            .name {
+                max-height: 18px;
+                position: relative;
+                font: 400 15px @ff-fira;
+                color: @link-color;
+                border-color: @link-color;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 165px;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.complex-item {
+    .size(280px, 630px);
+
+    .favourite {
+        top: 28px;
+        left: 26px;
+    }
+
+    .projects-cnt {
+        position: absolute;
+        right: 52px;
+        top: 30px;
+        z-index: 2;
+    }
+
+    .content {
+        height: 348px;
+
+        .title {
+            margin: 0 0 -10px;
+            max-height: 39px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .description {
+            font: 300 13px/20px @ff-fira;
+            color: @blue-text;
+            max-height: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .builder {
+            .sizing();
+            .size(100%, 78px);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 16px 12px;
+
+            .info {
+                .size(100%, 100%);
+                float: left;
+                padding: 0 0 0 15px;
+
+                .label {
+                    font: 300 15px/18px @ff-fira;
+                    color: @grey-text;
+                }
+
+                .name {
+                    position: relative;
+                    font: 400 15px @ff-fira;
+                    color: @link-color;
+                    border-color: @link-color;
+                    max-height: 18px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}

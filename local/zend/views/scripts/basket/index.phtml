@@ -1,0 +1,68 @@
+<?
+    $basketItems = $this->basketItems;
+    $basketTotal = $this->basketTotal;
+?>
+
+<h1>Корзина</h1>
+
+<div class="content-container clearfix js-basket-content">
+
+    <div class="js-basket-full"<?= (empty($basketItems))?' style="display:none"':''?>>
+        <? if (!empty($basketItems)) { ?>
+            <div class="left">
+                <div class="items">
+                    <? foreach ($basketItems as $item) {?>
+                        <div class="cart-item js-basket-item">
+                            <div class="remove js-remove" data-element-id="<?= $item['ID'] ?>"></div>
+                            <? $image = Resizer::resizeImage($item['IMAGE'], "BASKET_PHOTO"); ?>
+                            <a class="image" style="background-image: url('<?= $image ?>')" href="<?= $item['DETAIL_PAGE_URL'] ?>"></a>
+                            <a class="title" href="<?= $item['DETAIL_PAGE_URL'] ?>"><?= $item['NAME'] ?></a>
+                            <div class="descr">Дизайнер <?= $item['DESIGNER']->getFullName() ?><br><br>Бюджет от <?= EHelper::price($item['BUDGET']) ?> Р на М<sup>2</sup></div>
+                            <div class="price">
+                                <span>Цена</span>
+                                <span><?= EHelper::price($item['PRICE']) ?> <i class="ruble"></i></span>
+                            </div>
+                        </div>
+                    <? } ?>
+                </div>
+
+                <div class="cart-summ">
+                    <div class="price-line-big">
+                        <span>Итого к оплате</span>
+                        <span class="js-total">
+                            <small>
+                                <?= $basketTotal['totalCount'] ?> <?= EHelper::getWordForm($basketTotal['totalCount'], ["проект", "проекта", "проектов"]); ?>,
+                            </small> <?= EHelper::price($basketTotal['totalPrice']); ?> <i class="ruble"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <? if (Sibirix_Model_User::isAuthorized()) { ?>
+
+                <div class="right order-form">
+                    <div class="price-line-big">
+                        <span>Ваш заказ</span>
+                        <span class="js-total">
+                            <small>
+                                <?= $basketTotal['totalCount'] ?> <?= EHelper::getWordForm($basketTotal['totalCount'], ["проект", "проекта", "проектов"]); ?>,
+                            </small> <?= EHelper::price($basketTotal['totalPrice']); ?> <i class="ruble"></i>
+                        </span>
+                    </div>
+                    <?= new Sibirix_Form_Order() ?>
+                </div>
+            <? } else { ?>
+                <div class="right info-block">
+                    Чтобы оформить заказ вам
+                    необходимо <a href="#registration-popup" class="under-link js-fancybox">зарегистрироваться</a>
+                    или <a href="#login-popup" class="under-link js-fancybox">авторизоваться</a> на сайте
+                </div>
+            <? } ?>
+        <? } ?>
+    </div>
+
+    <div class="basket-empty js-basket-empty"<?= (!empty($basketItems))?' style="display:none"':''?>>
+        <h3>В корзине пусто</h3>
+        <p class="text">Чтобы добавить дизайн мечты для вашей квартиры, нужно перейти в <a href="<?= $this->url([], 'design-list')?>">каталог</a></p>
+    </div>
+</div>

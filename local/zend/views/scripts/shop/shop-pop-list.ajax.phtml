@@ -1,0 +1,17 @@
+<? if (count($this->itemList) > 0): ?>
+    <div class="shop-detail">
+			<?$limit = 0;
+			foreach ($this->itemList as $item){ 
+				if($limit >= 12){
+					break;
+				}
+				echo $this->partial("shop/partials/shop-item.phtml", ["item" => $item, "designer" => true]);
+				$limit+=1;
+			} 
+			?>
+    </div>
+	<div class="clear"></div>
+		
+<? else: ?>
+    <?= $this->partial("_partials/not-found-status/design.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]) ?>
+<? endif ?>

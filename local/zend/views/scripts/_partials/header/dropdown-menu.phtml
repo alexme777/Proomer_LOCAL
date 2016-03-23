@@ -1,0 +1,21 @@
+<div class="btn-wrapper-dropdown">
+	<a class="js-call-super-man btn blue waves-effect js-fancybox fancyboxLink" data-step="4" href="/project/step1/">
+	Заказать проект</a>
+</div>
+
+
+<ul>
+    <? foreach ($this->menu as $ind => $item) { ?>
+        <li>
+            <? $image = Resizer::resizeImage($item->PREVIEW_PICTURE, 'MAIN_MENU'); ?>
+            <a href="<?= $item->PROPERTY_LINK_VALUE ?>" class="waves-effect">
+                <!--<span class="icon" style="background-image:url('<?//= $image ?>');"></span>-->
+                <span><?= $item->NAME ?></span>
+            </a>
+        </li>
+    <? } ?>
+</ul>
+<div class="btn-wrapper-dropdown dropdown_feedback">
+	<a class="btn no-phone waves-effect js-fancybox fancyboxLink" data-step="4" href="#feedback">
+	Написать нам</a>
+</div>

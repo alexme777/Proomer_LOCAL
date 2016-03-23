@@ -1,0 +1,308 @@
+@import "../_var";
+@import "../_mixins";
+
+.popups {
+    display: none;
+}
+
+.popup {
+    position: relative;
+    background-color: #fff;
+    width: 634px;
+    margin: 0 auto;
+
+    h2 {
+        width: 100%;
+        position: absolute;
+        top: -96px;
+        font: 300 32px/50px @ff-fira;
+        color: #fff;
+        text-align: center;
+        text-transform: none;
+        max-height: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .popup-title {
+        position: relative;
+        border-bottom: 1px solid #15191e;
+
+        &:after {
+            .pseudo();
+            bottom: -9px;
+            left: 50%;
+            margin: 0 0 0 -6px;
+            .size(15px);
+            border-left: 1px solid #15191e;
+            border-bottom: 1px solid #15191e;
+            background-color: #fff;
+            .rotate(-45deg);
+        }
+    }
+
+    .form-content {
+        text-align: center;
+        padding: 42px 60px 36px;
+        border-bottom: 1px solid #dfe2e5;
+
+        .input-row {
+            margin: 0 0 31px!important;
+
+            &.error {
+                margin: 0 0 10px!important;
+            }
+        }
+
+        .btn {
+            width: 100%;
+            margin: 8px 0 16px;
+            text-align: center;
+        }
+
+        .dotted-link {
+            .transition();
+            font: 400 16px @ff-fira;
+            color: @link-color;
+            border-bottom: 1px dotted @link-color;
+
+            &:hover {
+                border-bottom-color: transparent;
+            }
+        }
+    }
+
+    .label {
+        float: left;
+        font: 400 16px/26px @ff-fira;
+        color: @blue-text;
+        text-transform: uppercase;
+    }
+
+    .socials {
+        padding: 33px 33px 33px 60px;
+        li {
+            display: inline-block;
+        }
+
+        a {
+            .transition();
+            display: inline-block;
+            margin: 0 12px;
+            height: 27px;
+            background-image: url('@{path-images}sprite.png')!important;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+        .facebook {
+            width: 12px;
+            background-position: -510px -60px;
+            margin: 0 10px 0 19px;
+        }
+        .vkontakte {
+            width: 37px;
+            background-position: -530px -60px;
+        }
+        .twitter {
+            width: 26px;
+            background-position: -570px -60px;
+        }
+        .odnoklassniki {
+            width: 15px;
+            background-position: -600px -60px;
+        }
+    }
+}
+
+.info-popup {
+    width: 524px;
+
+    h2 {
+        width: 600px;
+        left: -35px;
+    }
+
+    .title-info {
+        padding: 50px 50px 33px 137px;
+        font: 300 22px/28px @ff-fira;
+        color: @blue-text;
+
+        &:before {
+            .pseudo();
+            left: 52px;
+            top: 50px;
+            .sprite(380px, 170px, 59px, 54px);
+        }
+    }
+
+    .info {
+        padding: 10px 0 41px;
+
+        h3 {
+            position: relative;
+            padding: 24px 24px 9px 137px;
+            font: 300 22px/28px @ff-fira;
+            color: @blue-text;
+
+            &:before {
+                .pseudo();
+                left: 50px;
+                top: 30px;
+                .sprite(440px, 170px, 56px, 59px);
+            }
+        }
+
+        ul {
+            padding: 0 0 0 151px;
+
+            li {
+                position: relative;
+                font: 400 14px/20px @ff-fira;
+                color: #3b424a;
+                margin: 0 0 4px;
+
+                &:before {
+                    .pseudo();
+                    top: 7px;
+                    left: -13px;
+                    .size(4px);
+                    background-image: data-uri('@{path-images}base64/marker.png');
+                }
+            }
+        }
+    }
+}
+
+.delete-popup {
+    .popup-inner {
+        position: relative;
+        padding: 49px 35px 43px 124px;
+        font: 300 22px/28px @ff-fira;
+        color: @blue-text;
+
+        &:before {
+            .pseudo();
+            top: 50px;
+            left: 50px;
+            .sprite(500px,170px,46px,53px);
+        }
+    }
+}
+
+.register-popup {
+    .popup-title {
+        .sizing();
+        .size(100%,109px);
+        padding: 43px 60px;
+
+        &.input-row {
+            margin: 0;
+        }
+
+        .error-message {
+            clear: left;
+        }
+    }
+
+    label {
+        float: left;
+        font: 400 16px/26px @ff-fira;
+        color: @blue-text;
+        text-transform: uppercase;
+    }
+
+    .choice-cell {
+        float: left;
+        width: 30%;
+
+        input[type="radio"]+label {
+            float: none;
+            text-transform: none;
+        }
+    }
+}
+
+.feedback-popup {
+    textarea {
+        height: 22px;
+        resize: none;
+    }
+
+    .form-content {
+        padding: 42px 60px 43px;
+    }
+}
+
+.login-popup {
+    .separator {
+        position: relative;
+        padding: 0 7px 0 12px;
+        font: 400 16px/19px 'Fira Sans',sans-serif;
+        color: #b9bfc5;
+        width: 27px;
+
+        &:after {
+            .pseudo();
+            content: '/';
+            top: 0;
+            left: 0;
+            width: 27px;
+        }
+    }
+}
+
+
+.popup.search-service {
+    width: 920px;
+
+    .form-content {
+        text-align: left;
+        border-bottom: none;
+    }
+
+    .btn {
+        width: auto;
+        margin: 0;
+    }
+}
+
+.send-pass-popup {
+    .form-content {
+        padding: 42px 60px 43px;
+    }
+}
+
+.order-success-popup, .success-popup {
+    width: 522px;
+    color: @blue-text;
+    min-height: 190px;
+
+    .text {
+        position: relative;
+        padding: 42px 45px 42px 171px;
+
+        &:before {
+            .pseudo;
+            .sprite(460px, 290px, 92px, 96px);
+            top: 50px;
+            left: 50px;
+        }
+    }
+
+    h4 {
+        margin: 8px 0 7px;
+        font: 300 22px/28px @ff-fira;
+    }
+
+    .descr {
+        margin: 0 0 21px;
+        font: 16px/24px @ff-fira;
+    }
+
+    .info {
+        font: 14px/20px @ff-fira;
+        color: @grey-text;
+    }
+}

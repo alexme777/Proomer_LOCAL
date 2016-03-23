@@ -1,0 +1,41 @@
+<?
+/**
+ * @var $item Sibirix_Model_Complex_Row
+ */
+$item = $this->item;
+$class = $this->class;
+
+if (!empty($item->DETAIL_PICTURE)) {
+    $image = Resizer::resizeImage($item->DETAIL_PICTURE, "DESIGN_LIST");
+} else {
+   // $image = Resizer::resizeImage(Settings::getOptionFile('defaultComplexImage'), 'COMPLEX_LIST');
+   $image = '/local/images/proomer2.png';
+}
+?>
+
+<div class="col-xs-3 col-sm-3 col-md-3 design-item design-offset <?=$class?>">
+	<div class="design" data-id="<?=$item->ID?>">
+		<div class="design-inner">
+			<div class="picture">
+				<img src="<?=$image?>"/>
+			</div>
+			<div class="info">
+				<p class="name"><?=$item->NAME?></p>
+				<p>
+				<?if($item->PROPERTY_BUDGET){
+				?>
+				<span class="val"><?=$item->PROPERTY_BUDGET?> ₽</span>
+				<?}?>
+			
+				<span class="val">и <?=$item->PROPERTY_TIME?> <?= EHelper::getWordForm($item->PROPERTY_TIME, ["неделя", "недели", "недель"]); ?></span>
+				
+				</p>
+			</div>
+			<div class="selected_design">
+				<a target="_blank" class="btn blue" data-step="4" href="/design/<?=$item->CODE?>">
+							Выбрать это решение
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

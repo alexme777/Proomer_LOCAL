@@ -1,0 +1,115 @@
+<?
+	$itemList = $this->itemList;
+	$PLAN_SAVE = $this->PLAN_SAVE;
+	$SELECTED_PLAN = $this->SELECTED_PLAN;
+	$PLAN_OPTION_SAVE = $this->PLAN_OPTION_SAVE;
+	$projectData = $this->projectData;
+	$starting_price = $this->starting_price;
+	$step = $this->step;
+	$nextstep = $this->nextstep;
+	$url = $this->url;
+	$nextstep_d = $this->nextstep_d;
+	$uploadItemList = $this->uploadItemList;
+	$step = $this->step;
+	$cityModel    = new Sibirix_Model_City();
+	$nextstepfile = true;
+	$PLAN_ARR = $this->PLAN_ARR;
+	$auth = $this->auth;
+	$access = $this->access;
+	
+?>
+<input type="hidden" id="designId" name="designId" value="2475">
+<div id="service-page" data-step=<?=$step?>>
+	<div class="head">
+		<div class="content-container">
+			<div class="content">
+				<h2 class="main-title">Создание проекта готовой планировки</h2>
+				<div id="service_menu">
+					<ul>
+						<li class="selected"><a href="/plan/step1/">Выбор планировки</a></li>
+						<li><?if($projectData->PROPERTY_STEP_VALUE < 2){?><div class="overlap"></div><?};?><a class="under-link" href="/plan/step2/">Состав семьи</a></li>
+						<li><?if($projectData->PROPERTY_STEP_VALUE < 3){?><div class="overlap"></div><?};?><a class="under-link" href="/plan/step3/">Настройки заказа</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="content-container">
+			<div class="left_bn preloaderController">
+				<div class="content">
+					<h2 class="page-title">Выбор планировки</h2>
+					<div class="row row-btn-top project_step1">	
+						<!--<a href="#selectplan" data-page="select" id="btn_select_plan" class="js-open-page under-link-dashed style2">Выбрать готовую</a>
+						&nbsp; &nbsp; &nbsp; &nbsp;<span class="or">или</span>&nbsp; &nbsp; &nbsp; &nbsp;  
+						<a href="#uploadplan" data-page="upload" id="btn_upload_plan" class="js-open-page style3">Загрузить свою</a>-->
+						<div class="call-super-man"><a class="js-call-super-man super-man btn blue waves-effect js-fancybox fancyboxLink" data-step="4" href="#call-super-man">
+						ВЫЗВАТЬ ЗАМЕРЩИКА БЕСПЛАТНО</a></div>
+					</div>
+				</div>
+				<div id="select_plan" class="project-select">
+					<div class="js-ajax-list-content preloaderController">
+						<?= $this->render('plan/apartment.ajax.phtml') ?>
+					</div>
+					<?if(count($this->itemList) > 0){?>
+						<div class="row-submit"><a class="js-submit-show btn waves-effect">Показать ещё</a></div>
+					<?};?>
+				</div>
+				
+				<?//= $this->render('project/planlist.ajax.phtml') ?>
+				<form enctype="application/x-www-form-urlencoded" class="js-filter-form filter filterForm formTabber" action="/plan/" method="post" novalidate="novalidate">
+					<input type="hidden" id="page" value="<?if($_GET['page']){echo $_GET['page'];}else{echo '2';};?>" name="page"/>
+					<input type="hidden" id="selected_plan" value="<?if($_GET['selected_plan']){echo $_GET['selected_plan'];};?>" name="selected_plan"/>
+				</form>
+			</div>
+			<div class="right_bn">
+				<input type="hidden" id="select_step_1" class="select_val" value="<?if(!empty($projectData -> PROPERTY_ID_FLAT_VALUE)){echo $projectData -> PROPERTY_ID_FLAT_VALUE;}else if($_GET['selected_plan']){echo $_GET['selected_plan'];};?>"/>
+				<?= $this->partial('plan/partials/right_bn.phtml', array('access' => $access, 'auth' => $auth, 'starting_price' => $starting_price, 'projectData' => $projectData, 'url' => $url, 'nextstep' => $nextstep, 'nextstep_d' => $nextstep_d, 'nextstepfile' => $nextstepfile, 'PLAN_SAVE' => $PLAN_SAVE, 'PLAN_OPTION_SAVE' => $PLAN_OPTION_SAVE)) ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+</div>
+<!--<script>
+	//Времмено находится тут
+	(function(){
+		var a = document.querySelector('.right_bn'), b = null, P = 10;
+		window.addEventListener('scroll', Ascroll, false);
+		document.body.addEventListener('scroll', Ascroll, false);
+		function Ascroll() {
+		  if (b == null) {
+			var Sa = getComputedStyle(a, ''), s = '';
+			for (var i = 0; i < Sa.length; i++) {
+			  if (Sa[i].indexOf('overflow') == 0 || Sa[i].indexOf('padding') == 0 || Sa[i].indexOf('border') == 0 || Sa[i].indexOf('outline') == 0 || Sa[i].indexOf('box-shadow') == 0 || Sa[i].indexOf('background') == 0) {
+				s += Sa[i] + ': ' +Sa.getPropertyValue(Sa[i]) + '; '
+			  }
+			}
+			b = document.createElement('div');
+			b.style.cssText = s + ' box-sizing: border-box; width: ' + a.offsetWidth + 'px;';
+			a.insertBefore(b, a.firstChild);
+			var l = a.childNodes.length;
+			for (var i = 1; i < l; i++) {
+			  b.appendChild(a.childNodes[1]);
+			}
+			a.style.height = b.getBoundingClientRect().height + 'px';
+			a.style.padding = '0';
+			a.style.border = '0';
+		  }
+		  var Ra = a.getBoundingClientRect(),
+			  R = Math.round(Ra.top + b.getBoundingClientRect().height - document.querySelector('footer').getBoundingClientRect().top);  // селектор блока, при достижении нижнего края которого нужно открепить прилипающий элемент
+		  if ((Ra.top - P) <= 0) {
+			if ((Ra.top - P) <= R) {
+			  b.className = 'stop';
+			  b.style.top = - R +'px';
+			} else {
+			  b.className = 'sticky';
+			  b.style.top = P + 'px';
+			}
+		  } else {
+			b.className = '';
+			b.style.top = '';
+		  }
+		  window.addEventListener('resize', function() {
+			a.children[0].style.width = getComputedStyle(a, '').width
+		  }, false);
+		}
+})()	
+</script>-->

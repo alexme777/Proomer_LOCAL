@@ -1,0 +1,22 @@
+<?
+    $designs = $this->designs;
+?>
+
+<? if (!empty($designs->items)) { ?>
+    <div class="design-list">
+        <? foreach ($designs->items as $design) { ?>
+            <?= $this->partial("design/partials/design-item.phtml", ["item" => $design, "designer" => false]) ?>
+        <? } ?>
+    </div>
+
+    <?= $this->paginationControl(
+        $this->paginator,
+        'Sliding',
+        '_partials/paginator.phtml'
+    ); ?>
+
+<? } else { ?>
+    <div class="static-content">
+        <p>Дизайнер еще не добавил ни одного проекта</p>
+    </div>
+<? } ?>

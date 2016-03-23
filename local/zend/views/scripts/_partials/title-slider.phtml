@@ -1,0 +1,23 @@
+<?
+    $animationDuration = Settings::getOption('mainSliderPause', '3') + 4;
+    $slides = $this->slides;
+
+?>
+
+<div class="title-slider js-title-slider" data-pause="<?= Settings::getOption('mainSliderPause', '3')?>">
+    <? foreach ($slides['ITEMS'] as $ind => $item) { ?>
+        <div class="slide">
+            <div class="slide-bg"  style="background-image: url('<?= $item->DETAIL_PICTURE['SRC']?>');  animation-duration:<?= $animationDuration?>s;"></div>
+            <div class="label">
+				<div class="label-inner">
+					<a class="overbn" href="<?//= $slides['DESIGN'][$item->PROPERTY_DESIGN_VALUE]->getUrl() ?>"></a>
+					<p class="title"><?=$item->NAME?></p>
+					<p class="locality"><span class="ico"></span>Молодежная, 10</p>
+					<p class="size"><span class="ico"></span>Площадь:118.8 м&#178;</p>
+					<p class="price"><span class="ico"></span>Стоимость проекта:20 525 ₽</p>
+                    <?//= $item->PREVIEW_TEXT ?>
+                </div>
+            </div>
+        </div>
+    <? } ?>
+</div>

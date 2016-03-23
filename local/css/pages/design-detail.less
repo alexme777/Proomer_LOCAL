@@ -1,0 +1,175 @@
+@import "../_var";
+@import "../_mixins";
+
+.design-detail-page {
+    h2 {
+        font: 300 32px/32px @ff-fira;
+        color: @blue-text;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 43px;
+    }
+
+    .gallery-block {
+        .row {
+            .clearfix();
+            height: 725px;
+            border-top: 1px solid #cdd1d2;
+
+            .cell {
+                .sizing();
+                float: left;
+                position: relative;
+                height: 100%;
+                background-color: @black;
+
+                &+.cell {
+                    border-left: 1px solid #cdd1d2;
+                }
+
+                .title {
+                    position: absolute;
+                    top: 42px;
+                    left: 54px;
+                    font: 300 22px/50px @ff-fira;
+                    color: #fff;
+                    text-transform: uppercase;
+                    z-index: 2;
+                }
+
+                .gallery-slider {
+                    .size(100%);
+
+                    .slide {
+                        .size(100%);
+                        display: block;
+                        background-size: cover;
+                        opacity: .7;
+                        background-position: 50% 50%;
+                    }
+                }
+
+                .bx-wrapper, .bx-viewport {
+                    height: 100%;
+                }
+
+                .bx-pager {
+                    position: absolute;
+                    top: 51px;
+                    left: 45px;
+
+                    .bx-pager-link {
+                        background-color: #fff;
+                        opacity: .5;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+
+                        &.active {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            &:nth-child(odd) {
+                .cell {
+                    width: 32%;
+
+                    &+.cell {
+                        width: 68%;
+                    }
+                }
+            }
+
+            &:nth-child(even) {
+                .cell {
+                    width: 50%;
+                }
+            }
+
+            .cell.full-row {
+                width: 100%!important;
+            }
+        }
+    }
+
+    .project-products-block, .design-products-block, .similar-designs-block {
+        .bx-viewport {
+            width: 1206px!important;
+            margin: 0 0 0 -5px;
+            padding: 0 0 0 2px;
+        }
+
+        .bx-pager {
+            .bx-pager-link {
+                background-color: #bdc0c3;
+
+                &:hover {
+                    background-color: #53bfe1;
+                }
+
+                &.active {
+                    background-color: #53bfe1;
+                    box-shadow: 2px 2px 3px 0 rgba(1,1,1,.2);
+                }
+            }
+        }
+    }
+
+    .project-products-block {
+        .size(100%, 582px);
+        padding-top: 98px;
+        background-color: @white-bg;
+
+        .item {
+            .sizing();
+            margin: 0;
+        }
+
+        .bx-viewport {
+            height: 376px!important;
+        }
+    }
+
+    .design-products-block {
+        .size(100%, 581px);
+        padding-top: 98px;
+        background-color: #fff;
+
+        .bx-viewport {
+            height: 376px!important;
+        }
+    }
+
+    .similar-designs-block {
+        .size(100%, 699px);
+        padding-top: 98px;
+        background-color: @white-bg;
+
+        .bx-viewport {
+            height: 495px!important;
+        }
+
+        .design-slider {
+            .slide {
+                margin: 0 28px 0 0;
+            }
+
+            &.designs {
+                text-align: center;
+                font-size: 0;
+                width: 1230px;
+                margin: 0 0 0 -15px;
+
+                .item {
+                    text-align: left;
+                    display: inline-block;
+                    float: none;
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+}

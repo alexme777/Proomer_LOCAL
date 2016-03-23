@@ -1,0 +1,47 @@
+@import "../_var";
+@import "../_mixins";
+
+.bx-wrapper {
+    position: relative;
+}
+
+.bx-viewport {
+    z-index: 0;
+}
+
+.bx-controls {
+    text-align: center;
+}
+
+.bx-pager {
+    .clearfix();
+    .size(auto, 21px);
+    margin: 46px 0 41px;
+    display: inline-block;
+
+    .bx-pager-item {
+        display: block;
+        float: left;
+
+        .bx-pager-link {
+            .transition();
+            display: block;
+            color: transparent;
+            .size(17px);
+            margin: 2px 5px;
+            border-radius: 50%;
+            background-color: @pager-item;
+
+            &.active {
+                .size(21px);
+                margin: 0 3px;
+                background-color: @pager-active;
+            }
+
+            &:hover {
+                background-color: @pager-hover;
+                cursor: pointer;
+            }
+        }
+    }
+}

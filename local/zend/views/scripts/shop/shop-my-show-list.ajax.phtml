@@ -1,0 +1,9 @@
+    <div class="shop-detail">
+        <? foreach ($this->itemList as $item){
+				if(isset($item->VIEW) && $item->VIEW == 1){
+					echo $this->partial("shop/partials/shop-item.phtml", ["item" => $item, "designer" => true]);
+				}
+			} 
+		?>
+    </div>
+	<div class="clear"></div>

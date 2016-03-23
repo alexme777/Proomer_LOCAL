@@ -1,0 +1,15 @@
+<div class="form-content step3">
+    <? $floorPlan = Resizer::resizeImage($this->floorPlanImg, 'SEARCH_SERVICE_PLAN'); ?>
+    <div class="photo" style="background-image:url('<?= $floorPlan ?>')">
+        <? if (!empty($this->floorPinList)): ?>
+            <? foreach ($this->floorPinList as $floorPin): ?>
+                <? $coords = explode(",", $floorPin["COORDS"]) ?>
+                <div id="pin<?= $floorPin["FLAT"] ?>" class="js-pin pin" style="top:<?= trim($coords[1]) ?>px;left:<?= trim($coords[0]) ?>px;" data-flat="<?= $floorPin["FLAT"] ?>"><?= $floorPin["TEXT"] ?></div>
+            <? endforeach ?>
+        <? endif ?>
+    </div>
+    <div class="building-select">
+        <?= $this->formStep ?>
+    </div>
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,94 @@
+@import "_var";
+
+/****
+ * Миксины, разное
+ ****/
+
+.sizing() {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.size(@width, @height: @width) {
+    width:  @width;
+    height: @height;
+}
+
+.sprite (@left, @top, @width, @height: @width) {
+    .size(@width, @height);
+    background: url('@{path-images}sprite.png') (-1 * @left) (-1 * @top) no-repeat;
+}
+
+.social-sprite (@number) {
+    @size: 32px;
+    .size(@size);
+    background: url('@{path-images}social-icons.png') (-1 * @size * @number) 0 no-repeat;
+}
+
+.hover-opacity(@opacity: 0.75) {
+    cursor: pointer;
+
+    &:hover {
+        opacity: @opacity;
+    }
+}
+
+.transition(@property: all, @time: 0.3s) {
+    -webkit-transition: @property @time ease;
+    transition: @property @time ease;
+}
+
+.transition-transform(@time: 0.3s) {
+    -webkit-transition: -webkit-transform @time ease;
+    -ms-transition:     -ms-transform @time ease;
+    transition:         transform @time ease;
+}
+
+.transform(@propvalue) {
+    -webkit-transform: @propvalue;
+    -ms-transform: @propvalue;
+    transform: @propvalue;
+}
+
+.rotate(@degree) {
+    -webkit-transform: rotate(@degree);
+    -ms-transform: rotate(@degree);
+    transform: rotate(@degree);
+}
+
+.transform-origin(@x, @y) {
+    -webkit-transform-origin: @x @y;
+    -ms-transform-origin: @x @y;
+    transform-origin: @x @y;
+}
+
+.pseudo() {
+    content: "";
+    position: absolute;
+}
+
+.clearfix() {
+    &:before {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+}
+
+.animation(@name, @function: linear, @time: 1s, @iteration: infinite, @mode: forwards, @delay: 0s, @direction: normal) {
+    animation: @name @function @time;
+    animation-iteration-count: @iteration;
+    animation-direction: @direction;
+    animation-fill-mode: @mode;
+    animation-delay: @delay;
+
+    -webkit-animation: @name @function @time;
+    -webkit-animation-iteration-count: @iteration;
+    -webkit-animation-direction: @direction;
+    -webkit-animation-fill-mode: @mode;
+    -webkit-animation-delay: @delay;
+}

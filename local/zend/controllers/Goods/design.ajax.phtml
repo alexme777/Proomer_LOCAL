@@ -1,0 +1,20 @@
+<?
+    $designs = $this->itemList;
+?>
+
+<? if (!empty($designs)) { ?>
+    <div class="design-list">
+        <? foreach ($designs as $item) { ?>
+            <? $item->STATUS = $this->status[$item->PROPERTY_STATUS_ENUM_ID]['XML_ID'] ?>
+            <?= $this->partial("design/partials/design-item.phtml", ["item" => $item, "designer" => false, "profile" => true]) ?>
+        <? } ?>
+    </div>
+
+    <?= $this->paginationControl(
+        $this->paginator,
+        'Sliding',
+        '_partials/paginator.phtml'
+    ); ?>
+<? } else { ?>
+    <?= $this->partial("_partials/not-found-status/design.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]) ?>
+<? } ?>

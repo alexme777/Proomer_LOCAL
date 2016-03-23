@@ -1,0 +1,305 @@
+@import "../_var";
+@import "../_mixins";
+
+form, .form {
+    input[type=text], input[type=password] {
+        .sizing();
+        .transition();
+        height: 30px;
+        width: 100%;
+        border: none;
+        background: transparent;
+        border-bottom: 2px solid @input-blue-color;
+        color: @input-blue-color;
+        padding: 0;
+        font: 400 16px/30px @ff-fira;
+
+        &:focus {
+            padding: 0 0 0 8px;
+        }
+
+        &:disabled {
+            background: #DCDCDC;
+            opacity: .6;
+        }
+    }
+
+    input[type=password], input[type=text].password {
+        padding: 0 40px 0 0;
+
+        &:focus {
+            padding: 0 40px 0 8px;
+        }
+    }
+
+    textarea {
+        .transition();
+        padding: 3px 8px 3px 0;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid @input-blue-color;
+        font: 16px/22px @ff-fira;
+        color: @input-blue-color;
+        resize: vertical;
+        overflow-y: hidden;
+
+        &:focus {
+            padding: 3px 0 3px 8px;
+        }
+    }
+
+    .input-row {
+        position: relative;
+        text-align: left;
+
+        label {
+            font: 400 16px/29px @ff-fira;
+            color: @blue-text;
+            text-transform: uppercase;
+        }
+
+        &.input-row {
+            margin: 0 0 33px;
+        }
+
+        span.error-message {
+            display: none;
+            font: 400 14px @ff-fira;
+            color: #971616;
+            padding: 5px 0 0 0;
+        }
+
+        &.error {
+            .error-message {
+                display: block;
+            }
+
+            &.input-row {
+                margin: 0 0 10px;
+            }
+
+            input[type='text'], input[type='password'], textarea {
+                background-color: rgba(151,22,22,.1);
+                border-bottom-color: #971616;
+            }
+        }
+    }
+
+    input[type=radio] {
+        visibility: hidden;
+        width: 0;
+        float: left;
+    }
+
+    input[type=radio]+label {
+        .transition();
+        position: relative;
+        font: 400 16px/26px @ff-fira;
+        color: @blue-text;
+        opacity: .5;
+        padding: 0 0 0 46px;
+
+        &:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        &:before {
+            .sizing();
+            .pseudo();
+            top: -4px;
+            left: 18px;
+            .size(24px);
+            border-radius: 50%;
+            border: 1px solid @blue-text;
+        }
+
+        &:after {
+            .pseudo();
+            top: 10px;
+            left: 30px;
+            .size(0);
+            border-radius: 50%;
+            background-color: @link-color;
+        }
+    }
+
+    input[type='radio']:checked+label {
+        color: @link-color;
+        opacity: 1;
+
+        &:after {
+            .pseudo();
+            top: 3px;
+            left: 25px;
+            .size(10px);
+        }
+    }
+
+    .show-password, .hide-password {
+        position: absolute;
+        right: 10px;
+        display: block;
+        .sprite(480px,60px,24px,11px);
+        top: 40px;
+        border: none!important;
+    }
+
+    .hide-password {
+        .sprite(450px, 60px,25px,15px);
+        top: 37px;
+    }
+
+    .message {
+        text-align: left;
+        font: 300 16px/22px @ff-fira;
+        color: @blue-text;
+    }
+
+    .input-row+.message {
+        margin: -8px 0 26px;
+    }
+
+    .help {
+        position: relative;
+        display: inline-block;
+        .sprite(760px, 40px, 18px);
+        margin: -2px 5px;
+
+        &:after {
+            .transition();
+            .pseudo();
+            .sprite(780px, 40px, 18px);
+            opacity: 0;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            &:after {
+                opacity: 1;
+            }
+        }
+    }
+
+    .upload-area {
+        .sizing();
+        .clearfix();
+        width: 100%;
+        background-color: #fafbfd;
+        border: 2px dashed #dce5eb;
+        padding: 24px 10px;
+        margin: 6px 0 0;
+
+        &.error {
+            border-color: #971616;
+        }
+
+        & + .error-message {
+            position: relative;
+            top: 5px;
+        }
+
+        &.files {
+            padding: 24px 10px 2px;
+        }
+
+        .upload-doc {
+            position: relative;
+            float: left;
+            padding: 0 27px 0 38px;
+            margin: 50px 35px 21px 30px;
+
+            .doc-title {
+                font: 400 16px/20px @ff-fira;
+                color: @blue-text;
+            }
+
+            .doc-size {
+                font: 400 16px/20px @ff-fira;
+                color: #b9bfc5;
+                margin-left: 7px;
+            }
+
+            &:before {
+                .pseudo();
+                top: -5px;
+                left: 4px;
+                .size(22px, 26px);
+                background-image: url('@{path-images}sprite.png');
+            }
+
+            &.pdf {
+                &:before {
+                    background-position: -150px 0;
+                }
+            }
+
+            &.xls {
+                &:before {
+                    background-position: -180px 0;
+                }
+            }
+
+            &.doc {
+                &:before {
+                    background-position: -210px 0;
+                }
+            }
+
+            .delete {
+                position: absolute;
+                display: inline-block;
+                margin: 0 0 0 6px;
+                top: 1px;
+                right: 0;
+                .size(18px);
+                .sprite(0,380px,18px);
+
+                &:after {
+                    .transition();
+                    .pseudo();
+                    .sprite(20px,380px,18px);
+                    opacity: 0;
+                }
+
+                &:hover:after {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .text {
+            .sizing();
+            .size(100%, auto);
+            position: relative;
+            padding: 50px 10px 0;
+            font: 400 16px/22px @ff-fira;
+            color: #b9bfc5;
+            text-align: center;
+            margin: 0;
+
+            .upload-link {
+                position: relative;
+                font: 400 16px @ff-fira;
+                color: @link-color;
+                padding-left: 20px;
+
+                &:before {
+                    .pseudo();
+                    top: 5px;
+                    left: 3px;
+                    .sprite(740px,40px,12px,13px);
+                }
+            }
+
+            &:before {
+                .pseudo();
+                .sprite(170px,240px,49px,32px);
+                top: 15px;
+                left: 50%;
+                margin: 0 0 0 -22px;
+            }
+        }
+    }
+}

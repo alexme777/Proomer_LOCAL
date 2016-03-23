@@ -1,0 +1,53 @@
+<?
+    $user = $this->user;
+    $basketCount = $this->basketCnt;
+?>
+    <div class="buttons">
+    <!--<a href="javascript:void(0);" class="search header-button"></a> TODO: поиск-->
+
+		<div class="out_basket">
+			<a href="javascript:void(0);" class="basket <?= (EHelper::isBasket())?'disabled':'js-basket' ?> header-button">
+				<? if ($basketCount > 0) { ?>
+					<div class="count js-basket-count"><?= $basketCount ?></div>
+				<? } else { ?>
+					<div class="count js-basket-count" style="display:none;"></div>
+				<? } ?>
+			</a>
+		</div>
+    <? if ($user) {  ?>
+        <div class="login header-button active">
+            <?
+                if (!empty($user->PERSONAL_PHOTO['ID'])) {
+                    $image = Resizer::resizeImage($user->PERSONAL_PHOTO['ID'], "HEADER_AVATAR");
+                } else {
+                    $image = Resizer::resizeImage(Settings::getOptionFile('defaultAvatar'), 'HEADER_AVATAR');
+                }
+            ?>
+            <div class="photo js-profile-open" style="background-image: url('<?= $image ?>')"></div>
+            <!-- <div class="count">8</div>-->
+            <div class="profile-dropdown js-profile-dropdown">
+                <a href="javascript:void(0);" class="close js-close"></a>
+                <ul>
+                    <? foreach ($this->menu as $ind => $item) { ?>
+                        <? $image = Resizer::resizeImage($item->PREVIEW_PICTURE, "PROFILE_MENU")?>
+                        <li>
+                            <a href="<?= $item->PROPERTY_LINK_VALUE ?>" class="waves-effect">
+                                <span class="icon" style="background-image:url('<?= $image ?>');"></span>
+                                <span><?= $item->NAME ?></span>
+                            </a>
+                        </li>
+                    <? } ?>
+                    <li><a href="/?logout=yes" class="exit waves-effect">Выход</a></li>
+                </ul>
+            </div>
+        </div>
+    <? } else { ?>
+		<!--<div class="login">
+			<span class="ico_login"></span><a href="#login-popup" class="header-button js-fancybox under-link-dotted view_n2">Вход</a>
+		</div>-->
+		<div class="login">
+			<a href="#login-popup" class="header-button js-fancybox under-link-dotted view_n2">Авторизация</a>
+		</div>
+    <? } ?>
+		
+    </div>

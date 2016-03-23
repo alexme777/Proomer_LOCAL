@@ -1,0 +1,26 @@
+<div class="list-plan">
+	<div class="row">
+	
+	<?if(count($this->SELECTED_PLAN) > 0){?>
+			<?
+			
+			foreach ($this->SELECTED_PLAN as $item): ?>
+				<?=$this->partial("plan/partials/plan-item-b.phtml", ["item" => $item, "class"=>'selected']) ?>
+			<?
+			
+			endforeach ?>	
+
+	<?};?>
+	
+	<?if(count($this->itemList) > 0){?>
+			<?
+			
+			foreach ($this->itemList as $item): ?>
+				<?=$this->partial("plan/partials/plan-item-b.phtml", ["item" => $item,"class"=>$class]) ?>
+			<?
+			
+			endforeach ?>	
+
+	<?};?>
+	</div>
+</div>

@@ -1,0 +1,150 @@
+<?
+$design = $this->design;
+$goods = $this->goods;
+$show_room = array();
+
+foreach($design->ROOMS as $room){
+	if(count($room->PINS) > 0){
+		$show_room = $room;
+		break;
+	}
+}
+?>
+<div class="product-block">
+    <div class="content-container">
+        <h2 class="product-title">Вы можете сделать<br/> не только ремонт но и купить мебель<a href="" class="blue">(Придумать)</a></h2>
+        <div class="subtitle">Уже стали счастливым собственником жилья или только присматриваетесь к будущей квартире?<br/> Посмотрите идеи для своего интерьера.</div>
+			</div>
+			<div class="rooms" style="margin-bottom:25px;background-image:url(<?=$show_room->PROPERTY_IMAGES_VALUE[0]['SRC']?>);margin:0 auto;width:1366px;height:740px;background-size: cover%;background-position: 50%"id="">
+							<?foreach($show_room->PINS as $goods){
+							?>
+								<!--<div class="goods js-open-win" style="left:50%;top:<?=$goods->Y?>px;">
+									<a class="pin show" href="javascript:void(0)" class="pin"></a>
+									<div class="window hide">
+										<div class="top">
+											<a href="<?=$goods->PROPERTY_URL_VALUE?>"><img class="picture" src="<?=$goods->PREVIEW_PICTURE['SRC']?>" alt=""/></a>
+										</div>
+										<div class="bottom">
+											<h2 class="title"><a href="<?=$goods->PROPERTY_URL_VALUE?>"><?=$goods->NAME?></a></h2>
+											<p class="price"><?=$goods->PROPERTY_PRICE_VALUE?>₽</p>
+										</div>
+									</div>
+								</div>-->
+							<?
+							};
+							?>
+			</div>
+			<div class="content-container">
+				<div class="row">
+				<div class="product-list">
+					<div class="col-xs-2 col-sm-2 col-md-2 out-feature-item">
+						<div class="product-item">
+							<div class="top">
+								<!--<div class="likes"><?//=$this->Like()->button($item->ID, 999, 1)?></div>-->
+								<a href="/shop/260/2219"><img src="/upload/iblock/473/473e4a85e1136001c358d901836a4214.jpg" alt=""/></a>
+							</div>
+							<div class="info">
+								<a href="/shop/260/2219" class="title">Кресло Egg Classic</a>
+								<div class="bottom">
+								<p class="price">10 000 ₽</p>
+								<? $basketClass = (1)?'js-add-basket':' js-add-basket' ?>
+								<? $basketClass2 = (1)?'in-basket basket':'to-basket basket' ?>
+								<a href="javascript:void(0)" class="<?=$basketClass?> product-btn-basket" data-offer="<?=(1)?'Y':'N'?>" data-section-id="<?=21?>" data-element-id="<?= 123 ?>"><span class="<?= (15000 > 0)?$basketClass2:'gift'?>"></span></a></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 out-feature-item">
+						<div class="product-item">
+							<div class="top">
+								<!--<div class="likes"><?//=$this->Like()->button($item->ID, 999, 1)?></div>-->
+								<a href="/shop/260/2237"><img src="/upload/iblock/ada/adabd2caf4b2723f628986a3ba88abdd.jpg" alt=""/></a>
+							</div>
+							<div class="info">
+								<a href="/shop/260/2237" class="title">Кресло Classic</a>
+								<div class="bottom">
+								<p class="price">70 000 ₽</p>
+								<? $basketClass = (1)?'js-add-basket':' js-add-basket' ?>
+								<? $basketClass2 = (1)?'in-basket basket':'to-basket basket' ?>
+								<a href="javascript:void(0)" class="<?=$basketClass?> product-btn-basket" data-offer="<?=(1)?'Y':'N'?>" data-section-id="<?=21?>" data-element-id="<?= 123 ?>"><span class="<?= (15000 > 0)?$basketClass2:'gift'?>"></span></a></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 out-feature-item">
+						<div class="product-item">
+							<div class="top">
+								<!--<div class="likes"><?//=$this->Like()->button($item->ID, 999, 1)?></div>-->
+								<a href="/shop/260/2553"><img src="/upload/iblock/010/0103c3f860dca79c5bd398146d0a7808.jpeg" alt=""/></a>
+							</div>
+							<div class="info">
+								<a href="/shop/260/2553" class="title">Кресло Barcelona</a>
+								<div class="bottom">
+								<p class="price">76 650 ₽</p>
+								<? $basketClass = (1)?'js-add-basket':' js-add-basket' ?>
+								<? $basketClass2 = (1)?'in-basket basket':'to-basket basket' ?>
+								<a href="/shop/260/2553" class="<?=$basketClass?> product-btn-basket" data-offer="<?=(1)?'Y':'N'?>" data-section-id="<?=21?>" data-element-id="<?= 123 ?>"><span class="<?= (15000 > 0)?$basketClass2:'gift'?>"></span></a></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-2 col-sm-2 col-md-2 out-feature-item">
+						<div class="product-item">
+							<div class="top">
+								<!--<div class="likes"><?//=$this->Like()->button($item->ID, 999, 1)?></div>-->
+								<a href="/shop/260/2554"><img src="/upload/iblock/dfd/dfddb818ce535a5da3ebfe71f31b95c1.jpeg" alt=""/></a>
+							</div>
+							<div class="info">
+								<a href="/shop/260/2554" class="title">Кресло Sand</a>
+								<div class="bottom">
+								<p class="price">Бесплатно</p>
+								<? $basketClass = (1)?'js-add-basket':' js-add-basket' ?>
+								<? $basketClass2 = (1)?'in-basket basket':'to-basket basket' ?>
+								<a href="/shop/260/2554" class="<?=$basketClass?> product-btn-basket" data-offer="<?=(1)?'Y':'N'?>" data-section-id="<?=21?>" data-element-id="<?= 123 ?>"><span class="<?= (15000 > 0)?$basketClass2:'gift'?>"></span></a></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-2 col-sm-2 col-md-2 out-feature-item">
+						<div class="product-item">
+							<div class="top">
+								<!--<div class="likes"><?//=$this->Like()->button($item->ID, 999, 1)?></div>-->
+								<a href="/shop/260/2555"><img src="/upload/iblock/55b/55bfd93f733ffe419eda235768960276.png" alt=""/></a>
+							</div>
+							<div class="info">
+								<a href="/shop/260/2555" class="title">Кресло Orlando</a>
+								<div class="bottom">
+								<p class="price">85 500 ₽</p>
+								<? $basketClass = (1)?'js-add-basket':' js-add-basket' ?>
+								<? $basketClass2 = (1)?'in-basket basket':'to-basket basket' ?>
+								<a href="/shop/260/2555" class="<?=$basketClass?> product-btn-basket" data-offer="<?=(1)?'Y':'N'?>" data-section-id="<?=21?>" data-element-id="<?= 123 ?>"><span class="<?= (15000 > 0)?$basketClass2:'gift'?>"></span></a></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-2 col-sm-2 col-md-2 out-feature-item">
+						<div class="product-item">
+							<div class="top">
+								<!--<div class="likes"><?//=$this->Like()->button($item->ID, 999, 1)?></div>-->
+								<a href="/shop/260/2556"><img src="/upload/iblock/1f5/1f51a50ac6b8c4104d25908d716b96fe.png" alt=""/></a>
+							</div>
+							<div class="info">
+								<a href="/shop/260/2556" class="title">Кресло Foxi</a>
+								<div class="bottom">
+								<p class="price">38 400 ₽</p>
+								<? $basketClass = (1)?'js-add-basket':' js-add-basket' ?>
+								<? $basketClass2 = (1)?'in-basket basket':'to-basket basket' ?>
+								<a href="/shop/260/2556" class="<?=$basketClass?> product-btn-basket" data-offer="<?=(1)?'Y':'N'?>" data-section-id="<?=21?>" data-element-id="<?= 123 ?>"><span class="<?= (15000 > 0)?$basketClass2:'gift'?>"></span></a></div>
+							</div>
+						</div>
+					</div>
+			
+
+
+			
+			</div>
+			</div>
+		<div class="clear"></div>
+        <div class="btn-wrapper">
+            <a href="/shop/" class="btn blue waves-effect view_n3">Перейти в каталог</a>
+        </div>
+    </div>
+</div>

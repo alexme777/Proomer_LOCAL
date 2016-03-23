@@ -1,0 +1,39 @@
+<?
+if (!empty($this->designData)) {
+    $planId = $this->designData->PROPERTY_PLAN_VALUE;
+}
+?>
+
+<div class="js-first-step add-project-step js-step step1"  data-step="1">
+    <div class="step-title-wrap">
+        <div class="number">1</div>
+        <div class="js-step-title title">Выбор объекта</div>
+        <div class="js-step-value value"><?= $this->planName ?></div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="js-step-body step-body">
+        <div class="js-switcher switcher first">
+            <a href="javascript:void(0);" class="js-switcher-item" data-type="plan">По планировке</a>
+            <span class="js-switcher-icon switcher-icon"></span>
+            <a href="javascript:void(0);" class="js-switcher-item" data-type="complex">По адресу</a>
+        </div>
+
+
+        <div class="step-variant-wrapper">
+            <div class="js-by-plan step-variant variant1">
+                <?
+                $this->planForm->populate(["planId" => $planId]);
+                echo $this->planForm
+                ?>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="js-by-complex step-variant variant2">
+                <?= $this->complexForm ?>
+                <input id="flatId" name="addFlatId">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

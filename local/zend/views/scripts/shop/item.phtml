@@ -1,0 +1,294 @@
+<?php
+	$item = $this->item;
+	$itemId = $this->itemId;
+	$design_list = $this->design_list;
+	$ch_categories = $this->ch_categories;
+	$trade_offer = $this->trade_offer[$itemId];
+	$properties = $this->properties;
+	$json_trade_offer = json_encode($this->trade_offer[$itemId]);
+?>
+<div id="json_trade_offer" style="display:none"><?echo $json_trade_offer?></div>
+<div id="price_item" style="display:none"><?=$item->PROPERTY_PRICE_VALUE?></div>
+<div id="discount" style="display:none"><?if(isset($item->DISCOUNT)){echo $item->DISCOUNT['VALUE'];}else{echo '0';};?></div>
+<div id="B_PRICE" style="display:none;"><?=$item->PROPERTY_PRICE_VALUE?></div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("a.gallery").fancybox({						
+		});
+	});
+</script>
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<div class="content-container">
+	<div class="crumbs">
+		<a class="under-link" href="/">Главная</a> >
+		<?foreach($ch_categories as $cat){?>
+			<a class="under-link" href="/shop/<?if($cat->ID != 255){echo $cat->ID;};?>"><?=$cat->NAME?></a> > 
+		<?};?>
+		<span class="under-link"><?=$item->NAME?></span>
+	</div>
+	<div id="item" class="goods-item">
+		<h1><?=$item->NAME?></h1>
+		<div id="tp_bn">
+			<div id="lf_bn">
+				<div id="main_ph"><a class="gallery" rel="group" title="<?=$item->NAME?>" href="<?=$item->DETAIL_PICTURE['SRC']?>"><img src="<?=$item->DETAIL_PICTURE['SRC']?>"/></a></div>
+				<div id="second_ph">
+					<ul>
+					<?$i = 0;
+					foreach($item->PROPERTY_PREVIEW_VALUE as $k=>$v){?>
+						<li class="info_first"><a class="gallery" rel="group" title="<?=$item->NAME?>" href="<?=$v?>"><img src="<?=$v?>"/></a></li>
+					<?};?>
+					</ul>
+				</div>
+			</div>
+			<div id="rt_bn">
+				<div class="sv_va">
+					<p class="price">Цена: 	
+					<?	if($item->PROPERTY_PRICE_VALUE > 0){
+							if(isset($item->DISCOUNT)){
+							$discountClass = 'old_price';
+							$new_price = '<span class="new_price">'.$item->DISCOUNT['NEW_PRICE_VALUE'] .' </span><span style="font: 600 18px fira_sanslight,sans-serif !important;font-weight: 400;color: #00a0e3 !important;">Р</span>';
+							}
+							else{$discountClass = '';$new_price = '';}
+							echo '<span class="price '.$discountClass.'">'.$item->PROPERTY_PRICE_VALUE .' </span><span>Р</span>';
+							echo $new_price;
+						}
+						else{
+							echo ' Бесплатно';
+						};
+					?>
+					</p>
+					
+			<div class="filter-form js-profile-filter-form">
+				<div class="js-form-wrapper">
+					<form enctype="application/x-www-form-urlencoded" class="js-filter-form filterForm formTabber" action="/profile/design/" method="post" novalidate="novalidate">
+					<?if(count($properties['color']) > 0){
+					?>	
+						<div class="row">
+							<div class="js-step-1">
+								<div class="input-cell input-cell-2 input-tags">
+									<label for="color" class="color required">Цвет:</label>
+									<?foreach($properties['color'] as $key=>$value){?>
+									<div class="tag"><input class="color" type="radio" name="color[]" id="color-<?=$key?>" value="<?=$key?>" data-name="<?=$value?>"/><label for="color-<?=$key?>" value="<?=$key?>" data-title="<?=$value?>"><?=$value?></label></div>
+									<?};?>
+								</div>
+							</div>
+						</div>
+					<?}
+					else if(isset($item->PROPERTY_COLOR_VALUE) && count($item->PROPERTY_COLOR_VALUE) > 0){?>
+					<p class="row made_in">Цвет: 
+						<span>
+						<?
+						for($i = 0; $i < count($item->PROPERTY_COLOR); $i++){
+							if($i == count($item->PROPERTY_COLOR) - 1){
+								echo $item->PROPERTY_COLOR[$i];
+							}
+							else{echo $item->PROPERTY_COLOR[$i].', ';}
+						}
+						?>
+						</span>
+					</p>
+						<?};?>
+					<?if(count($properties['size']) > 0){
+					?>
+						<div class="row">
+							<div class="js-step-2">
+								<div class="input-cell input-cell-2 input-tags">
+									<!--<div class="overlap"></div>-->
+									<label for="size" class="size required">Габариты(ШВД):</label>
+									<?foreach($properties['size'] as $key=>$value){
+									?>
+									<div class="tag" data-element-id="<?=$key?>"><input class="size" type="radio" name="size[]" id="size-<?=$key?>" value="<?=$key?>" data-name="<?=$value?>"/><label for="size-<?=$key?>" value="<?=$key?>" data-title="<?=$value?>"><?=$value?></label></div>
+									<?};?>
+								</div>
+							</div>
+						</div>
+					<?}?>
+					<?if(count($properties['material']) > 0){
+						
+					?>
+						<div class="row">
+							<div class="js-step-3">
+								<div class="input-cell input-cell-2 input-tags">
+									<!--<div class="overlap"></div>-->
+									<label for="status" class="material required">Материал:</label>
+									<?foreach($properties['material'] as $key=>$value){
+									?>
+										<div class="tag" data-element-id="<?=$key?>"><input class="material" type="radio" name="material[]" id="material-<?=$key?>" value="<?=$key?>" data-name="<?=$value?>"><label for="material-<?=$key?>" value="<?=$key?>" data-title="<?=$value?>"><?=$value?></label></div>
+									<?};?>
+								</div>
+							</div>
+						</div>
+					<?}		else if(isset($item->PROPERTY_MATERIAL_VALUE) && count($item->PROPERTY_MATERIAL_VALUE) > 0){?>
+					<p class="row made_in">Материал: 
+						<span>
+						<?
+						for($i = 0; $i < count($item->PROPERTY_MATERIAL_VALUE); $i++){
+							if($i == count($item->PROPERTY_MATERIAL_VALUE) - 1){
+								echo $item->PROPERTY_MATERIAL_VALUE[$i];
+							}
+							else{echo $item->PROPERTY_MATERIAL_VALUE[$i].', ';}
+						}
+						?>
+						</span>
+					</p>
+						<?};
+					?>
+						<?if(count($item->PROPERTY_MADEIN) > 0){?>
+					<p class="row made_in">Производитель: 
+						<span>
+						<?
+						for($i = 0; $i < count($item->PROPERTY_MADEIN); $i++){
+							if($i == count($item->PROPERTY_MADEIN) - 1){
+								echo $item->PROPERTY_MADEIN[$i];
+							}
+							else{echo $item->PROPERTY_MADEIN[$i].',';}
+						}
+						?>
+						</span>
+					</p>
+						<?};?>
+					<?if(count($item->PROPERTY_STYLE_VALUE) > 0){?>
+					<p class="row made_in">Стиль: 
+						<span>
+						<?
+						for($i = 0; $i < count($item->PROPERTY_STYLE_VALUE); $i++){
+							if($i == count($item->PROPERTY_STYLE_VALUE) - 1){
+								echo $item->PROPERTY_STYLE_VALUE[$i];
+							}
+							else{echo $item->PROPERTY_STYLE_VALUE[$i].', ';}
+						}
+						?>
+						</span>
+					</p>
+					<?};?>
+					<div class="row">
+						<div class="input-cell input-cell-2 input-tags">
+							<label for="size" class="required">Количество:</label>
+							<div id="voter" class="voter">
+								<span class="down"></span>
+								<span class="vote">0</span>
+								<span class="up"></span>
+							</div>
+						</div>
+					</div>
+						<!--<div class="btn-wrapper">
+							<a class="js-submit btn blue waves-effect">Подобрать</a>
+						</div>-->
+						<div class="btn-list-wrapper">
+							<div class="bue_item btn-item">
+								<a href="#order-popup" class="order header-button js-fancybox fancyboxLink btn blue waves-effect">Купить</a>
+							</div>
+							<div class="add_basket btn-item">
+								<a href="javascript:void(0)" class="js-add-basket btn blue" data-description="Добавить в корзину" data-element-id="<?=$itemId?>">В корзину</a>
+							</div>
+							<div class="add_favourite btn-item">
+								<a href="javascript:void(0)" class="to-favourite js-add-favourite btn blue" data-description="Добавить в избранное" data-element-id="<?=$itemId?>">Избранное</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+					
+					
+			
+				<!--<div class="bue_item">
+					<a href="#order-popup" class="order header-button js-fancybox fancyboxLink btn blue waves-effect">Купить</a>
+				</div>
+				<!--<div class="add_basket">
+					<a href="javascript:void(0)" class="js-add-basket btn blue" data-description="Добавить в корзину" data-element-id="<?=$itemId?>"><span class="to-basket"></span><span style="vertical-align: middle;">В корзину</span></a>
+				</div>-->
+				<!--<div class="add_basket">
+					<?if($item->IS_IN_BASKET){$html = 'Проект в корзине';}else{$html = '<span class="to-basket"></span><span>В корзину</span>';}?>
+					<a href="javascript:void(0)" class="js-add-basket btn blue" data-description="Добавить в корзину" data-element-id="<?=$itemId?>"><?=$html?></span></a>					
+				</div>
+				<div class="add_favourite">
+					<?if($item->IS_IN_FAVOURITE){$class = 'my-favourite';}else{$class = '';}?>
+					<a href="javascript:void(0)" class="to-favourite js-add-favourite btn blue" data-description="Добавить в избранное" data-element-id="<?=$itemId?>"><span class="<?=$class?>"></span><span>Избранное</span></a>					
+				</div>
+				<div class="disc">
+					<?=$item->DETAIL_TEXT?>
+				</div>-->
+			</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<? 	if(count($design_list) > 0){
+		?>
+			<div class="design-list">
+				<h2>Уже используется в</h2>		
+		<?	   
+				foreach($design_list as $item){
+					echo $this->partial("shop/partials/design-item.phtml", ["item" => $item, "profile" => false]);
+				} 
+		?>                                   
+			</div>
+		<?
+			};
+		?>
+		<div class="clear"></div>
+		<?= $this->render('shop/shop-my-show-list.phtml') ?>        
+	</div>  
+	<div class="clear"></div>	
+</div>
+</div>
+</div>
+<div class="popups">
+	<div class="popup order-popup" id="order-popup">
+		<?= new Sibirix_Form_OrderItem($itemId); ?>
+	</div>
+</div>
+<script type="text/javascript">
+    function Voter(options) {
+      var elem = options.elem;
+
+      var voteElem = elem.querySelector('.vote');
+
+      elem.onclick = function(event) {
+        // сам обработчик не меняет голос, он вызывает функцию
+        if (event.target.closest('.down')) {
+			
+			if(voteElem.innerHTML > 1){
+				voteDecrease();
+			};
+        } else if (event.target.closest('.up')) {
+          voteIncrease();
+        }
+		$('#count').val(voteElem.innerHTML);
+      }
+
+      elem.onmousedown = function() {
+        return false;
+      };
+
+      // ----------- методы -------------
+
+      function voteDecrease() {
+        voteElem.innerHTML = +voteElem.innerHTML - 1;
+      }
+
+      function voteIncrease() {
+        voteElem.innerHTML = +voteElem.innerHTML + 1;
+      }
+
+      this.setVote = function(vote) {
+        voteElem.innerHTML = +vote;
+      };
+
+    }
+
+    var voter = new Voter({
+      elem: document.getElementById('voter')
+    });
+    voter.setVote(1);
+</script>
+
+
+
+
+
+
+
+
+
+
+

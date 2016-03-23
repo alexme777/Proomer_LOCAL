@@ -1,0 +1,54 @@
+<?
+    $slides = $this->complexes;
+?>
+<? if (!empty($slides)) { 
+?>
+    <div class="design-block">
+        <div class="content-container">
+				<h2><?// EHelper::includeArea("index/designs-title") ?>Готовые дизайн-проекты<br/> для новостроек</a></h2>
+				<div class="description">Уже стали счастливым собственником жилья или только присматриваетесь к будущей квартире?<br/> Посмотрите идеи для своего интерьера.<?// EHelper::includeArea("index/designs-description") ?></div>
+			
+            <div class="clearfix"></div>
+			<div class="list-complex row">
+				
+				<div class="block_home">
+				<?foreach($slides as $complex){
+					if ($complex->DETAIL_PICTURE) {
+						$image = Resizer::resizeImage($complex->DETAIL_PICTURE, "COMPLEX_LIST");
+					} else {
+						$image = '/local/images/proomer2.png';
+					}
+					?>
+				<div class="col-xs-2 col-sm-2 col-md-2 design_indent">
+					<a class="behind" href="/design/?complexId=<?=$complex->ID?>"><img src="<?=$image?>" alt="" class="text-center"></a>
+					<div class="hexagon text-center">
+						<div class="top">
+						
+							<!--<img src="<?=$complex->PROPERTY_SLIDER_IMAGE_VALUE['SRC']?>" alt="" class="text-center"/>-->
+						</div>
+						<div class="bottom">
+							<h6 class="text-center"><a href="/design/?complexId=<?=$complex->ID?>"><?=$complex->NAME?></a></h6>
+							<p class="text-center"><?=$complex->PROPERTY_LOCATION_VALUE?></p>
+						</div>
+						<div class="bot">
+							<p>Проектов <span><?=$complex->PROPERTY_DESIGN_CNT_VALUE?></span></p>
+						</div>
+					</div>
+				</div>
+				<?}?>
+				</div>
+				
+				
+				
+
+				
+				
+			</div><div class="clear"></div>
+			<div class="btn-wrapper">
+				<a href="/complex/" class="btn blue waves-effect view_n3">Все комплексы</a>
+			</div>
+            <div class="clearfix"></div>
+            <!--<div class="design-slider-wrapper js-slider-wrapper"></div>-->
+        </div>
+    </div>
+<? } ?>

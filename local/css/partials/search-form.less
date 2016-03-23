@@ -1,0 +1,240 @@
+@import "../_var";
+@import "../_mixins";
+
+.title-block-wrapper {
+    background-color: #f2f7f8;
+}
+
+.search-form-wrapper {
+    width: 920px;
+    margin: -435px auto 0;
+
+
+    h1 {
+        font: 300 32px @ff-fira;
+        color: #fff;
+        text-align: center;
+        margin: 20px 0 60px;
+
+        a {
+            .transition();
+            position: relative;
+            border-bottom: 1px dotted #fff;
+
+            &:hover {
+                border-bottom-color: transparent;
+            }
+        }
+    }
+
+    &.search-button {
+        top: 334px;
+        text-align: center;
+
+        h1 {
+            margin: 20px 0 52px;
+        }
+
+        .btn {
+            padding: 18px 31px 0;
+        }
+    }
+}
+
+.search-form {
+    .sizing();
+    .transition();
+    position: relative;
+    width: 920px;
+    background-color: #fff;
+    margin: 0 auto;
+    box-shadow: 0 0 6px rgba(0,0,0,.1);
+    padding: 41px 59px;
+
+    .form-clear {
+        .transition();
+        display: block;
+        position: absolute;
+        .sprite(100px, 40px, 18px);
+        top: 22px;
+        right: 22px;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    .row {
+        .clearfix();
+        margin: 0 0 34px;
+    }
+
+    .input-cell {
+        .sizing();
+        //noinspection CssInvalidPropertyValue
+        width: calc(~'50% - 31px');
+        float: left;
+
+        .ui-slider {
+            margin: 10px 0 0;
+        }
+
+        .values {
+            margin: 5px 0;
+
+            .tag {
+                margin: 0 20px 5px 0;
+            }
+        }
+
+
+        &+.input-cell {
+            margin-left: 61px;
+        }
+
+        label {
+            font: 400 16px/32px @ff-fira;
+            color: @blue-text;
+            text-transform: uppercase;
+        }
+
+        .range-wrapper {
+            width: 182px;
+            float: right;
+            color: @blue-text;
+            text-align: right;
+
+            input[type='text'] {
+                .sizing();
+                .size(67px, 29px);
+                padding: 0 5px 0 7px;
+                margin: 0 11px;
+                border: 1px solid @border-color;
+                font: 400 16px @ff-fira;
+                color: @input-blue-color;
+
+                &+input[type='text'] {
+                    margin: 0 0 0 11px;
+                }
+            }
+        }
+
+        .min-value, .max-value {
+            font: 700 12px @ff-fira;
+            color: @input-blue-color;
+            margin: -1px 0 0;
+        }
+
+        .min-value {
+            float: left;
+        }
+
+        .max-value {
+            float: right;
+        }
+
+        select {
+            width: 100%;
+        }
+    }
+
+    .row-submit {
+        text-align: center;
+        padding: 3px 0 0;
+
+        .btn {
+            padding: 18px 60px 0;
+        }
+    }
+
+    .select-multi {
+        .select2-container {
+            z-index: 5;
+            .select2-selection--multiple {
+                background-color: transparent;
+            }
+        }
+        .placeholder {
+            z-index: 3;
+        }
+    }
+
+    .select2-multi-results {
+        min-height: 0;
+    }
+
+    &.search-form-main {
+        .title {
+            font: 400 22px/50px @ff-fira;
+            color: #343434;
+            text-align: center;
+            margin: -20px 0 0;
+        }
+
+        .choice-row {
+            .clearfix();
+            margin: 3px 0 32px;
+
+            .choice-cell {
+                float: left;
+                padding-right: 78px;
+
+                input[type=radio] {
+                    &+ label {
+                        padding: 0 0 0 34px;
+                        font: 400 14px/44px @ff-fira;
+                        color: @blue-text;
+
+                        &:before {
+                            top: -4px;
+                            left: 0;
+                            opacity: .5;
+                        }
+
+                        &:hover:before {
+                            opacity: 1;
+                        }
+                    }
+
+                    &:checked+label {
+                        color: #232d37;
+
+                        &:before {
+                            opacity: 1;
+                        }
+
+                        &:after {
+                            top: 3px;
+                            left: 7px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .input-cell.search {
+            position: relative;
+            width: 100%;
+            margin: 9px 0 3px;
+
+            input[type="text"] {
+                .sizing();
+                .size(100%, 47px);
+                border: 1px solid #dfe2e5;
+                padding: 0 50px 0 14px;
+
+                &:focus {
+                    border: 1px solid #5e6e7e;
+                }
+            }
+
+            &:after {
+                .pseudo();
+                top: 10px;
+                right: 17px;
+                .sprite(700px,60px,24px,25px);
+            }
+        }
+    }
+}

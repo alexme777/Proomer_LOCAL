@@ -1,0 +1,42 @@
+<?
+    $user = $this->user;
+?>
+<div class="sidebar js-sidebar">
+    <?
+        if (!empty($user->PERSONAL_PHOTO)) {
+            $image = Resizer::resizeImage($user->PERSONAL_PHOTO, "PROFILE_AVATAR");
+        } else {
+            $image = Resizer::resizeImage(Settings::getOptionFile('defaultAvatar'), 'PROFILE_AVATAR');
+        }
+    ?>
+    <div class="avatar" style="background-image: url('<?= $image ?>')">
+        <div class="panel">
+            <? if(!empty($user->PERSONAL_PHOTO)) { ?>
+                <div><span class="upload under-link js-upload-avatar">загрузить новое фото</span></div>
+                <div><span class="delete under-link js-remove-avatar">удалить фото</span></div>
+            <? } else { ?>
+                <div><span class="upload under-link js-upload-avatar">загрузить фото</span></div>
+            <? } ?>
+            <div class="image-wrapper">
+                <form id="upload-image" action="<?= $this->url([], 'profile-upload-photo');?>" method="POST" enctype="multipart/form-data">
+                    <input type="file" accept="image/jpeg,image/png" class="image js-image" name="avatar">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <? $url = Zend_Registry::get("BX_APPLICATION")->GetCurPage(); ?>
+    <ul class="profile-menu">
+        <? if (!empty($this->menu)) { ?>
+            <? foreach ($this->menu as $ind => $item) { ?>
+                <? $image = Resizer::resizeImage($item->PREVIEW_PICTURE, "PROFILE_MENU")?>
+                <li>
+                    <a href="<?= $item->PROPERTY_LINK_VALUE ?>" class="waves-effect<?= ($item->PROPERTY_LINK_VALUE == $url)?' active':''?>">
+                        <span class="icon" style="background:url('<?= $image ?>') no-repeat;"></span>
+                        <span><?= $item->NAME ?></span>
+                    </a>
+                </li>
+            <? } ?>
+        <? } ?>
+    </ul>
+</div>

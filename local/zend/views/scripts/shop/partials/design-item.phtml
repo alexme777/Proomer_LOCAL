@@ -1,0 +1,68 @@
+<?
+/**
+ * @var $item Sibirix_Model_Design_Row
+ */
+$item = $this->item;
+$item = $item->items[0];
+$profile = $this->profile;
+
+if (!empty($item->DETAIL_PICTURE)) {
+    $image = Resizer::resizeImage($item->DETAIL_PICTURE, "DESIGN_LIST");
+} else {
+    $image = Resizer::resizeImage(Settings::getOptionFile('defaultDesignImage'), 'DESIGN_LIST');
+}
+?>
+
+	<div class="item design-item">
+				<div class="image" style="background-image:url('<?= $image ?>');">
+					<? if (!$profile) { ?>
+						<!--<a href="javascript:void(0)" class="favourite js-tooltip" data-description="Добавить в избранное"></a> TODO: избранное -->
+					<? } ?>
+					<?= $this->Like()->button($item->ID, $item->PROPERTY_LIKE_CNT_VALUE, $item->IS_LIKED) ?>
+					<? if ($profile) { ?>
+						<a href="javascript:void(0)" data-id="<?= $item->ID ?>" class="delete js-delete-design js-tooltip" data-description="Удалить проект"></a>
+					<? } ?>
+				</div>
+				<div class="content">
+					<? if ($profile) { ?>
+						<? if ($item->PROPERTY_STATUS_ENUM_ID == DESIGN_STATUS_MODERATION) { ?>
+							<span class="edit disabled"></span>
+						<?} else {?>
+							<a href="<?= $this->url(['designId' => $item->ID], 'profile-design-edit')?>" class="edit"></a>
+						<? } ?>
+
+						<!--<div class="status <?//= $item->items[0]->STATUS ?>"><?//= $item->items[0]->PROPERTY_STATUS_VALUE ?></div>-->
+					<? } else { ?>
+						<? $basketClass = ($item->IS_IN_BASKET)?'in-basket basket js-add-basket':'to-basket basket js-add-basket' ?>
+						<a href="javascript:void(0)" class="<?= ($item->PRICES["PRICE"] > 0)?$basketClass:'gift'?>" data-element-id="<?= $item->ID ?>"></a>
+					<? } ?>
+
+					<? if ($profile && ($item->PROPERTY_STATUS_ENUM_ID != DESIGN_STATUS_PUBLISHED)) { ?>
+						<span class="title"><?= $item->NAME; ?></span>
+					<? } else {?>
+						<a href="<?= $this->url(['elementCode' => $item->CODE], 'design-detail')?>" class="title"><?= $item->NAME ?></a>
+					<? } ?>
+
+					<div class="description">
+						Дизайн <?= ($item->PRICES["PRICE"] > 0 ? EHelper::price($item->PRICES["PRICE"]) . ' <i class="ruble"></i>' : 'бесплатно') ?>
+						<br>
+						<? if ($item->PROPERTY_BUDGET_VALUE > 0) { ?>
+							Бюджет от <?= EHelper::price($item->PROPERTY_BUDGET_VALUE) ?> <i class="ruble"></i> на М<sup>2</sup>
+						<? } ?>
+					</div>
+					<? if (!empty($item->DESIGNER)) { ?>
+						<div class="designer">
+							<? if (!empty($item->DESIGNER->PERSONAL_PHOTO)) { ?>
+								<? $designerPhoto = Resizer::resizeImage($item->DESIGNER->PERSONAL_PHOTO, 'DESIGNER_IMG_CARD'); ?>
+							<? } else { ?>
+								<? $designerPhoto = Resizer::resizeImage(Settings::getOptionFile('defaultAvatar'), 'DESIGNER_IMG_CARD'); ?>
+							<? } ?>
+							<div class="photo" style="background-image:url('<?= $designerPhoto ?>');"></div>
+							<div class="info">
+								<div class="label">Дизайнер:</div>
+								<a href="<?= $this->url(['elementId' => $item->DESIGNER->ID], 'designer-detail') ?>" title="<?= $item->DESIGNER->getFullName(); ?>" class="name under-link"><?= $item->DESIGNER->getFullName(); ?></a>
+							</div>
+						</div>
+					<? } ?>
+				</div>
+	</div>

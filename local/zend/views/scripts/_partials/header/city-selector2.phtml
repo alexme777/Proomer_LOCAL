@@ -1,0 +1,5 @@
+<select class="js-select-city2" name="userLocation">
+    <? foreach ($this->cityList as $city): ?>
+        <option value="<?= $city->ID ?>" <? if ($city->ID == $this->userLocation): ?>selected<? endif ?>><?= $city->NAME ?></option>
+    <? endforeach ?>
+</select>

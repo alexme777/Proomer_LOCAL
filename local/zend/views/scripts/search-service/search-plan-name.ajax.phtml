@@ -1,0 +1,18 @@
+<ul>
+<?
+
+ foreach($this->itemList as $item){
+	if(!empty($item->PROPERTY_STREET_VALUE)){
+		$str = $item->PROPERTY_STREET_VALUE;
+		if(!empty($item->PROPERTY_STREET_VALUE) && !empty($item->PROPERTY_HOUSE_NUMBER_VALUE)){
+			$str = $item->PROPERTY_STREET_VALUE .', '. $item->PROPERTY_HOUSE_NUMBER_VALUE;
+		}
+	}
+	else if(!empty($item->PROPERTY_HOUSE_NUMBER_VALUE)){
+		//$str = $item->NAME;
+	}
+	?><li class="js-select-address" data-street="<?echo htmlspecialchars($item->PROPERTY_STREET_VALUE)?>" data-number="<?echo htmlspecialchars($item->PROPERTY_HOUSE_NUMBER_VALUE)?>"><?=$str?></li> 
+	<?
+ }
+?>
+</ul>

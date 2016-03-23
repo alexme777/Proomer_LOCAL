@@ -1,0 +1,325 @@
+<?php
+	$categories = $this->categories;
+	$row_goods = $this->row_goods;
+	$pictures = $this->pictures;
+	$item = $this->item;
+	
+?>  
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<div class="content-container">
+	<div id="shop">
+	<!--<div id="shop">
+		<div class="left_bn">
+			<!--<form enctype="application/x-www-form-urlencoded" id="search-item" class="js-search-form searchForm formTabber" action="/shop/category/" method="post" novalidate="novalidate">
+				<div class="input-cell input-cell-50p js-form-block">
+					<input type="text" id="search" name="search" value="" placeholder="Например:Кресло Eames delux"/>
+				</div>
+				<div class="search_item">
+					<div class="btn-wrapper">
+						<a class="js-submit btn blue waves-effect">Найти</a>
+					</div>
+				</div>
+			</form>-->
+
+			<!-- 3 setup a container element -->	
+			<!--<div id="tree">	
+				<ul id="files" class="tree">-->
+<?
+					/*function getTree($arr){
+					   
+						$out = '';
+						
+						//$out .= '<ul class="tree-group-collapsed">';
+						foreach($arr as $k=>$v){
+							$out .= '<li><a href="/shop/'.$v->ID.'">'.$v->NAME.'</a>';
+							if(!empty($v->CHILD)){
+								$out .= '<ul class="tree-group-collapsed">';
+								$out .= getTree($v->CHILD);
+								$out .= '</ul>';
+							}
+							$out .= '</li>';
+						   
+						}
+					   // $out .= '</ul>';
+						return $out;
+					}
+					echo getTree($categories);*/
+?>
+				<!--</ul>
+			</div>	
+	</div>-->
+	
+			<div class="list <?if($_GET['tab'] == 'popular' || !$_GET['tab']){echo 'active';}?>">
+				<span class="main-tabs__text"><a href="/shop/?tab=popular">Маркетплейс</a></span>
+				<div class="lets_go"><span class="pop under-link">Популярное</span>,&nbsp;<span class="disc under-link">скидки</span></div>
+			</div>
+			<div class="list  <?if($_GET['tab'] == 'catalog'){echo 'active';}?>">
+				<span class="main-tabs__text"><a href="/shop/?tab=catalog">Каталог</a></span>
+				<div class="lets_go"><a href="">Все категории товаров</a></div>
+			</div>
+		<?if($_GET['tab'] == 'popular' || !$_GET['tab']){
+		?>
+			<div class="list_cat" style="position:relative;">
+				<?/*<div class="grid">
+					<div class="grid-sizer"></div>
+					<? 	$i = 0;
+					foreach($categories as $cat){
+						if($i % 2 == 1){
+							$class = 'view-n2';
+						}
+						else{
+							$class = 'view-n1';
+						};
+					?>
+						<div class="grid-item <?=$class?>">
+							<!--<h3><?=$cat->NAME?></a></h3>-->
+							<a href="/shop/<?=$cat->ID?>" title="<?=$cat->NAME?>"><img src="<?=$cat->DETAIL_PICTURE?>" /></a>
+						</div>
+					<?
+					$i+=1;
+					}?>
+				</div>*/?>
+				<div class="block-cat block-n-1" style="width:800px;height:350px;"><a style="top: 55px;left: 0;right: 0;text-align: center; color:#3b424a; z-index:1;" href="/shop/256">Мебель</a><a style="margin:0 auto;display:block; width:100%;" href="/shop/256"><img  style="margin:0 auto;margin-top: 60px;" src="/local/images/category/mebel.jpg"/></a></div>
+				<div class="block-cat block-n-2" style="width:400px;height:350px; background:#b4dff7;top: 350px;left: 0;"><a style="position:absolute;height:100%;padding-top:50px; text-align:center;left:0;right:0;color:#3b424a;" href="/shop/296">Сантехника<img style="margin: 0 auto;margin-top: 65px;" src="/local/images/category/san.png"/></a></div>
+				<div class="block-cat block-n-3" style="width:400px;height:350px; background:#eeeded;top: 350px;left: 400px;"><a style="text-align: center; margin-top: 30px; color:#3b424a;" href="/shop/299">Кухни и корпусная мебель<img style="margin: 0 auto;margin-top: 20px;" src="/local/images/category/kyh.png"/></div>
+				<div class="block-cat block-n-3" style="width:400px;height:180px; background:#eeeded; top:700px; left:0;"><a style="padding-left:80px;padding-top:50px;width:100%;height:100%; color:#3b424a;" href="/shop/300">Свет</a></div>
+				<div class="block-cat block-n-4" style="width:400px;height:180px; top: 880px;left:0;"><a style="top:25px;left:0;right:0;text-align:center; color:#fff;z-index:1;" href="">Лучшее предложение</a><a href=""><img style="width:100%;" src="/local/images/category/actiya2.jpg"/></a><p style="color:#fff;top:110px;left:20px;">Текст для супер акции </p></div>
+				<div class="block-cat block-n-5" style="width:400px;height:180px; top: 1056px;background: #b4dff7;"><a style="width:100%;padding-left: 35px;padding-top: 40px; color:#3b424a;" href="/shop/297">Электрика<img style="margin-left: 225px;margin-top: -35px;" src="/local/images/category/elec.png"/></a></div>
+				<div class="block-cat block-n-6" style="width:800px;height:350px; top: 883px;left: 400px;"><a style="top:50px;left:70px;color:#fff;z-index:1;" href="">Ещё одна супер крутая акция</a><a href=""><img style="width:100%;" src="/local/images/category/actiya3.jpg"/></a><p style="    position: absolute;
+				top: 170px;
+				width: 290px;
+				right: 50px;
+				text-align: right;
+				color: white;">Текст для супер акции в несколько
+				строчек, как же круто и выгодно у нас
+				покупать, сказка просто вах вах вах</p></div>
+				<div class="block-cat block-n-7" style="width:400px;height:177px; top: 700px;left: 400px;"><a style="top:25px;left:53px;color:#fff;z-index:1;" href="">Хит продаж</a><a href=""><img style="width:100%;height:183px;" src="/local/images/category/actiya4.jpg"/></a><p style="position: absolute;
+				top: 95px;
+				left: 50px;
+				text-align: left;
+				color: white;">Декоративная штукатурка от Eclectic
+дешево, красиво, офигенно</p></div>
+				<div class="block-cat block-n-8" style="width:400px;height:350px; background:#b4dff7;left: 800px;top: 533px;"><a style="width:100%;height:100%;left:0;right:0;text-align:center; top:44px; color:#3b424a;" href="/shop/298">Строительные материалы</a></div>
+				<div class="block-cat block-n-9" style="width:400px;height:525px; left: 800px; top: 8px;"><a style="top:55px;left:0;right:0;width:300px;margin:0 auto;text-align:left; color:#3b424a; z-index:1;" href="">Заголовок акции
+супер выгодной</a><a href=""><img style="width:100%; height:525px;" src="/local/images/category/actiya1.jpg"/></a><p style="color:#3b424a; top:200px;width:300px;text-align:left;left:40px;right:0;">Текст для супер акции в несколько
+строчек, как же круто и выгодно у нас
+покупать, сказка просто вах вах вах</p></div>
+			</div>
+		<?
+		}
+		else if($_GET['tab'] == 'catalog'){
+		?>
+		
+			<div id="shop_categories">
+				<!--<div class="p_cat">
+					<div class="head"><h3 class="name_p_cat"><span class="chypalo"></span><span>Мебельная татат</span></h3></div>
+					<ul class="ch_cat">
+						<li><a class="under-link" href="">Мебельная татат</a></li>
+						<li><a class="under-link" href="">Мебельная татат</a></li>
+						<li><a class="under-link" href="">Мебельная татат</a></li>
+						<li><a class="under-link" href="">Мебельная татат</a></li>
+						<li><a class="under-link" href="">Мебельная татат</a></li>
+						<li><a class="under-link" href="">Мебельная татат</a></li>
+					</ul>
+					<a class="under-link" href="">Все категории</a>
+				</div>-->
+			
+		<?
+				/*function getTree($arr){
+					$out = '';
+					//$out .= '<ul class="tree-group-collapsed">';
+					foreach($arr as $k=>$v){
+						$out .= '<li><a class="under-link" href="/shop/'.$v->ID.'">'.$v->NAME.'</a>';
+						if(!empty($v->CHILD)){
+							$out .= '<div class="child_cat"><ul class="two">';
+							$out .= getTree($v->CHILD);
+							$out .= '</ul></div>';
+						}
+						$out .= '</li>';
+					}
+					// $out .= '</ul>';
+					return $out;
+				}
+				echo getTree($categories);*/
+				$out = '';
+				function getTree($arr){
+					static $out; 
+					foreach($arr as $k=>$v){
+						$out .= '<div class="p_cat">';
+						$out .= '<div class="head"><h3 class="name_p_cat"><span class="chypalo"></span><span><a href="/shop/'.$v->ID .'
+						">'.$v->NAME .'</a></span></h3></div>';
+						if(!empty($v->CHILD)){
+							$out .= '<ul class="ch_cat">';
+							foreach($v->CHILD as $child){
+								$out .= '<li><a class="under-link" href="/shop/'.$child->ID .'">'.$child->NAME .'</a></li>';
+							}
+							$out .= '</ul>';
+						}
+						
+						$out .= '<div class="clear"></div><a class="under-link all_category" href="/shop/'.$v->ID .'">Все категории</a></div>';
+					}
+					return $out;
+				}
+				echo getTree($categories, 1);
+		?>
+
+
+
+		<?
+					/*foreach($categories as $cat){
+		?>
+					<li><a class="under-link" href="/shop/<?=$cat->ID?>"><?=$cat->NAME?></a>
+		<?
+							if(isset($cat->CHILD_CAT)){
+		?>
+						<div class="child_cat">
+							<ul class="two">
+		<?
+									foreach($cat->CHILD_CAT[0] as $child){
+		?>
+										<li><a class="under-link" href="<?=$child->ID?>"><?=$child->NAME?></a></li>
+		<?
+									};
+		?>
+							</ul>
+						</div>
+		<?
+							};
+		?>
+					</li>
+		<?
+					}*/
+		?>
+				
+			</div>
+		<?
+		}
+		?>
+			
+			<div class="clear"></div>
+			<div class="product">
+				<div id="pop" class="list-goods">
+					<h2>Популярное</h2>
+					<?= $this->render('shop/shop-pop-list.phtml') ?>
+				</div>
+				<?= $this->render('shop/shop-discount-list.phtml') ?>	
+			</div>
+				<?= $this->render('shop/shop-my-show-list.phtml') ?>
+				
+			<!--<div class="slide" style="list-style: none; position: relative;">
+<?
+		/*if(count($row_goods)){
+?>
+			<h2>Скидки</h2>
+<?
+			$i = 1;
+			
+			foreach($row_goods as $item){
+			if($i > 3){$i = 1;};
+?>
+				<div class="item goods-item">
+					<? $favouriteClass = ($item->IS_IN_FAVOURITE)?'my-favourite favourite js-add-favourite js-tooltip mainTooltip':'to-favourite favourite js-add-favourite js-tooltip mainTooltip' ?>
+					<a href="javascript:void(0)" class="<?=$favouriteClass?>" data-description="Добавить в избранное" data-element-id="<?=$item->ID?>"></a>
+					<div class="image" style="background:url(<?if($item->PREVIEW_PICTURE){echo $item->PREVIEW_PICTURE;}else{echo '/local/images/proomer.png';}?>) no-repeat 50%; background-size:100%;">
+						<!--$this->Like()->button($item->ID, $item->PROPERTY_LIKE_CNT_VALUE, $item->IS_LIKED)-->
+						<a href="/shop/<?=$item->IBLOCK_SECTION_ID?>/<?=$item->ID?>"></a>		
+					</div>
+					<div class="content">
+						<? $basketClass = ($item->IS_IN_BASKET)?'in-basket basket js-add-basket':'to-basket basket js-add-basket' ?>
+						<a href="javascript:void(0)" class="<?= ($item->PROPERTY_PRICE_VALUE > 0)?$basketClass:'gift'?>" data-element-id="<?=$item->ID?>"></a>
+						<a href="/shop/<?=$item->IBLOCK_SECTION_ID?>/<?=$item->ID?>" class="title"><?=$item->NAME?>  </a>
+						<div class="description">
+			<?
+						if($item->PROPERTY_PRICE_VALUE > 0){
+			?>
+							<span class="old_price">
+								<span><?=$item->PROPERTY_PRICE_VALUE?> &#8399;</span>
+							</span>
+			<?
+						}
+			?>
+							<span class="new_price">
+			<?
+							if(isset($item->DISCOUNT) && $item->DISCOUNT > 0){
+								$discount = $item->DISCOUNT * 0.01;
+								$new_price = round($discount * $item->PROPERTY_PRICE_VALUE, 0);
+			?>
+								<?=$new_price;?> &#8399;</i>
+			<?
+							}
+							else{
+								echo 'Бесплатно';
+							};
+			?>
+							
+							</span>   
+						</div>
+					</div>
+				</div>			
+<?
+				$i+=1;
+			}
+?>
+
+                                    </div>
+<?
+		};*/
+?>
+	</div>
+</div>
+<script type="text/javascript" src="/local/js/enhance.js"></script>
+<script type="text/javascript" src="/local/js/jQuery.tree.js"></script>
+<script type="text/javascript" src="/local/js/example.js"></script>
+	<script type="text/javascript">
+	    // Запуск теста на поддержку браузером скриптов
+	   /* enhance({
+	        loadScripts: [
+	            'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
+	            '/local/js/jQuery.tree.js',
+	            '/local/js/example.js'
+	        ],
+	        loadStyles: ['css/enhanced.css'],
+	        forcePassText: ['Посмотреть с подключенными скриптами'],
+	        forceFailText: ['Посмотреть с выключенными скриптами']
+	    });*/
+	</script>
+  <!-- 5 include the minified jstree source -->
+  <script type="text/javascript">
+	// external js: masonry.pkgd.js, imagesloaded.pkgd.js
+
+	// init Masonry
+	var $grid = $('.grid').masonry({
+	  itemSelector: '.grid-item',
+	  percentPosition: true,
+	  columnWidth: '.grid-sizer'
+	});
+	// layout Isotope after each image loads
+	$grid.imagesLoaded().progress( function() {
+	  $grid.masonry();
+	});  
+
+	jQuery(document).ready(function(){
+		$('span.pop').click(function() {
+			jQuery.scrollTo('#pop', 800);
+		});
+		$('span.disc').click(function() {
+			jQuery.scrollTo('#disc', 800);
+		});
+	});
+  
+	$(function () {
+		// 6 create an instance when the DOM is ready
+		$('#jstree').jstree();
+		// 7 bind to events triggered on the tree
+		$('#jstree').on("changed.jstree", function (e, data) {
+		  console.log(data.selected);
+		});
+		// 8 interact with the tree - either way is OK
+		$('button').on('click', function () {
+		  $('#jstree').jstree(true).select_node('child_node_1');
+		  $('#jstree').jstree('select_node', 'child_node_1');
+		  $.jstree.reference('#jstree').select_node('child_node_1');
+		});
+	});
+  </script>

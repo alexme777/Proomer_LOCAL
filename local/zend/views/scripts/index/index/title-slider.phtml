@@ -1,0 +1,40 @@
+
+<? $slides = $this->slides; ?>
+
+<div class="title-slider-block<?= (count($slides['ITEMS'])==1)?' one':''?>">
+	<!--<table border="0" cellpadding="0" cellspacing="0" style="height:100%;width:100%; position:absolute;z-index:1;">
+		<tr valign="top">
+			<td style="width:15%;">&nbsp;</td>
+			<td style="border-left:1px #656564 dashed; width:15%">&nbsp;</td>
+			<td style="border-left:1px #656564 dashed; width:15%">&nbsp;</td>
+			<td style="border-left:1px #656564 dashed; width:15%">&nbsp;</td>
+			<td style="border-left:1px #656564 dashed; width:15%">&nbsp;</td>
+			<td style="border-left:1px #656564 dashed; width:15%">&nbsp;</td>
+			<td style="border-left:1px #656564 dashed; width:15%">&nbsp;</td>
+		</tr>
+	</table>-->
+    <?= $this->render('_partials/title-slider.phtml') ?>
+    <div class="content-container search-form-wrapper search-button">
+	<img style="position:relative" src="/local/images/proomer.png" width="202px"/>
+        <h1>
+            Сервис для создания интерьера
+			Дизаин. Ремонт. Комплектация.
+        </h1>
+		<p class="subtitle">Просто введите адрес квартиры и начните работать с сервисом. Это бесплатно.</p>
+			<div class="form-content">
+				<form enctype="application/x-www-form-urlencoded" class="js-feedback-form search-form-design feedbackForm formTabber" data-title="Ваше сообщение получено" data-text="Мы рассмотрим ваше обращение в ближайшее время" action="/feedback/add/" method="post" novalidate="novalidate">
+					<div class="input-row">
+						<div class="input-row error">
+							<input type="text" autocomplete="off" name="address" id="address" value="" class="required input-search" maxlength="100" placeholder="Ваш адрес?">
+						</div>
+						<a class="js-search-form btn blue waves-effect">Подобрать</a>
+					</div>
+					<div class="result">
+						<?= $this->render('search-service/search-plan-name.phtml') ?>
+					</div>
+				</form>
+			</div>
+		<?//= new Sibirix_Form_SearchAddress()?>
+        <!--<a href="<?= $this->url([], 'design-list'); ?>" class="btn blue waves-effect">Посмотреть список дизайнов</a>-->
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<? if ($this->view > 0): ?>
+</div></div>
+<div class="alien-bn">
+	<div class="content-container">
+		<div id="shop">
+			<div class="product">
+				<div class="my-show-goods">
+					<div class="list-goods">
+						<h2 class="night">Вы смотрели</h2>
+						<div class="js-ajax-list-content">
+							<?= $this->render('shop/shop-my-show-list.ajax.phtml') ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<? endif ?>

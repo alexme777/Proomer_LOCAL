@@ -1,0 +1,43 @@
+<?
+    $design = $this->design;
+    $rooms = $design->ROOMS;
+	
+    foreach ($rooms as $ind => $room) {
+        if (empty($room->PROPERTY_IMAGES_VALUE)) {
+            unset($rooms[$ind]);
+        }
+    }
+    $roomRows = array_chunk($rooms, 2);
+
+?>
+
+<div class="gallery-block">
+    <? foreach ($roomRows as $rowInd => $row) { ?>
+        <div class="row">
+            <? foreach ($row as $ind => $item) { ?>
+                <div class="cell<?= (count($row) == 1)? ' full-row' : ''?>">
+                    <div class="title"><?= $item->NAME ?></div>
+
+                    <div class="gallery-slider<?= (count($item->PROPERTY_IMAGES_VALUE) > 1)?' js-gallery-slider':'' ?>">
+                        <? foreach ($item->PROPERTY_IMAGES_VALUE as $photo) { ?>
+                        <p style="padding:0; margin:0; position:relative;">    
+							<img style="display:table-cell; min-height:725px; width:100%; vertical-align: middle;" src="<?= $photo["SRC"] ?>" title="<?= $design->NAME ?> / <?= $item->NAME?>" usemap="#map_of_usa<?= $item->NAME?>"/>
+													<? 		if(count($item->PINS) > 0){
+									foreach($item->PINS as $pin){
+						?>
+									<a href="<?=$pin->PROPERTY_URL?>" class="pin" style="top:<?=$pin->Y .'%; left:'.$pin->X .'%;';?>"></a>
+						<?
+									};
+								};
+						?>
+							
+						<?
+						  } 
+						?>
+						</p>
+                    </div>
+                </div>
+            <? } ?>
+        </div>
+    <? } ?>
+</div>

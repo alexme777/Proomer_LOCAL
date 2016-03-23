@@ -1,0 +1,64 @@
+<?
+$basketItems = $this->basketItems;
+
+
+$basketTotal = $this->basketTotal;
+$isEmpty = (count($this->basketItems) == 0);
+?>
+
+<div class="js-sidebar-basket">
+    <div class="sidebar-fader"></div>
+
+    <div class="right-sidebar basket-panel js-basket-panel">
+        <div class="title js-title-wrapper">
+            <a class="close" href="javascript:void(0)"></a>
+            <div class="icon"><div class="count js-counter"<?= ($isEmpty)?' style="display:none;"':''?>><?= $basketTotal['totalCount'] ?></div></div>
+            <?if ($isEmpty) { ?>
+                <span class="js-title">В корзине пусто</span>
+            <? } else { ?>
+                <span class="js-title">В корзине <?= $basketTotal['totalCount'] ?> <?= EHelper::getWordForm($basketTotal['totalCount'], ["проект", "проекта", "проектов"]); ?></span>
+            <? } ?>
+        </div>
+        <div class="content">
+            <div class="js-full"<?= ($isEmpty)?' style="display:none;"':''?>>
+                <div class="js-sidebar-scroller">
+                    <div class="list js-sidebar-basket-list">
+                        <? if (!$isEmpty) { ?>
+                            <? foreach ($basketItems as $ind => $item) { 
+							?><pre><?echo print_r($item);?></pre><?
+							
+							?>
+                                <div class="side-cart-item">
+                                    <div class="remove js-remove" data-element-id="<?= $item['ID'] ?>" data-product-id="<?= $item['PRODUCT_ID'] ?>"></div>
+                                    <? $image = Resizer::resizeImage($item['IMAGE'], 'BASKET_SIDEBAR') ?>
+                                    <a class="image" href="<?= $item['DETAIL_PAGE_URL'] ?>" style="background-image: url('<?= $image?> ')"></a>
+                                    <a class="title" href="<?= $item['DETAIL_PAGE_URL'] ?>"><?= $item['NAME'] ?></a>
+                                    <div class="price">
+                                        <span>Цена</span>
+                                        <span><?= EHelper::price($item['PRICE']) ?> <i class="ruble"></i></span>
+                                    </div>
+                                </div>
+                            <? } ?>
+                        <? } ?>
+                    </div>
+                </div>
+                <div class="js-bottom bottom">
+                    <div class="price-line-big">
+                        <span>Итого</span>
+                        <span class="js-total"><?= EHelper::price($basketTotal['totalPrice']) ?> <i class="ruble"></i></span>
+                    </div>
+                    <div class="row-submit">
+                        <a class="btn blue waves-effect js-empty-toggler" href="<?= $this->url([], 'basket') ?>">Перейти в корзину</a>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-basket-message js-empty"<?= (!$isEmpty)?' style="display:none;"':''?>>
+                <!--Чтобы добавить дизайн
+                мечты для вашей квартиры,
+                нужно перейти в <a href="<?= $this->url([], 'design-list')?>" class="under-link js-empty-toggler">каталог</a>-->
+				
+				Ваша корзина пуста, необходимо добавить <a href="/shop/" class="under-link js-empty-toggler">товар</a> или <a href="/design/" class="under-link js-empty-toggler">дизайн</a>
+            </div>
+        </div>
+    </div>
+</div>

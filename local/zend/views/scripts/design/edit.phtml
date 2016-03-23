@@ -1,0 +1,24 @@
+<?
+if (!empty($this->designData)) {
+    $designId = $this->designData->ID;
+}
+?>
+<div class="content-container">
+    <?= EZendManager::profileSidebar() ?>
+
+    <div class="profile-content">
+        <h2>Добавление проекта</h2>
+        <a href="<?= $this->url([], "profile-design") ?>" class="cancel">Отменить</a>
+
+        <input type="hidden" id="designId" name="designId" value="<?= $designId ?>">
+
+        <?= $this->render("design/edit/edit-step1.phtml") //Первый шаг ?>
+
+        <?= $this->render("design/edit/edit-step2.phtml") //Второй шаг ?>
+
+        <?= $this->render("design/edit/edit-step3.phtml") //Третий шаг ?>
+
+        <?= $this->render("design/edit/edit-step4.phtml") //Четвериый шаг ?>
+    </div>
+
+</div>

@@ -1,0 +1,10 @@
+<? if (!empty($this->itemList)): ?>
+    <? foreach ($this->itemList as $itemId => $item): ?>
+        <div class="radio-cell">
+            <input type="radio" name="planId" id="planId-<?= $itemId ?>" value="<?= $itemId ?>">
+            <label for="planId-<?= $itemId ?>" title="<?= $item ?>"><?= $item ?></label>
+        </div>
+    <? endforeach ?>
+<? else: ?>
+    <?= $this->partial("_partials/not-found-status/complex.phtml", ["message" => "<p>Подходящих вариантов планировок по вашему запросу не найдено.</p><p>Попробуйте ввести <b>другие ключевые слова.</b></p>"]) ?>
+<? endif ?>

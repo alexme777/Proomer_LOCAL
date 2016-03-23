@@ -1,0 +1,298 @@
+<?php
+	/*$categories = $this->categories;
+	$row_goods = $this->row_goods;
+	$categoryId = $this->categoryId;
+	$pictures = $this->pictures;
+	$item = $this->item;*/
+	$categories = $this->categories;
+	$categoryId = $this->categoryId;
+	$ch_categories = $this->ch_categories;
+	$pageTitle = $this->pageTitle;
+?>  
+
+
+    <style>
+       
+ul, li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#shop_categories ul {
+    display: block;
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 14px;
+}
+#shop_categories ul {
+    position:relative;
+}
+#shop_categories ul > li {
+    display: inline-block;
+}
+#shop_categories ul li  a {
+    border-radius: 5px;
+    display: inline-block;
+}
+#shop_categories ul > li:hover > a {
+    color: #156596;
+}
+#shop_categories ul > li > div.child_cat {
+	display: none;
+	position: absolute;
+	left:-3999px;
+	width:9200px;
+	border-top:1px solid #e9e9e9;
+	box-shadow: 0 3px 4px 0 rgba(1,1,1,.2);
+	z-index: 100;
+	background: #fff;
+}
+#shop_categories ul > li > div.child_cat ul {
+	width:1202px;
+	margin:0 auto;
+}
+#shop_categories > ul li > div.child_cat ul li{
+	margin: 0 13px;
+}
+#shop_categories ul > li > div.child_cat ul > li {
+	float:left;
+}
+ 
+#shop_categories ul > li:hover > div.child_cat {
+    display: block;
+}
+#shop_categories ul > li:hover > div.child_cat ul > li {
+    display: inline-block;
+}
+#shop_categories ul > li:hover > div.child_cat ul > li > a {
+    border-radius: 5px;
+    display: block;
+    margin: 7px 0;
+  
+}
+#shop_categories ul > li:hover > div.child_cat ul > li > ul >  li > a {
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    display: inline-block;
+    padding: 10px;
+    width: 200px;
+}
+ 
+a {
+    color: #242424;
+    text-decoration: none;
+}
+a:hover {
+    color: #009999;
+}
+.three {
+    position: absolute;
+    left: 222px;
+    top: 0;
+}
+.three li {
+    display: none;
+   }
+#shop_categories ul >li:hover> ul > li:hover >ul {
+    display: block;
+}
+#shop_categories ul > li:hover> ul > li:hover >ul >li {
+    display: inline-block;
+}
+ 
+    </style>
+
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+	
+	<div class="content-container">
+		<div class="crumbs">
+			<a class="under-link" href="/">Главная</a> >
+			<?$i = 0;
+				foreach($ch_categories as $cat){?>
+				<a class="under-link" href="/shop/<?if($cat->ID != 255){echo $cat->ID;};?>"><?=$cat->NAME?></a>
+			<?	
+				if($i < count($ch_categories) - 1){echo '>';};
+				$i+=1;
+				};
+			?>
+		</div>
+		<h1 class="pageTitle"><?=$pageTitle?></h1>
+		<div id="shop" style="padding-top:0;">
+	
+	<!--<div id="shop_categories">
+		<ul>
+	
+<?
+		/*function getTree($arr){
+			$out = '';
+			//$out .= '<ul class="tree-group-collapsed">';
+			foreach($arr as $k=>$v){
+				$out .= '<li><a class="under-link" href="/shop/'.$v->ID.'">'.$v->NAME.'</a>';
+				if(!empty($v->CHILD)){
+					$out .= '<div class="child_cat"><ul class="two">';
+					$out .= getTree($v->CHILD);
+					$out .= '</ul></div>';
+				}
+				$out .= '</li>';
+			}
+			// $out .= '</ul>';
+			return $out;
+		}*/
+		//echo getTree($categories);
+
+?>
+
+		</ul>	
+	</div>-->
+		
+		<div class="c_left_bn">
+
+
+
+
+
+
+<!--<div class="left_item filter-form js-profile-filter-form">
+            <div class="js-form-wrapper">
+            <form enctype="application/x-www-form-urlencoded" id="filter-item" class="js-filter-form filterForm formTabber" action="/profile/design/" method="post" novalidate="novalidate">
+
+<div class="row">
+<div class="input-cell js-range-slider rangeSlider"><label for="price" class="optional">Цена</label>
+
+<div class="range-wrapper"><input type="text" name="priceMin" id="priceMin" value="0" class="js-min-value">&nbsp;-&nbsp;<input type="text" name="priceMax" id="priceMax" value="0" class="js-max-value"></div><div id="priceSlider" class="js-slider js-slider-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-min="0" data-max="100000"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 0%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span></div><div class="min-value">0</div><div class="max-value">100000</div></div>
+</div>
+<div class="row">
+
+<div class="input-cell input-cell-50p js-form-block">
+	<label for="madeIn[]"></label>
+	<div class="js-select-multi select-multi">
+		<select class="js-select-multiple select2-hidden-accessible" multiple="" id="madeIn" name="madeIn[]" tabindex="-1" aria-hidden="true">
+			<option value="Ikea">Ikea</option>
+			<option value="Ikea2">Ikea2</option>
+		</select>
+		<input type="hidden" id="madeIn[]" class="js-selected-values" value=""><div class="placeholder">Производитель</div>
+	</div>
+	<div class="values"><div class="label">
+		<div class="select2-multi-results js-selected-html"></div>
+		</div>
+	</div>
+</div>
+
+
+<div class="input-cell input-cell-50p js-form-block">
+	<label for="primaryColor[]"></label>
+	<div class="js-select-multi select-multi">
+		<select class="js-select-multiple select2-hidden-accessible" multiple="" id="primaryColor" name="primaryColor[]" tabindex="-1" aria-hidden="true">    <option value="Красный">Красный</option>
+			<option value="Желтый">Желтый</option>
+			<option value="Зеленый">Зеленый</option>
+			<option value="Синий">Синий</option>
+			<option value="Серый">Серый</option>
+			<option value="Черный">Черный</option>
+			<option value="Бежевый">Бежевый</option>
+			<option value="Лазурный">Лазурный</option>
+			<option value="Белый">Белый</option>
+		</select>
+		<input type="hidden" id="primaryColor[]" class="js-selected-values" value=""><div class="placeholder">Цвет</div>
+	</div>
+	<div class="values"><div class="label">
+		<div class="select2-multi-results js-selected-html"></div>
+		</div>
+	</div>
+</div>
+
+<div class="input-cell input-cell-50p js-select-row js-form-block">
+	<label for="style[]"></label>
+	<div class="js-select-multi select-multi">
+		<select class="js-select-multiple select2-hidden-accessible" multiple="" id="styles" name="style[]" tabindex="-1" aria-hidden="true">
+			<option value="Лофт">Лофт</option><option value="Модерн">Модерн</option><option value="Минимализм">Минимализм</option><option value="Восточный">Восточный</option><option value="Хай-тек">Хай-тек</option><option value="Скандинавский">Скандинавский</option><option value="Американский">Американский</option><option value="Римский">Римский</option><option value="Классика">Классика</option><option value="Прованс">Прованс</option><option value="Классика">Классика</option><option value="Авангард">Авангард</option><option value="Ампир">Ампир</option><option value="Арт-деко">Арт-деко</option><option value="Барокко">Барокко</option><option value="Кантри">Кантри</option><option value="Поп-арт">Поп-арт</option><option value="Шале">Шале</option><option value="Эко стиль">Эко стиль</option><option value="Фьюжн">Фьюжн</option><option value="Китч">Китч</option><option value="Эклектика">Эклектика</option><option value="Техно">Техно</option><option value="Японский">Японский</option>
+		</select>
+		<span class="select2 select2-container select2-container--default" dir="ltr" style="width: 369px;"><span class="selection"></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+		<input type="hidden" id="styles[]" class="js-selected-values" value=""><div class="placeholder">Стиль</div>
+	</div>
+	<input type="hidden" id="categoryid" name="categoryId" value="<?=$categoryId?>">
+	<div class="values"><div class="label"><div class="select2-multi-results js-selected-html"></div></div></div></div></div>
+	<div class="filt_item">
+		<div class="btn-wrapper">
+			<a class="js-submit btn blue waves-effect">Подобрать</a>
+		</div>
+	</div>
+	</form>            
+	</div>
+        </div>-->
+		<div id="shop_categories" style="margin-top:0;">
+	<?	
+		$inner = '';
+		$count = 0;
+		function getTree($category, $count, $inner = ''){
+			static $count;
+			foreach($category as $child){
+				$count+=1;
+				$inner .= '<li><a class="under-link" href="/shop/'.$child->ID .'">'.$child->NAME .'</a></li>';
+				if($count == 5){$inner .= '<div class="catalog-menu__list_type_more">';};								
+				if(isset($child->CHILD) && count($child->CHILD) > 0){
+					$inner .= getTree($child->CHILD, $count);
+				}
+			}
+			return $inner;
+		}
+				
+		foreach($categories as $category){
+			echo '<div class="left_item p_cat"><div class="head"><h3 class="name_p_cat"><span class="chypalo"></span><span><a href="/shop/'.$category->ID .'">'.$category->NAME .'</a></span></h3></div><ul class="ch_cat">';
+			if(isset($category->CHILD) && count($category->CHILD) > 0){
+				echo getTree($category->CHILD, $count, $inner = '');
+			};
+			if(isset($category->CHILD) && count($category->CHILD) > 5){
+				echo '</div><a data-type="hide" class="under-link all_category js-show-cat" href="">Развернуть</a>';
+			};
+			echo '</ul></div>';
+		};
+
+		?>		
+		</div>
+		</div>
+		<div class="right_bn">
+			<div class="filter">
+				<?= EZendManager::sorting("shop") ?>
+				<?= EZendManager::elementCntList() ?>
+			</div>
+			<div>
+				<?= $this->render('shop/shop-detail.phtml') ?>
+			</div>
+        </div>
+		<?= $this->render('shop/shop-my-show-list.phtml') ?>
+		</div>
+	</div>
+</div>
+<script>
+	$('.js-show-cat').on('click', function(){
+		var atribute = $(this).attr('data-type')
+		if(atribute == 'hide'){
+			$(this).attr('data-type', 'show')
+			$(this).html('Свернуть');
+			$(this).prev(".catalog-menu__list_type_more").show("slow");
+		}
+		else{
+			$(this).attr('data-type', 'hide');
+			$(this).html('Развернуть');
+			$(this).prev(".catalog-menu__list_type_more").hide("slow");
+		}
+		return false;
+	})
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

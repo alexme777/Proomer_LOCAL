@@ -1,0 +1,114 @@
+<?if(count($this->itemList) > 0){?>
+	<div class="list-plan js-list-plan">
+		<div class="row">
+			<?
+			$i=0; 
+			foreach($this->itemList as $item): ?>
+				<?
+					//if($i < 5){$class="show option";}else{$class="hide option";};
+				?>
+				<?= $this->partial("project/partials/plan-item.phtml", ["item" => $item,"class"=>$class]) ?>
+			<?
+			$i+=1;
+			endforeach ?>						
+			<div class="col-xs-2 col-sm-2 col-md-2 plan-offset">
+				<div class="plan alien note taupe">
+					<a class="js-fancybox fancyboxLink" href="#planirovka">
+						<span class="ask">Не нашли нужный план квартиры?</span>
+						<span class="mess">Вызовите замерщика бесплатно</span>
+					</a>
+					<div class="line_1"></div>
+					<div class="line_2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--<div class="row-submit"><a class="js-submit-show btn waves-effect">Показать ещё</a></div>-->
+	<hr class="line type_n1"/>
+<?/*= $this->paginationControl(
+$this->paginator,
+'Sliding',
+'_partials/paginator.phtml'
+); */
+}
+else{
+?>
+
+	<div class="not-found plan">
+		<div class="not-found-message">
+			<p class="big">По вашему запросу не нашлось вариантов квартир</p><br/>
+			<p class="little">Тем не менее, вы можете вызвать замерщика. Это совершенно бесплатно.</p><br/>
+			<div class="call-super-man"><a class="js-call-super-man btn blue waves-effect js-fancybox fancyboxLink" data-step="4" href="#call-super-man">
+			ВЫЗВАТЬ ЗАМЕРЩИКА БЕСПЛАТНО</a></div>
+		</div>
+		<div class="not-found-icon"></div>
+	</div>
+
+	<?//echo $this->partial("_partials/not-found-status/complex.phtml", ["message" => " <p>По вашему запросу ничего не найдено.</p><p>Попробуйте <b>ввести другие параметры</b> для поиска.</p>"]);
+	};
+?>
+<div class="list-plan list-plan-options js-list-plan">
+<?if(count($this->itemListPlan) > 0){?>
+	<div class="content"><h2 class="title sub_title">Для вашей квартиры есть <?=count($this->itemListPlan)?> <?= EHelper::getWordForm(count($this->itemListPlan), ["планировка", "планировки", "планировок"]); ?> (с перегородками)</h2></div>
+	<div class="row">
+		<?
+		$i=0; 
+		foreach ($this->itemListPlan as $item): ?>
+			<?
+				if($i < 5){$class="show option";}else{$class="hide option";};
+			?>
+			<?= $this->partial("project/partials/plan-item-option.phtml", ["item" => $item,"class"=>$class]) ?>
+		<?
+		$i+=1;
+		endforeach ?>						
+		<div class="col-xs-2 col-sm-2 col-md-2 plan-offset">
+			<div class="plan_outer">
+				<div class="plan alien note taupe">
+					<a href="/404">
+						<span class="ask">Не нашли нужную
+						планировку?</span>
+						<span class="mess">Закажите индивидуальную планировку прямо сейчас</span>
+					</a>
+					<div class="line_1"></div>
+					<div class="line_2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+<?
+}
+?>
+</div>
+<?if(count($this->itemListDesign) > 0){?>
+<div class="content"><h2 class="title type_n3">Для вас мы подобрали <?=count($this->itemListDesign)?> <?= EHelper::getWordForm(count($this->itemListDesign), ["готовое решение", "готовых решения", "готовых решений"]); ?></h2></div>
+<div class="list-plan">
+	<div class="row">
+		<?
+		$i=0; 
+		foreach ($this->itemListDesign as $item): ?>
+			<?
+				if($i < 5){$class="show";}else{$class="hide";};
+			?>
+			<?= $this->partial("project/partials/design-item.phtml", ["item" => $item,"class"=>$class]) ?>
+		<?
+		$i+=1;
+		endforeach ?>						
+		<div class="col-xs-3 col-sm-3 col-md-3 design-offset">
+			<div class="design alien">
+				<div class="design-inner">
+					
+						<span class="ask">Не можете определиться?<br/>А может ничего не нравится?</span>
+						<span class="mess">Загрузите свою планировку
+						или вызовите замерщика
+						бесплатно</span>
+					
+					<div class="search-individual"><a class="js-call-super-man btn blue waves-effect js-fancybox fancyboxLink" data-step="4" href="/project/step1/">
+					Найти индивидуальное решение</a></div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<?
+};
+?>

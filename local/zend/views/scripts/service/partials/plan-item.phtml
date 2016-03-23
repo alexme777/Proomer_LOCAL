@@ -1,0 +1,32 @@
+<?
+/**
+ * @var $item Sibirix_Model_Complex_Row
+ */
+$item = $this->item;
+$class = $this->class;
+
+if (!empty($item->PREVIEW_PICTURE)) {
+    $image = Resizer::resizeImage($item->PREVIEW_PICTURE, "COMPLEX_LIST");
+} else {
+   // $image = Resizer::resizeImage(Settings::getOptionFile('defaultComplexImage'), 'COMPLEX_LIST');
+   $image = '/local/images/proomer2.png';
+}
+?>
+
+<div class="col-xs-2 col-sm-2 col-md-2 plan-item plan-offset <?=$class?>">
+	<div class="plan" data-id="<?=$item->ID?>">
+		<div class="picture">
+			<img src="<?=$image?>"/>
+		</div>
+		<div class="info">
+			<?if($item->PROPERTY_ROOM){
+			?>
+			<p>Комнат: <span class="val"><?=$item->PROPERTY_ROOM?></span></p>
+			<?}?>
+			<?if($item->PROPERTY_AREA){
+			?>
+			<p>Площадь: <span class="val"><?=$item->PROPERTY_AREA?> м&#178;</span></p>
+			<?}?>
+		</div>
+	</div>
+</div>

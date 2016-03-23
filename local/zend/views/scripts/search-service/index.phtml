@@ -1,0 +1,22 @@
+<div class="js-search-service step-filter">
+    <h2>Поиск дизайна для вашей квартиры</h2>
+    <div class="tabs">
+        <div class="progress-wrap"><div class="js-progress-tab progress-tab active1"></div></div>
+        <div class="js-progress-number progress-number active1"></div>
+        <div class="js-tab tab active">
+            <div class="title">Жилой комплекс</div>
+            <a href="javascript:void(0);" data-step="1" class="js-step-link disabled"><div class="number">1</div></a>
+        </div>
+        <div class="js-tab tab">
+            <div class="title">Выбор здания</div>
+            <a href="javascript:void(0);" data-step="2" class="js-step-link disabled"><div class="number">2</div></a>
+        </div>
+        <div class="js-tab tab">
+            <div class="title">Выбор квартиры</div>
+            <a href="javascript:void(0);" data-step="3" class="js-step-link disabled"><div class="number">3</div></a>
+        </div>
+    </div>
+    <div class="js-step-content step-content-wrap">
+        <?= $this->render("search-service/step1.phtml") ?>
+    </div>
+</div>

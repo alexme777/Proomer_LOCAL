@@ -1,0 +1,33 @@
+<?
+    $address = $this->address;
+    $email = $this->email;
+    $phone = $this->phone;
+    $requisites = $this->requisites;
+?>
+<div class="map js-map"></div>
+<div class="content-container">
+    <div class="sidebar">
+        <h1><?= Zend_Registry::get('BX_APPLICATION')->GetTitle() ?></h1>
+        <div class="contacts">
+            <? if ($address) { ?>
+                <div class="address"><?= $address ?></div>
+            <? } ?>
+
+            <? if ($email) { ?>
+                <a href="mailto:<?= $email ?>" class="email"><?= $email ?></a>
+            <? } ?>
+
+            <? if ($phone) { ?>
+                <div class="phone"><?= $phone ?></div>
+            <? } ?>
+        </div>
+        <div class="requisites">
+            <h2>Реквизиты</h2>
+            <table>
+                <? foreach ($requisites as $ind => $item) { ?>
+                    <tr><td><?= $item['NAME'] ?></td><td><?= $item['PROPERTY_VALUE_VALUE'] ?></td></tr>
+                <? } ?>
+            </table>
+        </div>
+    </div>
+</div>

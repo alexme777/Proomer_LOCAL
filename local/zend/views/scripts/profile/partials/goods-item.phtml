@@ -1,0 +1,37 @@
+<?
+/**
+ * @var $item Sibirix_Model_Design_Row
+ */
+ 
+$item = $this->item;
+
+$profile = $this->profile;
+if($item['IMAGE']['SRC']){
+	$image = $item['IMAGE']['SRC'];
+}
+else{
+	$image = '/local/images/img-not-found.jpg';
+}
+?>
+
+<div class="item design-item">
+	<a class="gallery" rel="group" href="<?= $image ?>"><img width="100%" height="281px" src="<?= $image ?>"/></a>
+   <!-- <div class="image" style="background-image:url('');">
+		
+        <? if (!$profile) { ?>
+            <!--<a href="javascript:void(0)" class="favourite js-tooltip" data-description="Добавить в избранное"></a> TODO: избранное -->
+        <? } ?>
+        <?//= $this->Like()->button($item['ID'], $item->PROPERTY_LIKE_CNT_VALUE, $item->IS_LIKED) ?>
+   <!-- </div>-->
+			<a href="javascript:void(0)" data-element-id="<?= $item["ID"] ?>" class="delete js-delete-design js-tooltip" data-description="Удалить"></a>
+    <div class="content">
+        <a href="<?=$item['DETAIL_PAGE_URL']?>" class="title"><?= $item['NAME'] ?></a>
+        <div class="description">
+            Цена <?= ($item["PRICE"] > 0 ? EHelper::price($item["PRICE"]) . ' <i class="ruble"></i>' : 'бесплатно') ?>
+            <br>
+            <? if ($item->PROPERTY_BUDGET_VALUE > 0) { ?>
+                Бюджет от <?= EHelper::price($item->PROPERTY_BUDGET_VALUE) ?> <i class="ruble"></i> на М<sup>2</sup>
+            <? } ?>
+        </div>
+    </div>
+</div>

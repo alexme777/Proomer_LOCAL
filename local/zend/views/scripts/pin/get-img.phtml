@@ -1,0 +1,7 @@
+
+<? if(!empty($this->imageUrl)): ?>
+    <? $size = getimagesize (P_DR . $this->imageUrl); ?>
+    <img class="js-slide-image admin-slide-image" src="<?= $this->imageUrl ?>" <?= $size[3] ?>>
+<? else: ?>
+    <div style="position: absolute;top: 50%;width: 100%;text-align: center;transform: translateY(-50%);font-weight: bold;">Изображение не найдено</div>
+<? endif ?>

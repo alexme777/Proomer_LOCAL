@@ -1,0 +1,120 @@
+@import "../_var";
+@import "../_mixins";
+
+.contacts-page {
+    main {
+        position: relative;
+    }
+    .map {
+        position: absolute;
+        min-height: calc(~"100vh - 403px");
+        top: 0;
+        left: 0;
+        .size(100%);
+        z-index: 1;
+    }
+
+    .sidebar {
+        .sizing();
+        position: relative;
+        width: 400px;
+        padding: 49px 40px 170px 47px;
+        min-height: calc(~"100vh - 403px");
+        z-index: 5;
+        background-color: #fff;
+
+        h1 {
+            margin: 0 0 25px;
+            font: 300 40px/50px @ff-fira;
+            color: @blue-text;
+            text-transform: uppercase;
+        }
+
+        .contacts {
+            margin: 0 0 41px;
+
+            div, a {
+                display: block;
+                position: relative;
+                margin: 0 0 12px;
+                padding: 0 0 0 30px;
+                font: 400 15px/20px @ff-fira;
+                color: @blue-text;
+
+                &:before {
+                    .pseudo();
+                    top: 0;
+                    left: 0;
+                    background-image: url('../images/sprite.png');
+                }
+            }
+
+            .address {
+                &:before {
+                    top: 4px;
+                    left: 5px;
+                    .size(12px,17px);
+                    background-position: -580px -40px;
+                }
+            }
+            .email {
+                &:before {
+                    top: 2px;
+                    left: 3px;
+                    .size(19px,13px);
+                    background-position: -520px -40px;
+                }
+            }
+
+            .phone {
+                &:before {
+                    top: 5px;
+                    left: 5px;
+                    .size(13px);
+                    background-position: -540px -40px;
+                }
+            }
+        }
+
+        .requisites {
+            h2 {
+                font: 300 22px/24px @ff-fira;
+                color: @blue-text;
+                text-transform: uppercase;
+                border-bottom: 1px solid #dce5eb;
+                padding: 0 0 19px;
+            }
+
+            table {
+                width: 100%;
+
+                tr {
+                    border-bottom: 1px solid #dce5eb;
+                }
+
+                td {
+                    font: 400 15px/20px @ff-fira;
+                    color: @blue-text;
+                    padding: 10px 0 11px;
+
+                    &:first-child {
+                        width: 110px;
+                        font-weight: 300;
+                        vertical-align: top;
+                    }
+                }
+            }
+        }
+    }
+}
+.gm-style-iw * {
+    display: block;
+    width: 100%;
+}
+.gm-style-iw h4, .gm-style-iw p {
+    margin: 0;
+    padding: 0;
+}
+.gm-style-iw a {
+    color: #4272db;
+}

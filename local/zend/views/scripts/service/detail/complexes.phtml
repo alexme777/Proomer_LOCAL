@@ -1,0 +1,21 @@
+<?
+    $complexes = $this->complex->SIMILAR_COMPLEX;
+    $slides = array_chunk($complexes, 4);
+?>
+
+<? if (!empty($complexes)) { ?>
+<div class="complex-block">
+    <div class="content-container">
+        <h2>Комплексы с похожей структурой</h2>
+        <div class="slider complex-slider<?= (count($complexes) > 4)?' js-slider':' complexes' ?>">
+            <? foreach ($slides as $complexes) { ?>
+                <div class="slide">
+                    <? foreach ($complexes as $ind => $item) {?>
+                        <?= $this->partial("complex/partials/complex-item.phtml", ["item" => $item]) ?>
+                    <? } ?>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</div>
+<? } ?>
